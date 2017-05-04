@@ -23,20 +23,22 @@ rm(bmr)
 #                 measures = list(multiclass.brier, mmce, timeboth))
 # bmr
 
-
 library("parallelMap")
 
 # benchmark in parallel
+# setting a seed does not seem to work
+set.seed(1234, "L'Ecuyer")
 parallelStartSocket(cpus = 4)
 # export the dtw package
 parallelLibrary("dtw")
 
 bmr = benchmark(learners = c(lrns[1:2], list(lrn.shortEuclidean.tuned)),
                 tasks = tsks,
-                resamplings = res_instances, 
+                resamplings = res_instances,
                 models = FALSE,
                 keep.pred = FALSE,
-                measures = list(multiclass.brier, mmce, timeboth))
+                measures = list(multiclass.brier, mmce, 
+                                timetrain, timepredict, timeboth))
 bmr
 
 parallelStop()
