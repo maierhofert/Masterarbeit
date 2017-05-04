@@ -18,8 +18,8 @@ benchmark_classifiers = list(k1nd0_eucl, k1nd0_dtw)
 benchmark_classifiers = list(k1nd0_eucl)
 
 # define range of knn and nderiv
-knn = c(1L, 3L, 5L)
-nderiv = c(0L, 1L)
+knn = c(1L, 3L, 5L, 7L)
+nderiv = c(0L, 1L, 2L)
 
 # function to create a list of all hyperparameter combinations
 createHyperParVals = function(knn, nderiv) {
