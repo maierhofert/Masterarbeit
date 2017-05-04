@@ -1,7 +1,5 @@
 # Path to this R-File
-path = getwd()
-# path = "C:/Users/thoma/Documents/Masterarbeit/R"
-data_path = paste0(path, "/../Daten/TSC Problems")
+data_path = "Daten/TSC Problems"
 
 # This file reads in the data sets from the UCR TSC archive
 data_names = list.dirs(data_path, full.names = FALSE)

@@ -28,6 +28,7 @@ library("parallelMap")
 # benchmark in parallel
 # setting a seed does not seem to work
 set.seed(1234, "L'Ecuyer")
+
 parallelStartSocket(cpus = 4)
 # export the dtw package
 parallelLibrary("dtw")

@@ -1,3 +1,4 @@
+library("mlr")
 # base learners
 lrn.shortEuclidean = makeLearner(cl = "fdaclassif.classiKnn", 
                                  id = "knn1_shortEucl",
@@ -17,12 +18,13 @@ parSet = getParamSet(lrn.shortEuclidean)
 parSet.shortEuclidean = makeParamSet(params = parSet$pars[c("dmin", "dmax")], 
                                      forbidden = parSet$forbidden[1])
 parSet.relAreas = makeParamSet(params = parSet$pars[c("dmin1", "dmin2", "dmax1", "dmax2")], 
-                               forbidden = parSet$forbidden[2:3])
+                               forbidden = parSet$forbidden[2])
 parSet.jump = makeParamSet(params = parSet$pars[c("t1", "t2")])
 
 # tune wrapped learner
 res = makeResampleDesc("CV", iters = 5)
-ctrl = makeTuneControlRandom(maxit = 10L)
+# ctrl = makeTuneControlRandom(maxit = 10L)
+ctrl = makeTuneControlGrid(resolution = 8L)
 lrn.shortEuclidean.tuned = makeTuneWrapper(learner = lrn.shortEuclidean, 
                                            resampling = res,
                                            measures = multiclass.brier,
@@ -42,3 +44,5 @@ lrn.jump.tuned = makeTuneWrapper(learner = lrn.jump,
 # check that lrn.relAreas.tuned works with new mlr version
 mod = train(learner = lrn.relAreas.tuned, task = tsks[[1]])
 mod$learner.model$opt.result
+
+# install_github("maierhofert/mlr", ref = "fda_pull1_task")
