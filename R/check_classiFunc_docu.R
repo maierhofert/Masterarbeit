@@ -14,7 +14,7 @@ browseVignettes(package = "classiFunc")
 # does it contains all the information you need to get started with the package?
 # check that all the code chunks runs
 
-### can you please check the documentation to the amin functions of the package?
+### can you please check the documentation to the main functions of the package?
 # where would you wish for (more/better) examples?
 # Are all the arguments named in a meaningful way? Is it clear what they do?
 
