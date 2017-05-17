@@ -52,7 +52,7 @@ matplot(t(class_centers), type = "l",
 save_data = data.frame(simu_data)
 save_data$target = rep(1:nclasses, each = nobs_per_class)
 
-saveRDS(save_data, "../Daten/Simulated Data/random_splines.RDS")
+saveRDS(save_data, "Daten/Simulated Data/random_splines.RDS")
 
 # convert to mlr task
 library("mlr")
@@ -60,4 +60,4 @@ simu_data_task = makeFDAClassifTask(data = save_data,
                      id = "random_splines",
                      fd.features = list(ff = 1:(ncol(save_data) - 1)),
                      target = "target")
-saveRDS(simu_data_task, "../Daten/Simulated Data/random_splines_task.RDS")
+saveRDS(simu_data_task, "Daten/Simulated Data/random_splines_task.RDS")
