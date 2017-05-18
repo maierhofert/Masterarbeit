@@ -1,18 +1,26 @@
 # Benchmark the learners on the simulated data
 
 # read in simulated task
-task1 = readRDS("Daten/Simulated Data/random_splines_task.RDS")
-
-tsks = list(task1)
+tsk_list = list.files("Daten/Simulated Data/", pattern = "task", 
+                      full.names = TRUE)
+tsks = lapply(tsk_list, readRDS)
 
 # resampling description
-# # TODO: Increase to
-# res = makeResampleDesc(method = "CV", predict = "test",
-#                        stratify = TRUE,
-#                        iters = 10L)
+# on local pc run a smaller benchmark
+on_server = (.Platform$OS.type != "windows")
+if(on_server) {
+  # res = makeResampleDesc(method = "CV", predict = "test",
+  #                        stratify = TRUE,
+  #                        iters = 10L)
+  res = makeResampleDesc(method = "RepCV", predict = "test",
+                         stratify = TRUE,
+                         reps = 5L,
+                         folds = 10L)
+} else {
+  res = makeResampleDesc(method = "CV", predict = "test",
+                         stratify = TRUE, iters = 2L)
+}
 
-res = makeResampleDesc(method = "CV", predict = "test",
-                       stratify = TRUE, iters = 2L)
 # resampling instances
 #  Stratification for tasks of type 'fdaclassif' not supported
 set.seed(1234)
@@ -26,14 +34,18 @@ rm(bmr)
 library("parallelMap")
 
 # benchmark in parallel
-# setting a seed does not seem to work
-set.seed(1234, "L'Ecuyer")
+if(on_server) {
+  parallelStartSocket(cpus = 24)
+} else {
+  parallelStartSocket(cpus = 4)
+}
 
-parallelStartSocket(cpus = 4)
 # export the dtw package
 parallelLibrary("dtw")
+# set a seed for reproducibility
+parallel::clusterSetRNGStream(iseed = 42)
 
-bmr = benchmark(learners = c(lrns[1:2], list(lrn.shortEuclidean.tuned)),
+bmr = benchmark(learners = c(lrns, list()),
                 tasks = tsks,
                 resamplings = res_instances,
                 models = FALSE,
@@ -43,10 +55,3 @@ bmr = benchmark(learners = c(lrns[1:2], list(lrn.shortEuclidean.tuned)),
 bmr
 
 parallelStop()
-
-
-
-#################################################################
-# visualize benchmark results
-plotBMRBoxplots(bmr, measure = mmce, pretty.names = FALSE)
-plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = FALSE)
