@@ -14,9 +14,28 @@ k1nd0_dtw = makeLearner(cl = "fdaclassif.classiKnn",
                         metric = "dtw",
                         predict.type = "prob",
                         par.vals = list(knn = 1, nderiv = 0))
-benchmark_classifiers = list(k1nd0_eucl, k1nd0_dtw)
-benchmark_classifiers = list(k1nd0_eucl)
 
+
+lrn.kernel = makeLearner("fdaclassif.classiKernel", predict.type = "prob")
+# create parameter set
+parSet.bandwidth = makeParamSet(
+  makeNumericParam(id = "h", lower = -1, upper = 4, 
+                   trafo = function(x) 10^x)
+)
+# control for tuning hyper parameters
+# Use higher resolution in application
+ctrl = makeTuneControlGrid(resolution = 20L)
+# tuned learners
+lrn.bandwidth.tuned = makeTuneWrapper(learner = lrn.kernel, 
+                                      resampling = makeResampleDesc("CV", iters = 5),
+                                      measures = mmce,
+                                      par.set = parSet.bandwidth,
+                                      control = ctrl)
+lrn.kernel.tuned = lrn.bandwidth.tuned
+benchmark_classifiers = list(k1nd0_eucl, k1nd0_dtw, lrn.kernel.tuned)
+
+
+# ######################################################################
 # define range of knn and nderiv
 knn = c(1L, 3L, 5L, 7L)
 nderiv = c(0L, 1L, 2L)
