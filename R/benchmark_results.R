@@ -1,4 +1,7 @@
 # this file looks into the results of the benchmark analysis
+library("mlr")
+
+# read in most current benchmark
 bmr = readRDS("Benchmark_results/bmr.RDS")
 
 # # data frame containing results
@@ -11,6 +14,9 @@ plotBMRRanksAsBarChart(bmr, pretty.names = FALSE)
 # visualize benchmark results
 plotBMRBoxplots(bmr, measure = timeboth, pretty.names = FALSE)
 plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = FALSE)
+
+# bp = plotBMRBoxplots(bmr, measure = timeboth, pretty.names = FALSE)
+# str(bp)
 
 # Friedman Test
 friedmanTestBMR(bmr, measure = multiclass.brier)
