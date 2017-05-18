@@ -44,13 +44,4 @@ Loaded dtw v1.18-1. See ?dtw for help, citation("dtw") for use in publication.
 Starting parallelization in mode=socket with cpus=24.
 Loading packages on slaves for mode socket: dtw
 Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 24; elements = 72.
-Stopped parallelization. All cleaned up.
-> 
-> # save benchmarking result
-> saveRDS(bmr, paste0("Benchmark_results/", Sys.Date(), "bmr.RDS"))
-> saveRDS(bmr, "Benchmark_results/bmr.RDS")
-> 
-> proc.time()
-    user   system  elapsed 
-  12.000    0.804 2602.954 
+Mapping in parallel: mode = socket; cpus = 24; elements = 96.
