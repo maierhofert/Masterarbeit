@@ -9,13 +9,13 @@ lrns.colors = c("thistle4", "palegoldenrod",
                 "firebrick1", "violetred3",
                 "chartreuse1", "chartreuse3")
 lrns.ids = c("knn1nderiv0_eucl", "knn1nderiv0_dtw",
-                "fdaclassif.classiKernel.tuned", "knn_eucl_ensemble",
-                "nderiv_eucl_ensemble", "nderivKnn_eucl_ensemble",
-                "rf_nofeat_eucl_ensemble", "rf_feat_eucl_ensemble")
+             "fdaclassif.classiKernel.tuned", "knn_eucl_ensemble",
+             "nderiv_eucl_ensemble", "nderivKnn_eucl_ensemble",
+             "rf_nofeat_eucl_ensemble", "rf_feat_eucl_ensemble")
 lrns.labels = c("Eucl: k 1; nderiv 0", "dtw: k 1; nderiv 0",
-           "Eucl-Kernel: h CV-opt", "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0",
-           "Eucl-ensemble: k 1; nderiv 0, 1, 2", "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0, 1, 2",
-           "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat", "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; use feat")
+                "Eucl-Kernel: h CV-opt", "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0",
+                "Eucl-ensemble: k 1; nderiv 0, 1, 2", "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0, 1, 2",
+                "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat", "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; use feat")
 lrns_scale_fill = scale_fill_manual(
   values = lrns.colors,
   name = "learner",
@@ -75,9 +75,15 @@ ggsave("Grafiken/benchmark_simulation_bars.pdf", p.bars,
 
 #################################################################
 # visualize benchmark results
-plotBMRBoxplots(bmr, measure = timeboth, pretty.names = FALSE)
-plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = FALSE)
-
+plotBMRBoxplots(bmr, measure = timeboth, pretty.names = FALSE,
+                facet.wrap.ncol = 3)
+p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = FALSE,
+                        facet.wrap.ncol = 3) + 
+  geom_boxplot(aes(fill = learner.id)) +
+  lrns_scale_fill
+p.box
+ggsave("Grafiken/benchmark_simulation_boxplot.pdf", p.box, 
+       width = 13, height = 7)
 # bp = plotBMRBoxplots(bmr, measure = timeboth, pretty.names = FALSE)
 # str(bp)
 
