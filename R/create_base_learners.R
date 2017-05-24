@@ -6,7 +6,8 @@ k1nd0_eucl = makeLearner(cl = "fdaclassif.classiKnn",
                          metric = "Euclidean",
                          predict.type = "prob",
                          par.vals = list(knn = 1, nderiv = 0))
-
+k1nd0_eucl$short.name = "Eucl: k 1; nderiv 0"
+  
 library("dtw")
 k1nd0_dtw = makeLearner(cl = "fdaclassif.classiKnn",
                         id = paste0("knn", 1, "nderiv", 0,
@@ -14,6 +15,7 @@ k1nd0_dtw = makeLearner(cl = "fdaclassif.classiKnn",
                         metric = "dtw",
                         predict.type = "prob",
                         par.vals = list(knn = 1, nderiv = 0))
+k1nd0_dtw$short.name = "dtw: k 1; nderiv 0"
 
 
 lrn.kernel = makeLearner("fdaclassif.classiKernel", predict.type = "prob")
@@ -32,6 +34,7 @@ lrn.bandwidth.tuned = makeTuneWrapper(learner = lrn.kernel,
                                       par.set = parSet.bandwidth,
                                       control = ctrl)
 lrn.kernel.tuned = lrn.bandwidth.tuned
+lrn.kernel.tuned$short.name = "Eucl-Kernel: h CV-opt"
 benchmark_classifiers = list(k1nd0_eucl, k1nd0_dtw, lrn.kernel.tuned)
 
 
@@ -86,18 +89,21 @@ knn_eucl_ensemble = makeStackedLearner(id = "knn_eucl_ensemble",
                                        predict.type = "prob",
                                        resampling = makeResampleDesc("CV", iters = 3L),
                                        method = "classif.bs.optimal")
-
+knn_eucl_ensemble$short.name = "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0"
+  
 nderiv_eucl_ensemble = makeStackedLearner(id = "nderiv_eucl_ensemble",
                                           base.learners = nderiv_eucl_lrns,
                                           predict.type = "prob",
                                           resampling = makeResampleDesc("CV", iters = 3L),
                                           method = "classif.bs.optimal")
-
+nderiv_eucl_ensemble$short.name = "Eucl-ensemble: k 1; nderiv 0, 1, 2"
+  
 nderivKnn_eucl_ensemble = makeStackedLearner(id = "nderivKnn_eucl_ensemble",
                                              base.learners = nderivKnn_eucl_lrns,
                                              predict.type = "prob",
                                              resampling = makeResampleDesc("CV", iters = 3L),
                                              method = "classif.bs.optimal")
+nderivKnn_eucl_ensemble$short.name = "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0, 1, 2"
 
 # with random forest ensemble
 rf_feat_eucl_ensemble = makeStackedLearner(id = "rf_feat_eucl_ensemble",
@@ -107,7 +113,8 @@ rf_feat_eucl_ensemble = makeStackedLearner(id = "rf_feat_eucl_ensemble",
                                            use.feat = TRUE,
                                            # resampling = makeResampleDesc("CV", iters = 3L),
                                            method = "stack.cv")
-
+rf_feat_eucl_ensemble$short.name = "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; use feat"
+  
 rf_nofeat_eucl_ensemble = makeStackedLearner(id = "rf_nofeat_eucl_ensemble",
                                              base.learners = nderivKnn_eucl_lrns, 
                                              super.learner = "classif.randomForest",
@@ -115,6 +122,7 @@ rf_nofeat_eucl_ensemble = makeStackedLearner(id = "rf_nofeat_eucl_ensemble",
                                              use.feat = FALSE,
                                              # resampling = makeResampleDesc("CV", iters = 3L),
                                              method = "stack.cv")
+rf_nofeat_eucl_ensemble$short.name = "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat"
 
 # list of all learners to be compared
 lrns = c(benchmark_classifiers,
