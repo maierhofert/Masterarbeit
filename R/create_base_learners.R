@@ -8,6 +8,7 @@ k1nd0_eucl = makeLearner(cl = "fdaclassif.classiKnn",
                          par.vals = list(knn = 1, nderiv = 0))
 k1nd0_eucl$short.name = "Eucl: k 1; nderiv 0"
   
+# create a dtw learner
 library("dtw")
 k1nd0_dtw = makeLearner(cl = "fdaclassif.classiKnn",
                         id = paste0("knn", 1, "nderiv", 0,
@@ -17,6 +18,21 @@ k1nd0_dtw = makeLearner(cl = "fdaclassif.classiKnn",
                         par.vals = list(knn = 1, nderiv = 0))
 k1nd0_dtw$short.name = "dtw: k 1; nderiv 0"
 
+# create the phase and amplitude distance learners
+k1nd0_phase = makeLearner(cl = "fdaclassif.classiKnn",
+                        id = paste0("knn", 1, "nderiv", 0,
+                                    "_phase"),
+                        metric = "phaseDistance",
+                        predict.type = "prob",
+                        par.vals = list(knn = 1, nderiv = 0))
+k1nd0_phase$short.name = "phase: k 1; nderiv 0"
+k1nd0_amplitude = makeLearner(cl = "fdaclassif.classiKnn",
+                          id = paste0("knn", 1, "nderiv", 0,
+                                      "_amplitude"),
+                          metric = "amplitudeDistance",
+                          predict.type = "prob",
+                          par.vals = list(knn = 1, nderiv = 0))
+k1nd0_amplitude$short.name = "amplitude: k 1; nderiv 0"
 
 lrn.kernel = makeLearner("fdaclassif.classiKernel", predict.type = "prob")
 # create parameter set
@@ -126,7 +142,8 @@ rf_nofeat_eucl_ensemble$short.name = "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no 
 
 # list of all learners to be compared
 lrns = c(benchmark_classifiers,
-         list(knn_eucl_ensemble,
+         list(k1nd0_phase, k1nd0_amplitude,
+              knn_eucl_ensemble,
               nderiv_eucl_ensemble,
               nderivKnn_eucl_ensemble,
               rf_nofeat_eucl_ensemble,
