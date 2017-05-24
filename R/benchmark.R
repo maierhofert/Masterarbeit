@@ -41,7 +41,7 @@ parallelLibrary("dtw")
 # set a seed for reproducibility
 parallel::clusterSetRNGStream(iseed = 42)
 
-bmr = benchmark(learners = c(lrns[1:2], list(lrn.shortEuclidean.tuned)),
+bmr = benchmark(learners = c(lrns, list()),
                 tasks = tsks,
                 resamplings = res_instances,
                 models = FALSE,
