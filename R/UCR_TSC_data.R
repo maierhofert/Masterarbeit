@@ -27,12 +27,14 @@ sensor = c("Car",
            "Trace") #, 
            # "Wafer")
 spectro = c("Beef", "Coffee", "Ham", "Meat", 
-            "OliveOil", "Strawberry", "Wine")
+            # "OliveOil", 
+            "Strawberry", "Wine")
 images = c("Adiac", "ArrowHead", "BeetleFly", "BirdChicken",
            "DiatomSizeReduction", 
            "DistalPhalanxOutlineAgeGroup",
            "DistalPhalanxOutlineCorrect", "DistalPhalanxTW",
-           "FaceAll", "FaceFour", "FacesUCR", "FiftyWords",
+           "FaceAll", "FaceFour", "FacesUCR", 
+           # "FiftyWords",
            "Fish", 
            # "HandOutlines", 
            "Herring", "MedicalImages",
@@ -46,7 +48,7 @@ images = c("Adiac", "ArrowHead", "BeetleFly", "BirdChicken",
            "WordSynonyms", "Yoga")
 # read in the data sets
 library("foreign")
-data_list = lapply(data_paths[test], read.arff)
+data_list = lapply(data_paths[c(images, sensor, spectro)], read.arff)
 
 # # create the data sets for classiFunc package
 # Phoneme = read.arff(data_paths[65])
