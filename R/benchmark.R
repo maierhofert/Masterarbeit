@@ -13,7 +13,7 @@ if(on_server) {
   #                        folds = 10L)
 } else {
   res = makeResampleDesc(method = "CV", predict = "test",
-                         stratify = TRUE, 
+                         stratify = TRUE,
                          iters = 2L)
 }
 
@@ -31,7 +31,7 @@ library("parallelMap")
 
 # benchmark in parallel
 if(on_server) {
-  parallelStartSocket(cpus = 32)
+  parallelStartSocket(cpus = 32) # level = "mlr.resample"
 } else {
   parallelStartSocket(cpus = 4)
 }
@@ -46,7 +46,7 @@ bmr = benchmark(learners = c(lrns, list()),
                 resamplings = res_instances,
                 models = FALSE,
                 keep.pred = FALSE,
-                measures = list(multiclass.brier, mmce, 
+                measures = list(multiclass.brier, mmce,
                                 timetrain, timepredict, timeboth))
 bmr
 
