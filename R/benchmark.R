@@ -3,7 +3,7 @@
 # resampling description
 # on local pc run a smaller benchmark
 on_server = (.Platform$OS.type != "windows")
-if(on_server) {
+if (on_server) {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE,
                          iters = 10)
@@ -30,7 +30,7 @@ rm(bmr)
 library("parallelMap")
 
 # benchmark in parallel
-if(on_server) {
+if (on_server) {
   parallelStartSocket(cpus = 32) # level = "mlr.resample"
 } else {
   parallelStartSocket(cpus = 4)

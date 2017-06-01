@@ -8,7 +8,7 @@ tsks = lapply(tsk_list, readRDS)
 # resampling description
 # on local pc run a smaller benchmark
 on_server = (.Platform$OS.type != "windows")
-if(on_server) {
+if (on_server) {
   # res = makeResampleDesc(method = "CV", predict = "test",
   #                        stratify = TRUE,
   #                        iters = 10L)
@@ -34,7 +34,7 @@ rm(bmr)
 library("parallelMap")
 
 # benchmark in parallel
-if(on_server) {
+if (on_server) {
   parallelStartSocket(cpus = 24)
 } else {
   parallelStartSocket(cpus = 4)

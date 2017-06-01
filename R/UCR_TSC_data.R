@@ -25,7 +25,7 @@ sensor = c("Car",
            "SonyAIBORobotSurface1", "SonyAIBORobotSurface2",
            # "StarLightCurves", 
            "Trace") #, 
-           # "Wafer")
+# "Wafer")
 spectro = c("Beef", "Coffee", "Ham", "Meat", 
             # "OliveOil", 
             "Strawberry", "Wine")
