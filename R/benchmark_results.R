@@ -3,29 +3,29 @@ library("mlr")
 library("ggplot2")
 mytheme = theme_bw(15)
 
+# read in most current benchmark
+bmr = readRDS("Benchmark_results/2017-05-27bmr_simu.RDS")
+
+
 # pretty labels for learners
-lrns.colors = c("thistle4", "palegoldenrod",
-                "grey80", "steelblue3",
-                "firebrick1", "violetred3",
+lrns.colors = c("grey20", "grey60",
+                "darkorange3",
+                "orange1", "goldenrod", 
+                "violetred2",
+                "darkslateblue", "deeppink4",
                 "chartreuse1", "chartreuse3")
-lrns.ids = c("knn1nderiv0_eucl", "knn1nderiv0_dtw",
-             "fdaclassif.classiKernel.tuned", "knn_eucl_ensemble",
-             "nderiv_eucl_ensemble", "nderivKnn_eucl_ensemble",
-             "rf_nofeat_eucl_ensemble", "rf_feat_eucl_ensemble")
-lrns.labels = c("Eucl: k 1; nderiv 0", "dtw: k 1; nderiv 0",
-                "Eucl-Kernel: h CV-opt", "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0",
-                "Eucl-ensemble: k 1; nderiv 0, 1, 2", "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0, 1, 2",
-                "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat", "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; use feat")
-lrns_scale_fill = scale_fill_manual(
-  values = lrns.colors,
-  name = "learner",
-  limits = lrns.ids,
-  labels = lrns.labels)
-lrns_scale_color = scale_color_manual(
-  values = lrns.colors,
-  name = "learner",
-  limits = lrns.ids,
-  labels = lrns.labels)
+# lrns.ids = c("knn1nderiv0_eucl", "knn1nderiv0_dtw",
+#              "fdaclassif.classiKernel.tuned", "knn1nderiv0_phase",
+#              "knn1nderiv0_amplitude", "knn_eucl_ensemble",
+#              "nderiv_eucl_ensemble", "nderivKnn_eucl_ensemble",
+#              "rf_nofeat_eucl_ensemble", "rf_feat_eucl_ensemble")
+lrns.short.names = c("Eucl: k 1; nderiv 0", "Eucl-Kernel: h CV-opt",
+                     "dtw: k 1; nderiv 0",
+                     "phase: k 1; nderiv 0", "amplitude: k 1; nderiv 0",
+                     "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0",
+                     "Eucl-ensemble: k 1; nderiv 0, 1, 2", "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0, 1, 2",
+                     "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat", "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; use feat")
+
 
 # pretty labels for sumulated data
 simulation.data.limits = c("random_splines_ncl10_nobs10_vwc0.5", "random_splines_ncl10_nobs10_vwc1",
@@ -49,24 +49,24 @@ simulation.data.labels = c("random splines: ncl 10; nobs   10; vwc 0.5",
                            "random splines: ncl   2; nobs 100; vwc    2")
 
 
-# read in most current benchmark
-bmr = readRDS("Benchmark_results/bmr.RDS")
-
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
-
-p.dots = plotBMRSummary(bmr, trafo = "rank", jitter = 0, pretty.names = FALSE) +
+p.dots = plotBMRSummary(bmr, trafo = "rank", jitter = 0, pretty.names = TRUE) +
   scale_y_discrete(limits = simulation.data.limits,
                    labels = simulation.data.labels) +
-  geom_point(size = 5) +
+  geom_point(size = 10) +
+  scale_x_continuous(breaks = 1:10, minor_breaks = 1:10) +
   lrns_scale_color +
+  xlab("Rank of Brier score") +
   mytheme
 p.dots
+
 ggsave("Grafiken/benchmark_simulation_dots.pdf", p.dots, 
        width = 13, height = 7)
 
-p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = FALSE) + 
-  lrns_scale_fill +
+p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE, 
+                                order.lrns = lrns.ids) + 
+  scale_fill_manual(values = lrns.colors, name = "learner") +
   ylab("count") +
   mytheme
 p.bars
@@ -80,8 +80,14 @@ plotBMRBoxplots(bmr, measure = timeboth, pretty.names = FALSE,
 p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = FALSE,
                         facet.wrap.ncol = 3) + 
   geom_boxplot(aes(fill = learner.id)) +
-  lrns_scale_fill
-p.box
+  scale_fill_manual(
+    values = lrns.colors,
+    limits = lrns.short.names,
+    name = "learner")
+p.box + scale_fill_manual(
+  values = lrns.colors,
+  limits = lrns.ids,
+  name = "learner")
 ggsave("Grafiken/benchmark_simulation_boxplot.pdf", p.box, 
        width = 13, height = 7)
 # bp = plotBMRBoxplots(bmr, measure = timeboth, pretty.names = FALSE)
@@ -96,5 +102,6 @@ friedmanPostHocTestBMR(bmr, measure = multiclass.brier)
 # critical difference diagram
 g = generateCritDifferencesData(bmr, measure = multiclass.brier,
                                 p.value = 0.05, test = "nemenyi")
-p.cd = plotCritDifferences(g, pretty.names = FALSE)
+p.cd = plotCritDifferences(g, pretty.names = TRUE) +
+  scale_color_manual(values = lrns.colors)
 p.cd
