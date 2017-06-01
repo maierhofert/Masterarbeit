@@ -51,7 +51,7 @@ lrn.bandwidth.tuned = makeTuneWrapper(learner = lrn.kernel,
                                       control = ctrl)
 lrn.kernel.tuned = lrn.bandwidth.tuned
 lrn.kernel.tuned$short.name = "Eucl-Kernel: h CV-opt"
-benchmark_classifiers = list(k1nd0_eucl, k1nd0_dtw, lrn.kernel.tuned)
+benchmark_classifiers = list(k1nd0_eucl, lrn.kernel.tuned, k1nd0_dtw)
 
 
 # ######################################################################
