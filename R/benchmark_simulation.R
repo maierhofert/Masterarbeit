@@ -1,7 +1,7 @@
 # Benchmark the learners on the simulated data
 
 # read in simulated task
-tsk_list = list.files("Daten/Simulated Data/", pattern = "task", 
+tsk_list = list.files("Daten/Simulated Data/random_trigonometric/", pattern = "task", 
                       full.names = TRUE)
 tsks = lapply(tsk_list, readRDS)
 
@@ -9,16 +9,18 @@ tsks = lapply(tsk_list, readRDS)
 # on local pc run a smaller benchmark
 on_server = (.Platform$OS.type != "windows")
 if (on_server) {
-  # res = makeResampleDesc(method = "CV", predict = "test",
-  #                        stratify = TRUE,
-  #                        iters = 10L)
-  res = makeResampleDesc(method = "RepCV", predict = "test",
+  res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE,
-                         reps = 5L,
-                         folds = 10L)
+                         iters = 10L)
+  # res = makeResampleDesc(method = "RepCV", predict = "test",
+  #                        stratify = TRUE,
+  #                        reps = 5L,
+  #                        folds = 10L)
 } else {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE, iters = 2L)
+  lrns = lrns[c(1, 6)]
+  tsks = tsks[1:4]
 }
 
 # resampling instances
@@ -37,7 +39,7 @@ library("parallelMap")
 if (on_server) {
   parallelStartSocket(cpus = 24)
 } else {
-  parallelStartSocket(cpus = 4)
+  parallelStartSocket(cpus = 4, level = "mlr.resample")
 }
 
 # export the dtw package
