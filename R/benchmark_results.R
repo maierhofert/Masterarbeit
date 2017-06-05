@@ -4,7 +4,7 @@ library("ggplot2")
 mytheme = theme_bw(15)
 
 # read in most current benchmark
-bmr = readRDS("Benchmark_results/2017-05-27bmr_simu.RDS")
+bmr = readRDS("Benchmark_results/2017-06-04bmr_simu.RDS")
 
 
 # pretty labels for learners
@@ -14,17 +14,18 @@ lrns.colors = c("grey20", "grey60",
                 "violetred2",
                 "darkslateblue", "deeppink4",
                 "chartreuse1", "chartreuse3")
-# lrns.ids = c("knn1nderiv0_eucl", "knn1nderiv0_dtw",
-#              "fdaclassif.classiKernel.tuned", "knn1nderiv0_phase",
-#              "knn1nderiv0_amplitude", "knn_eucl_ensemble",
-#              "nderiv_eucl_ensemble", "nderivKnn_eucl_ensemble",
-#              "rf_nofeat_eucl_ensemble", "rf_feat_eucl_ensemble")
-lrns.short.names = c("Eucl: k 1; nderiv 0", "Eucl-Kernel: h CV-opt",
-                     "dtw: k 1; nderiv 0",
-                     "phase: k 1; nderiv 0", "amplitude: k 1; nderiv 0",
-                     "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0",
-                     "Eucl-ensemble: k 1; nderiv 0, 1, 2", "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0, 1, 2",
-                     "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat", "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; use feat")
+lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned", 
+             "knn1nderiv0_dtw", 
+             "knn1nderiv0_phase", "knn1nderiv0_amplitude", 
+             "knn_eucl_ensemble",
+             "nderiv_eucl_ensemble", "nderivKnn_eucl_ensemble",
+             "rf_nofeat_eucl_ensemble", "rf_feat_eucl_ensemble")
+# lrns.short.names = c("Eucl: k 1; nderiv 0", "Eucl-Kernel: h CV-opt",
+#                      "dtw: k 1; nderiv 0",
+#                      "phase: k 1; nderiv 0", "amplitude: k 1; nderiv 0",
+#                      "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0",
+#                      "Eucl-ensemble: k 1; nderiv 0, 1, 2", "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0, 1, 2",
+#                      "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat", "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; use feat")
 
 
 # pretty labels for sumulated data
@@ -56,7 +57,7 @@ p.dots = plotBMRSummary(bmr, trafo = "rank", jitter = 0, pretty.names = TRUE) +
                    labels = simulation.data.labels) +
   geom_point(size = 10) +
   scale_x_continuous(breaks = 1:10, minor_breaks = 1:10) +
-  lrns_scale_color +
+  scale_color_manual(values = lrns.colors, name = "learner")  +
   xlab("Rank of Brier score") +
   mytheme
 p.dots
@@ -82,16 +83,11 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = FALSE,
   geom_boxplot(aes(fill = learner.id)) +
   scale_fill_manual(
     values = lrns.colors,
-    limits = lrns.short.names,
+    # limits = lrns.short.names,
     name = "learner")
-p.box + scale_fill_manual(
-  values = lrns.colors,
-  limits = lrns.ids,
-  name = "learner")
+p.box
 ggsave("Grafiken/benchmark_simulation_boxplot.pdf", p.box, 
        width = 13, height = 7)
-# bp = plotBMRBoxplots(bmr, measure = timeboth, pretty.names = FALSE)
-# str(bp)
 
 # Friedman Test
 friedmanTestBMR(bmr, measure = multiclass.brier)
@@ -103,5 +99,7 @@ friedmanPostHocTestBMR(bmr, measure = multiclass.brier)
 g = generateCritDifferencesData(bmr, measure = multiclass.brier,
                                 p.value = 0.05, test = "nemenyi")
 p.cd = plotCritDifferences(g, pretty.names = TRUE) +
-  scale_color_manual(values = lrns.colors)
+  scale_color_manual(values = lrns.colors,
+                     limits = lrns.ids,
+                     name = "learner")
 p.cd
