@@ -31,7 +31,7 @@ library("parallelMap")
 
 # benchmark in parallel
 if (on_server) {
-  parallelStartSocket(cpus = 32) # level = "mlr.resample"
+  parallelStartSocket(cpus = 42) # level = "mlr.resample"
 } else {
   parallelStartSocket(cpus = 4)
 }
