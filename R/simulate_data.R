@@ -115,7 +115,7 @@ for(nclasses in c(2, 10)) {
       save_data = data.frame(simu_data)
       save_data$target = rep(1:nclasses, each = nobs_per_class)
       
-      saveRDS(save_data, paste0("Daten/Simulated Data/random_splines", 
+      saveRDS(save_data, paste0("Daten/Simulated Data/random_splines/random_splines", 
                                 "_ncl", nclasses, "_nobs", nobs_per_class, 
                                 "_vwc", var_within_classes, ".RDS"))
       
@@ -127,7 +127,7 @@ for(nclasses in c(2, 10)) {
                                                       "_vwc", var_within_classes),
                                           fd.features = list(ff = 1:(ncol(save_data) - 1)),
                                           target = "target")
-      saveRDS(simu_data_task, paste0("Daten/Simulated Data/random_splines_task", 
+      saveRDS(simu_data_task, paste0("Daten/Simulated Data/random_splines/random_splines_task", 
                                 "_ncl", nclasses, "_nobs", nobs_per_class, 
                                 "_vwc", var_within_classes, ".RDS"))
       
@@ -136,7 +136,7 @@ for(nclasses in c(2, 10)) {
 }
 
 # Look into the simulated data
-path = "Daten/Simulated Data/random_splines_ncl2_nobs10_vwc2.RDS"
+path = "Daten/Simulated Data/random_splines/random_splines_ncl2_nobs10_vwc2.RDS"
 simu_data = readRDS(path)
 # plot the individual observations
 fda::matplot(t(simu_data[,-51]), type = "l", 
