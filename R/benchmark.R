@@ -15,6 +15,8 @@ if (on_server) {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE,
                          iters = 2L)
+  lrns = lrns[c(1, 6)]
+  tsks = tsks[1:3]
 }
 
 # resampling instances
@@ -31,7 +33,7 @@ library("parallelMap")
 
 # benchmark in parallel
 if (on_server) {
-  parallelStartSocket(cpus = 42) # level = "mlr.resample"
+  parallelStartSocket(cpus = 24, level = "mlr.resample") # level = "mlr.resample"
 } else {
   parallelStartSocket(cpus = 4)
 }

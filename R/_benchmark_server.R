@@ -7,5 +7,5 @@ source("R/benchmark.R")
 # source("R/benchmark_simulation.R")
 
 # save benchmarking result
-saveRDS(bmr, paste0("Benchmark_results/", Sys.Date(), "bmr.RDS"))
+saveRDS(bmr, paste0("Benchmark_results/", Sys.Date(), "_parallelResample_bmr.RDS"))
 saveRDS(bmr, "Benchmark_results/bmr.RDS")
