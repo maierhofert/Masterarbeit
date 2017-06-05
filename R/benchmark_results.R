@@ -103,3 +103,5 @@ p.cd = plotCritDifferences(g, pretty.names = TRUE) +
                      limits = lrns.ids,
                      name = "learner")
 p.cd
+ggsave("Grafiken/benchmark_simulation_cd.pdf", p.box, 
+       width = 13, height = 7)
