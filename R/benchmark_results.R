@@ -84,7 +84,11 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = FALSE,
   scale_fill_manual(
     values = lrns.colors,
     # limits = lrns.short.names,
-    name = "learner")
+    name = "learner") +
+  ylab("Brier score") +
+  mytheme +
+  theme(axis.title.x = element_blank(), 
+        axis.text.x = element_text(angle = -45, hjust = 0))
 p.box
 ggsave("Grafiken/benchmark_simulation_boxplot.pdf", p.box, 
        width = 13, height = 7)
@@ -103,5 +107,5 @@ p.cd = plotCritDifferences(g, pretty.names = TRUE) +
                      limits = lrns.ids,
                      name = "learner")
 p.cd
-ggsave("Grafiken/benchmark_simulation_cd.pdf", p.box, 
+ggsave("Grafiken/benchmark_simulation_cd.pdf", p.cd, 
        width = 13, height = 7)
