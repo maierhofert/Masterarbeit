@@ -1,7 +1,7 @@
 # Benchmark the learners on the simulated data
 
 # read in simulated task
-tsk_list = list.files("Daten/Simulated Data/random_splines/", pattern = "task", 
+tsk_list = list.files("Daten/Simulated Data/random_trigonometric/", pattern = "task", 
                       full.names = TRUE)
 tsks = lapply(tsk_list, readRDS)
 
@@ -12,6 +12,10 @@ if (on_server) {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE,
                          iters = 10L)
+  # res = makeResampleDesc(method = "RepCV", predict = "test",
+  #                        stratify = TRUE,
+  #                        reps = 5L,
+  #                        folds = 10L)
 } else {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE, iters = 2L)
@@ -33,7 +37,7 @@ library("parallelMap")
 
 # benchmark in parallel
 if (on_server) {
-  parallelStartSocket(cpus = 24)
+  parallelStartSocket(cpus = 32)
 } else {
   parallelStartSocket(cpus = 4, level = "mlr.resample")
 }
