@@ -34,12 +34,12 @@ library("parallelMap")
 # benchmark in parallel
 if (on_server) {
   parallelStartSocket(cpus = 24, level = "mlr.resample") # level = "mlr.resample"
+  parallelLibrary("dtw", level = "mlr.resample")
 } else {
   parallelStartSocket(cpus = 4)
+  parallelLibrary("dtw")
 }
 
-# export the dtw package
-parallelLibrary("dtw")
 # set a seed for reproducibility
 parallel::clusterSetRNGStream(iseed = 42)
 
