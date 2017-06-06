@@ -11,8 +11,8 @@ for(nclasses in c(2, 10)) {
     class_centers = matrix(NA, ncol = length_per_data, nrow = nclasses)
     simu_data = matrix(NA, ncol = length_per_data, nrow = nclasses * nobs_per_class)
     
-    for(vamp in c(0.5, 1, 2)) {
-      for(vphase in c(0.5, 1, 2)) {
+    for(vamp in c(0.5, 2)) {
+      for(vphase in c(0.5, 2)) {
         for(class in 1:nclasses) {
           # create a cubic basis object to be (ab)used
           # sample random spline coefficients for this class
