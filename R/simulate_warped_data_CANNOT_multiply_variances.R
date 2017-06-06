@@ -1,6 +1,9 @@
 # data simulation
 set.seed(123)
-param = 2
+length_per_data = 50
+x_seq = seq(0, 2*pi, length.out = length_per_data)
+
+param = 1
 
 for(nclasses in c(2)) {
   for(nobs_per_class in c(10)) {
@@ -8,7 +11,7 @@ for(nclasses in c(2)) {
     class_centers = matrix(NA, ncol = length_per_data, nrow = nclasses)
     simu_data = matrix(NA, ncol = length_per_data, nrow = nclasses * nobs_per_class)
     
-    for(vamp in c(1)) {
+    for(vamp in param) {
       for(vphase in param) {
         for(class in 1:nclasses) {
           # create a cubic basis object to be (ab)used
@@ -27,10 +30,9 @@ for(nclasses in c(2)) {
         save_data = data.frame(simu_data)
         save_data$target = rep(1:nclasses, each = nobs_per_class)
         
-        fda::matplot(t(save_data[,-51]), type = "l", 
+        fda::matplot(x_seq / pi, t(save_data[,-51]), type = "l", 
                      lty = save_data[,51],
                      col = save_data[,51])
-        
       }
     }
   }
