@@ -12,10 +12,6 @@ if (on_server) {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE,
                          iters = 10L)
-  # res = makeResampleDesc(method = "RepCV", predict = "test",
-  #                        stratify = TRUE,
-  #                        reps = 5L,
-  #                        folds = 10L)
 } else {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE, iters = 2L)
