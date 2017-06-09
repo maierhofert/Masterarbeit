@@ -19,8 +19,7 @@ simu_fun = function(x, z) {
 # data simulation
 set.seed(123)
 for(nclasses in c(2, 10)) {
-  # for(nobs_per_class in c(10, 100)) { # TODO später groß laufen lassen
-  for(nobs_per_class in c(10)) {
+  for(nobs_per_class in c(10, 100)) {
     # initiate data frames
     class_centers = matrix(NA, ncol = length_per_data, nrow = nclasses)
     simu_data = matrix(NA, ncol = length_per_data, nrow = nclasses * nobs_per_class)
