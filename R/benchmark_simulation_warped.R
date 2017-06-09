@@ -1,7 +1,7 @@
 # Benchmark the learners on the simulated data
 
 # read in simulated task
-tsk_list = list.files("Daten/Simulated Data/random_trigonometric/", pattern = "task", 
+tsk_list = list.files("Daten/Simulated Data/random_srivastava/", pattern = "task", 
                       full.names = TRUE)
 tsks = lapply(tsk_list, readRDS)
 
@@ -37,13 +37,13 @@ library("parallelMap")
 
 # benchmark in parallel
 if (on_server) {
-  parallelStartSocket(cpus = 32)
+  parallelStartSocket(cpus = 32, level = "mlr.resample")
+  parallelLibrary("dtw", level = "mlr.resample")
 } else {
   parallelStartSocket(cpus = 4, level = "mlr.resample")
+  parallelLibrary("dtw", level = "mlr.resample")
 }
 
-# export the dtw package
-parallelLibrary("dtw")
 # set a seed for reproducibility
 parallel::clusterSetRNGStream(iseed = 42)
 
