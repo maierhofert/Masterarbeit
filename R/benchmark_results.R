@@ -1,12 +1,14 @@
 # this file looks into the results of the benchmark analysis
 library("mlr")
 library("ggplot2")
-mytheme = theme_bw(15)
+mytheme = theme_bw(20)
 
 # read in most current benchmark
-bmr = readRDS("Benchmark_results/2017-06-04bmr_simu.RDS")
-# name = "bmr"
-name = "bmr_simu"
+bmr = readRDS("Benchmark_results/2017-06-21bmr.RDS")
+# bmr = readRDS("Benchmark_results/2017-06-04bmr_simu.RDS")
+
+name = "bmr"
+# name = "bmr_simu"
 # name = "bmr_simu_warped"
 
 # pretty labels for learners
@@ -38,30 +40,33 @@ simulation.data.limits = c("random_splines_ncl10_nobs10_vwc0.5", "random_splines
                            "random_splines_ncl2_nobs10_vwc2", "random_splines_ncl2_nobs100_vwc0.5", 
                            "random_splines_ncl2_nobs100_vwc1", "random_splines_ncl2_nobs100_vwc2")
 
-simulation.data.labels = c("random splines: ncl 10; nobs   10; vwc 0.5", 
-                           "random splines: ncl 10; nobs   10; vwc    1",
-                           "random splines: ncl 10; nobs   10; vwc    2", 
-                           "random splines: ncl 10; nobs 100; vwc 0.5",
-                           "random splines: ncl 10; nobs 100; vwc    1", 
-                           "random splines: ncl 10; nobs 100; vwc    2",
-                           "random splines: ncl   2; nobs   10; vwc 0.5", 
-                           "random splines: ncl   2; nobs   10; vwc    1", 
-                           "random splines: ncl   2; nobs   10; vwc    2", 
-                           "random splines: ncl   2; nobs 100; vwc 0.5", 
-                           "random splines: ncl   2; nobs 100; vwc    1", 
-                           "random splines: ncl   2; nobs 100; vwc    2")
+simulation.data.labels = c("ncl 10; nobs   10; vwc 0.5", 
+                           "ncl 10; nobs   10; vwc    1",
+                           "ncl 10; nobs   10; vwc    2", 
+                           "ncl 10; nobs 100; vwc 0.5",
+                           "ncl 10; nobs 100; vwc    1", 
+                           "ncl 10; nobs 100; vwc    2",
+                           "ncl   2; nobs   10; vwc 0.5", 
+                           "ncl   2; nobs   10; vwc    1", 
+                           "ncl   2; nobs   10; vwc    2", 
+                           "ncl   2; nobs 100; vwc 0.5", 
+                           "ncl   2; nobs 100; vwc    1", 
+                           "ncl   2; nobs 100; vwc    2")
 
 
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
 p.dots = plotBMRSummary(bmr, trafo = "rank", jitter = 0, pretty.names = TRUE) +
-  scale_y_discrete(limits = simulation.data.limits,
-                   labels = simulation.data.labels) +
-  geom_point(size = 10) +
+  # scale_y_discrete(limits = simulation.data.limits,
+  #                  labels = simulation.data.labels) +
+  geom_point(size = 10, show.legend = FALSE) +
   scale_x_continuous(breaks = 1:10, minor_breaks = 1:10) +
-  scale_color_manual(values = lrns.colors, name = "learner")  +
+  scale_color_manual(values = lrns.colors, name = "")  +
   xlab("Rank of Brier score") +
-  mytheme
+  mytheme +
+  guides(col = guide_legend(nrow = 5)) +
+  theme(legend.position = "bottom")
+# , text = element_text(size = 20))
 p.dots
 
 ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots, 
@@ -83,14 +88,17 @@ plotBMRBoxplots(bmr, measure = timeboth, pretty.names = FALSE,
 p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = FALSE,
                         facet.wrap.ncol = 3) + 
   geom_boxplot(aes(fill = learner.id)) +
-  scale_fill_manual(
-    values = lrns.colors,
+  scale_fill_manual(values = lrns.colors,
     # limits = lrns.short.names,
-    name = "learner") +
+    name = "") +
   ylab("Brier score") +
   mytheme +
-  theme(axis.title.x = element_blank(), 
-        axis.text.x = element_text(angle = -45, hjust = 0))
+  guides(fill = F) +
+  theme(text = element_text(size = 15),
+        plot.margin = unit(c(1, 5, 0.5, 0.5), "lines"),
+        axis.title.x = element_blank(), 
+        axis.text.x = element_text(angle = -45, hjust = 0),
+        legend.position = "bottom")
 p.box
 ggsave(paste0("Grafiken/benchmark/", name, "_boxplot.pdf"), p.box, 
        width = 13, height = 7)
@@ -107,7 +115,9 @@ g = generateCritDifferencesData(bmr, measure = multiclass.brier,
 p.cd = plotCritDifferences(g, pretty.names = TRUE) +
   scale_color_manual(values = lrns.colors,
                      limits = lrns.ids,
-                     name = "learner")
+                     name = "learner") +
+  theme(text = element_text(size = 10),
+        plot.margin = unit(c(2, 1, 0.5, 0.5), "lines"))
 p.cd
 ggsave(paste0("Grafiken/benchmark/", name, "_cd.pdf"), p.cd, 
-       width = 13, height = 7)
+       width = 0.8*13, height = 0.8*7)
