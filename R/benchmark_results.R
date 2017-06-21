@@ -4,9 +4,9 @@ library("ggplot2")
 mytheme = theme_bw(15)
 
 # read in most current benchmark
-bmr = readRDS("Benchmark_results/2017-06-21bmr.RDS")
-name = "bmr"
-# name = "bmr_simu"
+bmr = readRDS("Benchmark_results/2017-06-04bmr_simu.RDS")
+# name = "bmr"
+name = "bmr_simu"
 # name = "bmr_simu_warped"
 
 # pretty labels for learners
@@ -55,8 +55,8 @@ simulation.data.labels = c("random splines: ncl 10; nobs   10; vwc 0.5",
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
 p.dots = plotBMRSummary(bmr, trafo = "rank", jitter = 0, pretty.names = TRUE) +
-  # scale_y_discrete(limits = simulation.data.limits,
-  #                  labels = simulation.data.labels) +
+  scale_y_discrete(limits = simulation.data.limits,
+                   labels = simulation.data.labels) +
   geom_point(size = 10) +
   scale_x_continuous(breaks = 1:10, minor_breaks = 1:10) +
   scale_color_manual(values = lrns.colors, name = "learner")  +
