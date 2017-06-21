@@ -75,3 +75,20 @@ tsks = lapply(data_list, function(dat) {
                      fd.features = list(ff = 1:(ncol(dat) - 2)),
                      target = "target")
 })
+
+# select feasible tasks
+name = nobs = obslen = rep(NA, length(tsks))
+for(i in 1:length(tsks)) {
+  name[i] = getTaskId(tsks[[i]])
+  nobs[i] = getTaskSize(tsks[[i]])
+  obslen[i] = getTaskNFeats(tsks[[i]])
+}
+df = data.frame(name, nobs, obslen, nobs*obslen)
+# hist(df$nobs...obslen, breaks = 100)
+# summary(df$nobs...obslen)
+# quantile(df$nobs...obslen, 0.9)
+# df_red = df[df$nobs...obslen <= 100000,]
+
+
+tsks = tsks[df$nobs...obslen <= 50000]
+
