@@ -4,8 +4,10 @@ library("ggplot2")
 mytheme = theme_bw(15)
 
 # read in most current benchmark
-bmr = readRDS("Benchmark_results/2017-06-09simu_warped_bmr.RDS")
-
+bmr = readRDS("Benchmark_results/2017-06-21bmr.RDS")
+name = "bmr"
+# name = "bmr_simu"
+# name = "bmr_simu_warped"
 
 # pretty labels for learners
 lrns.colors = c("grey20", "grey60",
@@ -53,8 +55,8 @@ simulation.data.labels = c("random splines: ncl 10; nobs   10; vwc 0.5",
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
 p.dots = plotBMRSummary(bmr, trafo = "rank", jitter = 0, pretty.names = TRUE) +
-  scale_y_discrete(limits = simulation.data.limits,
-                   labels = simulation.data.labels) +
+  # scale_y_discrete(limits = simulation.data.limits,
+  #                  labels = simulation.data.labels) +
   geom_point(size = 10) +
   scale_x_continuous(breaks = 1:10, minor_breaks = 1:10) +
   scale_color_manual(values = lrns.colors, name = "learner")  +
@@ -62,7 +64,7 @@ p.dots = plotBMRSummary(bmr, trafo = "rank", jitter = 0, pretty.names = TRUE) +
   mytheme
 p.dots
 
-ggsave("Grafiken/benchmark_simulation_dots.pdf", p.dots, 
+ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots, 
        width = 13, height = 7)
 
 p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE, 
@@ -71,7 +73,7 @@ p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE,
   ylab("count") +
   mytheme
 p.bars
-ggsave("Grafiken/benchmark_simulation_bars.pdf", p.bars, 
+ggsave(paste0("Grafiken/benchmark/", name, "_bars.pdf"), p.bars, 
        width = 13, height = 7)
 
 #################################################################
@@ -90,7 +92,7 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = FALSE,
   theme(axis.title.x = element_blank(), 
         axis.text.x = element_text(angle = -45, hjust = 0))
 p.box
-ggsave("Grafiken/benchmark_simulation_boxplot.pdf", p.box, 
+ggsave(paste0("Grafiken/benchmark/", name, "_boxplot.pdf"), p.box, 
        width = 13, height = 7)
 
 # Friedman Test
@@ -107,5 +109,5 @@ p.cd = plotCritDifferences(g, pretty.names = TRUE) +
                      limits = lrns.ids,
                      name = "learner")
 p.cd
-ggsave("Grafiken/benchmark_simulation_cd.pdf", p.cd, 
+ggsave(paste0("Grafiken/benchmark/", name, "_cd.pdf"), p.cd, 
        width = 13, height = 7)
