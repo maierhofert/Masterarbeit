@@ -84,7 +84,7 @@ library("fda")
 set.seed(1234)
 for(nclasses in c(2, 10)) {
   for(nobs_per_class in c(10, 100)) {
-    for(var_within_classes in c(0.5, 1, 2)) {
+    for(var_within_classes in c(0.5, 2)) {
       # dummy object to plot pretty spline basis
       basisobj = create.bspline.basis(c(0, 1), nbasis = nbasis, norder = norder)
       
