@@ -33,7 +33,7 @@ library("parallelMap")
 
 # benchmark in parallel
 if (on_server) {
-  parallelStartSocket(cpus = 24, level = "mlr.resample") # level = "mlr.resample"
+  parallelStartSocket(cpus = 10, level = "mlr.resample") # level = "mlr.resample"
   parallelLibrary("dtw", level = "mlr.resample")
 } else {
   parallelStartSocket(cpus = 4)
@@ -43,7 +43,7 @@ if (on_server) {
 # set a seed for reproducibility
 parallel::clusterSetRNGStream(iseed = 42)
 
-bmr = benchmark(learners = c(lrns, list()),
+bmr = benchmark(learners = c(lrns, list(opt_knn_nderiv_learners)),
                 tasks = tsks,
                 resamplings = res_instances,
                 models = FALSE,

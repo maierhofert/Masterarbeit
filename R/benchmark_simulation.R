@@ -16,7 +16,7 @@ if (on_server) {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE, iters = 2L)
   lrns = lrns[c(1, 6)]
-  tsks = tsks[1:4]
+  tsks = tsks[1:2]
 }
 
 # resampling instances
@@ -44,7 +44,7 @@ if (on_server) {
 # set a seed for reproducibility
 parallel::clusterSetRNGStream(iseed = 42)
 
-bmr = benchmark(learners = c(lrns, list()),
+bmr = benchmark(learners = c(lrns, list(opt_knn_nderiv_learners)),
                 tasks = tsks,
                 resamplings = res_instances,
                 models = FALSE,
