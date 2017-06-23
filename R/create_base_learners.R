@@ -140,6 +140,37 @@ rf_nofeat_eucl_ensemble = makeStackedLearner(id = "rf_nofeat_eucl_ensemble",
                                              method = "stack.cv")
 rf_nofeat_eucl_ensemble$short.name = "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat"
 
+
+#  learners with a lot of random noisy base learners
+random_knn_100 = list()
+for(i in 1:100) {
+  random_knn_100[[i]] = makeLearner(cl = "fdaclassif.classiKnn",
+                                  id = paste0("noisy_learner", i),
+                                  metric = "custom.metric",
+                                  custom.metric = function(x, y) {
+                                    runif(1)
+                                  },
+                                  predict.type = "prob")
+}
+
+rf_noisy_eucl_ensemble = makeStackedLearner(id = "rf_noisy_ensemble",
+                                             base.learners = c(nderivKnn_eucl_lrns, random_knn_100), 
+                                             super.learner = "classif.randomForest",
+                                             predict.type = "prob",
+                                             use.feat = FALSE,
+                                             # resampling = makeResampleDesc("CV", iters = 3L),
+                                             method = "stack.cv")
+rf_noisy_eucl_ensemble$short.name = "Eucl-rf: noisy"
+
+noisy_eucl_ensemble = makeStackedLearner(id = "noisy_eucl_ensemble",
+                                             base.learners = c(nderivKnn_eucl_lrns, random_knn_100),
+                                             predict.type = "prob",
+                                             resampling = makeResampleDesc("CV", iters = 3L),
+                                             method = "classif.bs.optimal")
+noisy_eucl_ensemble$short.name = "Eucl-ensemble: noisy"
+
+
+
 # list of all learners to be compared
 lrns = c(benchmark_classifiers,
          list(k1nd0_phase, k1nd0_amplitude,
@@ -147,13 +178,15 @@ lrns = c(benchmark_classifiers,
               nderiv_eucl_ensemble,
               nderivKnn_eucl_ensemble,
               rf_nofeat_eucl_ensemble,
-              rf_feat_eucl_ensemble))
+              rf_feat_eucl_ensemble,
+              rf_noisy_eucl_ensemble,
+              noisy_eucl_ensemble))
 
 
 # # train learners
 # # This is not needed for benchmarking
-# mod1 = train(learner = k1nn_eucl, task = tsks[[1]])
-# mod2 = train(learner = k3nn_eucl, task = tsks[[2]])
+# mod1 = train(learner = rf_noisy_eucl_ensemble, task = tsks[[1]])
+# mod2 = train(learner = noisy_eucl_ensemble, task = tsks[[2]])
 # fda.pred = predict(mod1, task = tsks[[1]])
 # fda.pred2 = predict(mod2, task = tsks[[2]])
 
