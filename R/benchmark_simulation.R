@@ -12,6 +12,8 @@ if (on_server) {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE,
                          iters = 10L)
+  lrns = lrns[c(1, 6)]
+  tsks = tsks[1:2]
 } else {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE, iters = 2L)
