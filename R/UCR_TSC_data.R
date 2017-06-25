@@ -89,8 +89,7 @@ df = data.frame(name, nobs, obslen, nobs*obslen)
 # quantile(df$nobs...obslen, 0.9)
 # df_red = df[df$nobs...obslen <= 100000,]
 
-# # 2017-06-21bmr
-# # misses the random learners
-tsks = tsks[df$nobs...obslen <= 50000]
+# # 2017-06-24bmr
+# tsks = tsks[df$nobs...obslen <= 50000]
 # # 
-# tsks = tsks[df$nobs...obslen > 50000 & df$nobs...obslen < 100000]
+tsks = tsks[df$nobs...obslen > 50000 & df$nobs...obslen < 100000]
