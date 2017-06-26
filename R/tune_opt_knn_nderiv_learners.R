@@ -52,7 +52,7 @@ knnOptNderivOpt_eucl = makeTuneWrapper(learner = knnOptNderivOpt_eucl,
                                        measures = multiclass.brier,
                                        par.set = parSet.knnNderiv,
                                        control = hp.ctrl)
-nderivKnn_eucl_ensemble$short.name = "Eucl-ensemble: opt k; opt nderiv"
+knnOptNderivOpt_eucl$short.name = "Eucl-ensemble: opt k; opt nderiv"
 
 
 opt_knn_nderiv_learners = list(knn1NderivOpt_eucl, knnOptNderiv0_eucl, 
