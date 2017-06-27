@@ -13,7 +13,7 @@ lrns.colors = c("grey20", "grey60",
                 "orange1", "goldenrod", 
                 # "violetred2",
                 # "darkslateblue", "deeppink4",
-                "red4",
+                "red3",
                 "navy", "deeppink4",
                 "chartreuse1", "chartreuse3",
                 "darkolivegreen3", "darkorchid1", 
@@ -29,7 +29,7 @@ lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned",
              "knn1NderivOpt_eucl.tuned", "knnOptNderiv0_eucl.tuned",
              "knnOptNderivOpt_eucl.tuned")
 
-order.lrns = c(1:2, 6:8, 13:15, 9:10, 12:11, 3:5)
+order.lrns = c(1:2, 6:8, c(14, 13, 15), 9:10, 12:11, 3:5)
 
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
@@ -38,6 +38,7 @@ p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE,
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
   scale_x_continuous(breaks = 1:15, minor_breaks = 1:15) +
   scale_color_manual(values = lrns.colors, 
+                     limits = getBMRLearnerShortNames(bmr),
                      breaks = getBMRLearnerShortNames(bmr)[order.lrns], 
                      name = "")  +
   xlab("Rank of Brier score") +
@@ -49,9 +50,11 @@ p.dots
 ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots, 
        width = 13, height = 7)
 
-p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE, 
+p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE,
                                 order.lrns = getBMRLearnerIds(bmr)[order.lrns]) + 
-  scale_fill_manual(values = lrns.colors, breaks = lrns.short.names, 
+  scale_fill_manual(values = lrns.colors, 
+                    limits = getBMRLearnerShortNames(bmr), 
+                    breaks = getBMRLearnerShortNames(bmr)[order.lrns],
                     name = "model") +
   ylab("count") +
   mytheme
@@ -67,7 +70,7 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = TRUE,
                         facet.wrap.ncol = 2L,
                         order.lrns = getBMRLearnerIds(bmr)[order.lrns]) +
   geom_boxplot(aes(fill = learner.id)) +
-  scale_fill_manual(values = lrns.colors,
+  scale_fill_manual(values = lrns.colors[order.lrns],
     name = "") +
   ylab("Brier score") +
   mytheme +
