@@ -62,7 +62,8 @@ order.lrns = c(1:2, 6:8, 13:15, 9:10, 12:11, 3:5)
 
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
-p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE, pointsize = 10L) +
+p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE, 
+                        jitter = 0.1, pointsize = 10L) +
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
   scale_y_discrete(limits = simulation.data.limits,
                    labels = simulation.data.labels) +
