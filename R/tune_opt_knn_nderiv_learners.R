@@ -28,7 +28,7 @@ knnOptNderiv0_eucl = makeTuneWrapper(learner = knnOptNderiv0_eucl,
                                      measures = multiclass.brier,
                                      par.set = parSet.knn,
                                      control = hp.ctrl)
-knnOptNderiv0_eucl$short.name = "Eucl-ensemble: opt k; nderiv 0"
+knnOptNderiv0_eucl$short.name = "Eucl: opt k; nderiv 0"
 
 
 knn1NderivOpt_eucl = makeLearner(cl = "fdaclassif.classiKnn",
@@ -40,7 +40,7 @@ knn1NderivOpt_eucl = makeTuneWrapper(learner = knn1NderivOpt_eucl,
                                      measures = multiclass.brier,
                                      par.set = parSet.nderiv,
                                      control = hp.ctrl)
-knn1NderivOpt_eucl$short.name = "Eucl-ensemble: k 1; opt nderiv"
+knn1NderivOpt_eucl$short.name = "Eucl: k 1; opt nderiv"
 
 
 knnOptNderivOpt_eucl = makeLearner(cl = "fdaclassif.classiKnn",
@@ -52,7 +52,7 @@ knnOptNderivOpt_eucl = makeTuneWrapper(learner = knnOptNderivOpt_eucl,
                                        measures = multiclass.brier,
                                        par.set = parSet.knnNderiv,
                                        control = hp.ctrl)
-knnOptNderivOpt_eucl$short.name = "Eucl-ensemble: opt k; opt nderiv"
+knnOptNderivOpt_eucl$short.name = "Eucl: opt k; opt nderiv"
 
 
 opt_knn_nderiv_learners = list(knn1NderivOpt_eucl, knnOptNderiv0_eucl, 
