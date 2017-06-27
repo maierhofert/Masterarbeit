@@ -4,12 +4,8 @@ library("ggplot2")
 mytheme = theme_bw(20)
 
 # read in most current benchmark
-# bmr = readRDS("Benchmark_results/2017-06-26simu_bmr.RDS")
-bmr = readRDS("Benchmark_results/2017-06-26simu_bmr.RDS")
-
-# name = "bmr"
-# name = "bmr_simu"
-# name = "bmr_simu_warped"
+bmr = readRDS("Benchmark_results/2017-06-27bmr.RDS")
+name = "bmr"
 
 # pretty labels for learners
 lrns.colors = c("grey20", "grey60",
@@ -32,41 +28,14 @@ lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned",
              "rf_noisy_ensemble", "noisy_eucl_ensemble",
              "knn1NderivOpt_eucl.tuned", "knnOptNderiv0_eucl.tuned",
              "knnOptNderivOpt_eucl.tuned")
-# lrns.short.names = c("Eucl: k 1; nderiv 0", "Eucl-Kernel: h CV-opt",
-#                      "dtw: k 1; nderiv 0",
-#                      "phase: k 1; nderiv 0", "amplitude: k 1; nderiv 0",
-#                      "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0",
-#                      "Eucl-ensemble: k 1; nderiv 0, 1, 2", "Eucl-ensemble: k 1, 3, 5, 7; nderiv 0, 1, 2",
-#                      "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat", "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; use feat")
 
-
-# pretty labels for simulated data
-simulation.data.limits = c("random_splines_ncl10_nobs10_vwc0.5", "random_splines_ncl10_nobs10_vwc2", 
-                           "random_splines_ncl10_nobs100_vwc0.5", "random_splines_ncl10_nobs100_vwc2",
-                           "random_splines_ncl2_nobs10_vwc0.5", "random_splines_ncl2_nobs10_vwc2", 
-                           "random_splines_ncl2_nobs100_vwc0.5", "random_splines_ncl2_nobs100_vwc2")
-
-simulation.data.labels = c("ncl 10; nobs   10; vwc 0.5", 
-                           # "ncl 10; nobs   10; vwc    1",
-                           "ncl 10; nobs   10; vwc    2", 
-                           "ncl 10; nobs 100; vwc 0.5",
-                           # "ncl 10; nobs 100; vwc    1", 
-                           "ncl 10; nobs 100; vwc    2",
-                           "ncl   2; nobs   10; vwc 0.5", 
-                           # "ncl   2; nobs   10; vwc    1", 
-                           "ncl   2; nobs   10; vwc    2", 
-                           "ncl   2; nobs 100; vwc 0.5", 
-                           # "ncl   2; nobs 100; vwc    1", 
-                           "ncl   2; nobs 100; vwc    2")
 order.lrns = c(1:2, 6:8, 13:15, 9:10, 12:11, 3:5)
 
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
 p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE, 
-                        jitter = 0.1, pointsize = 10L) +
+                        jitter = 0.05, pointsize = 10L) +
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
-  scale_y_discrete(limits = simulation.data.limits,
-                   labels = simulation.data.labels) +
   scale_x_continuous(breaks = 1:15, minor_breaks = 1:15) +
   scale_color_manual(values = lrns.colors, 
                      breaks = getBMRLearnerShortNames(bmr)[order.lrns], 
@@ -75,7 +44,6 @@ p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE,
   mytheme +
   theme(legend.position = "bottom",
         plot.margin = unit(c(1, 5, 0.5, 0.5), "lines"))
-# , text = element_text(size = 20))
 p.dots
 
 ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots, 
@@ -109,11 +77,6 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = TRUE,
         axis.title.x = element_blank(), 
         axis.text.x = element_text(angle = -45, hjust = 0),
         legend.position = "bottom")
-labeller = function(lab) {
-  pos = which(simulation.data.limits ==lab)
-  simulation.data.labels[pos]
-}
-p.box$data$task.id = sapply(p.box$data$task.id, labeller)
 p.box
 ggsave(paste0("Grafiken/benchmark/", name, "_boxplot.pdf"), p.box, 
        width = 12, height = 13)
