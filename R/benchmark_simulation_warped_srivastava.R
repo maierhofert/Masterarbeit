@@ -1,7 +1,7 @@
 # Benchmark the learners on the simulated data
 
 # read in simulated task
-tsk_list = list.files("Daten/Simulated Data/random_trigonometric/", pattern = "task", 
+tsk_list = list.files("Daten/Simulated Data/random_srivastava/", pattern = "task", 
                       full.names = TRUE)
 tsks = lapply(tsk_list, readRDS)
 
