@@ -423,3 +423,7 @@ Mapping in parallel: mode = socket; cpus = 10; elements = 10.
 Task: Lightning2, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.783,mmce.test.mean=0.392,timetrain.test.mean=0.0484,timepredict.test.mean=7.47e+03,timeboth.test.mean=7.47e+03
+Task: Lightning7, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.

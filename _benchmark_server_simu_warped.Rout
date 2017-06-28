@@ -1,0 +1,47 @@
+
+R version 3.3.3 (2017-03-06) -- "Another Canoe"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> # this file can be used to run the benchmarking on a server
+> date()
+[1] "Wed Jun 28 10:39:49 2017"
+> # source("R/UCR_TSC_data.R")
+> source("R/create_base_learners.R")
+Loading required package: ParamHelpers
+Loading required package: proxy
+
+Attaching package: ‘proxy’
+
+The following objects are masked from ‘package:stats’:
+
+    as.dist, dist
+
+The following object is masked from ‘package:base’:
+
+    as.matrix
+
+Loaded dtw v1.18-1. See ?dtw for help, citation("dtw") for use in publication.
+
+> source("R/tune_base_learners.R")
+> source("R/tune_opt_knn_nderiv_learners.R")
+> # source("R/benchmark.R")
+> # source("R/benchmark_simulation.R")
+> source("R/benchmark_simulation_warped.R")
+Starting parallelization in mode=socket with cpus=10.
