@@ -19,7 +19,8 @@ simu_fun = function(x, z) {
 # data simulation
 set.seed(123)
 for(nclasses in c(2, 10)) {
-  for(nobs_per_class in c(10, 100)) {
+  for(nobs_per_class in c(100)) {
+    # for(nobs_per_class in c(10, 100)) {
     # initiate data frames
     class_centers = matrix(NA, ncol = length_per_data, nrow = nclasses)
     simu_data = matrix(NA, ncol = length_per_data, nrow = nclasses * nobs_per_class)
@@ -72,11 +73,11 @@ for(nclasses in c(2, 10)) {
   }
 }
 
-# Look into the simulated data
-path = "Daten/Simulated Data/random_srivastava/random_srivastava_ncl2_nobs10_cl.z.diff0_cl.a.diff0.RDS"
-simu_data = readRDS(path)
-# plot the individual observations
-fda::matplot(t(simu_data[,-51]), type = "l", 
-             lty = simu_data[,51],
-             col = simu_data[,51])
-matplot(t(class_centers))
+# # Look into the simulated data
+# path = "Daten/Simulated Data/random_srivastava/random_srivastava_ncl2_nobs10_cl.z.diff0_cl.a.diff0.RDS"
+# simu_data = readRDS(path)
+# # plot the individual observations
+# fda::matplot(t(simu_data[,-51]), type = "l", 
+#              lty = simu_data[,51],
+#              col = simu_data[,51])
+# matplot(t(class_centers))
