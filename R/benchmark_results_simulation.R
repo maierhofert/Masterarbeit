@@ -4,7 +4,7 @@ library("ggplot2")
 mytheme = theme_bw(20)
 
 # read in most recent benchmark
-bmr = readRDS("Benchmark_results/2017-06-28simu_warped_bmr.RDS")
+bmr = readRDS("Benchmark_results/2017-06-29simu_warped_bmr.RDS")
 name = "bmr_simu"
 
 # pretty labels for learners

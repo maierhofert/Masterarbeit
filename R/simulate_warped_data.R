@@ -7,7 +7,7 @@ x_seq = seq(0, 2*pi, length.out = length_per_data)
 set.seed(123)
 for(nclasses in c(2, 10)) {
   # for(nobs_per_class in c(10, 100)) { # TODO später groß laufen lassen
-  for(nobs_per_class in c(10)) {
+  for(nobs_per_class in c(100)) {
     # initiate data frames
     class_centers = matrix(NA, ncol = length_per_data, nrow = nclasses)
     simu_data = matrix(NA, ncol = length_per_data, nrow = nclasses * nobs_per_class)
@@ -48,11 +48,11 @@ for(nclasses in c(2, 10)) {
   }
 }
 
-# Look into the simulated data
-path = "Daten/Simulated Data/random_trigonometric/random_trigonometric_ncl2_nobs10_vamp1_max.phase.dif0.1.RDS"
-simu_data = readRDS(path)
-# plot the individual observations
-fda::matplot(t(simu_data[,-51]), type = "l", 
-             lty = simu_data[,51],
-             col = simu_data[,51])
-matplot(t(class_centers))
+# # Look into the simulated data
+# path = "Daten/Simulated Data/random_trigonometric/random_trigonometric_ncl2_nobs10_vamp1_max.phase.dif0.1.RDS"
+# simu_data = readRDS(path)
+# # plot the individual observations
+# fda::matplot(t(simu_data[,-51]), type = "l", 
+#              lty = simu_data[,51],
+#              col = simu_data[,51])
+# matplot(t(class_centers))
