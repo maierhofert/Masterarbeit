@@ -1,7 +1,11 @@
 # generate plots
-mytheme = theme_gray(15)
+mytheme = theme_bw(20)
 
-mod = train(learner = knn_eucl_ensemble, task = tsks[[3]])
+# read in learners
+source("R/create_base_learners.R")
+# read in example task
+tsk = readRDS("Daten/Simulated Data/random_splines/random_splines_task_ncl2_nobs10_vwc2.RDS")
+nn_ensemble = train(learner = nderivKnn_eucl_ensemble, task = tsk)
 
 # generate data for the plot
 weights = mod$learner.model$weights
