@@ -4,7 +4,7 @@ library("ggplot2")
 mytheme = theme_bw(20)
 
 # read in most current benchmark
-bmr = readRDS("Benchmark_results/2017-06-27bmr.RDS")
+bmr = readRDS("Benchmark_results/2017-06-29bmr.RDS")
 name = "bmr"
 
 # pretty labels for learners
@@ -48,7 +48,7 @@ p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE,
 p.dots
 
 ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots, 
-       width = 13, height = 7)
+       width = 13, height = 20)
 
 p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE,
                                 order.lrns = getBMRLearnerIds(bmr)[order.lrns]) + 
@@ -82,7 +82,7 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = TRUE,
         legend.position = "bottom")
 p.box
 ggsave(paste0("Grafiken/benchmark/", name, "_boxplot.pdf"), p.box, 
-       width = 12, height = 13)
+       width = 13, height = 30)
 
 # Friedman Test
 friedmanTestBMR(bmr, measure = multiclass.brier)
@@ -101,4 +101,4 @@ p.cd = plotCritDifferences(g, pretty.names = TRUE) +
         plot.margin = unit(c(2, 1, 0.5, 0.5), "lines"))
 p.cd
 ggsave(paste0("Grafiken/benchmark/", name, "_cd.pdf"), p.cd, 
-       width = 0.8*13, height = 0.8*7)
+       width = 0.8*13, height = 0.8*9)
