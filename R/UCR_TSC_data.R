@@ -10,9 +10,6 @@ data_paths = paste0(data_path, "/", data_names, "/", data_names, ".arff")
 names(data_paths) = data_names
 
 
-# subset of data sets to be used
-test <- c(5:6)
-
 # take out car if CV folds = 100 because it does not have enough observations
 # take ightCurves because too big
 # FordAB are quite large as well
@@ -89,5 +86,8 @@ df = data.frame(name, nobs, obslen, nobs*obslen)
 # quantile(df$nobs...obslen, 0.9)
 # df_red = df[df$nobs...obslen <= 100000,]
 
-# # 
-tsks = tsks[df$nobs...obslen <= 100000]
+# # "Benchmark_results/2017-06-29bmr.RDS"
+# tsks = tsks[df$nobs...obslen <= 100000]
+
+# 
+tsks = tsks[df$nobs...obslen > 100000 & df$nobs...obslen < 300000]
