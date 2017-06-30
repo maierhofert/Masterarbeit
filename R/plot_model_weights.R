@@ -7,16 +7,70 @@ mytheme = theme_bw(20)
 # read in learners
 source("R/create_base_learners.R")
 
-# read in example task
-# dat = read.arff("Daten/TSC Problems/
-#                 /ECG200.arff")
+knn = c(1, 5, 9)
+nderiv = c(0, 1)
+semimet = c("Euclidean", "globMax", "amplitudeDistance", "phaseDistance")
+for(this.knn in 1:length(knn)) {
+  for(this.nderiv in 1:length(nderiv)) {
+    for(this.semimet in 1:length(semimet)) {
+      assign(paste0("knn", knn[this.knn], 
+                    "nderiv", nderiv[this.nderiv], 
+                    "_", semimet[this.semimet]),
+             makeLearner(cl = "fdaclassif.classiKnn",
+                                     id = paste0("knn", knn[this.knn], 
+                                                 "nderiv", nderiv[this.nderiv], 
+                                                 "_", semimet[this.semimet]),
+                                     metric = "Euclidean",
+                                     predict.type = "prob",
+                                     par.vals = list(knn = knn[this.knn], 
+                                                     nderiv = nderiv[this.nderiv],
+                                                     metric = semimet[this.semimet])))
+    }
+  }
+}
+
+base.learners = list(knn1nderiv0_Euclidean, knn5nderiv0_Euclidean,
+                    knn1nderiv0_globMax, knn5nderiv0_globMax,
+                    knn1nderiv0_amplitudeDistance, knn5nderiv0_amplitudeDistance,
+                    knn1nderiv0_phaseDistance, knn5nderiv0_phaseDistance,
+                    
+                    knn1nderiv1_Euclidean, knn5nderiv1_Euclidean,
+                    knn1nderiv1_globMax, knn5nderiv1_globMax,
+                    knn1nderiv1_amplitudeDistance, knn5nderiv1_amplitudeDistance,
+                    knn1nderiv1_phaseDistance, knn5nderiv1_phaseDistance)
+
+# Ensemble learners
+# with knne Fuchs etal 2016
+nn_ensemble = makeStackedLearner(id = "knn_eucl_ensemble",
+                                       base.learners = base.learners,
+                                       predict.type = "prob",
+                                       resampling = makeResampleDesc("CV", iters = 5L),
+                                       method = "classif.bs.optimal")
+nn_ensemble$short.name = "nn ensemble"
+
+rf_ensemble = makeStackedLearner(id = "rf_nofeat_eucl_ensemble",
+                                 base.learners = base.learners, 
+                                 super.learner = "classif.randomForest",
+                                 predict.type = "prob",
+                                 use.feat = FALSE,
+                                 method = "stack.cv")
+
+rf_ensemble$short.name = "rf ensemble"
+
+# # read in example task
+# dat = read.arff("Daten/TSC Problems/ECG200/ECG200.arff")
 # tsk = makeFDAClassifTask(data = dat[,1:ncol(dat)],
 #                          id = "ECG200",
 #                          fd.features = list(ff = 1:(ncol(dat) - 1)),
 #                          target = "target")
+# subs = 1:4
+# matplot(t(dat[subs,1:96]), type = "l",
+#         lty = as.numeric(dat[subs,97]),
+#         col = factor(dat[subs,97]))
 
+# read in example task
 dat = read.arff("Daten/TSC Problems/ArrowHead/ArrowHead.arff")
-# only use tow classes
+# only use two classes
 dat = dat[dat$target %in% c(0, 1),]
 dat$target = droplevels(dat$target)
 tsk = makeFDAClassifTask(data = dat,
@@ -24,13 +78,13 @@ tsk = makeFDAClassifTask(data = dat,
                          fd.features = list(ff = 1:(ncol(dat) - 1)),
                          target = "target")
 
-nn_ensemble = train(learner = nderivKnn_eucl_ensemble, task = tsk)
-rf_ensemble = train(learner = rf_nofeat_eucl_ensemble, task = tsk)
+nn_ensemble_mod = train(learner = nn_ensemble, task = tsk)
+rf_ensemble_mod = train(learner = rf_ensemble, task = tsk)
 
 # #############
 # generate data for the nn_ensemble plot
-weight = nn_ensemble$learner.model$weights
-base.learners = BBmisc::extractSubList(nn_ensemble$learner.model$base.models, "learner",
+weight = nn_ensemble_mod$learner.model$weights
+base.learners = BBmisc::extractSubList(nn_ensemble_mod$learner.model$base.models, "learner",
                                        simplify = FALSE)
 base.learners.id = sapply(base.learners, getLearnerId)
 plot.data = data.frame(id = base.learners.id, weight = weight)
@@ -50,7 +104,8 @@ ggsave(paste0("Grafiken/weightplot_nn_ensemble.pdf"), weight.plot,
 
 
 # generate data for the rf_ensemble plot
-randomForest_mod = rf_ensemble$learner.model$super.model$learner.model
+library("randomForest")
+randomForest_mod = rf_ensemble_mod$learner.model$super.model$learner.model
 feat_imp = importance(randomForest_mod)
 plot.data = data.frame(id = rownames(feat_imp), var_imp = as.vector(feat_imp))
 varImpPlot(randomForest_mod)
