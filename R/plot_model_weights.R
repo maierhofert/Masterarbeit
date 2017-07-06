@@ -20,7 +20,7 @@ for(this.knn in 1:length(knn)) {
                                      id = paste0("knn", knn[this.knn], 
                                                  "nderiv", nderiv[this.nderiv], 
                                                  "_", semimet[this.semimet]),
-                                     metric = "Euclidean",
+                                     metric = semimet[this.semimet],
                                      predict.type = "prob",
                                      par.vals = list(knn = knn[this.knn], 
                                                      nderiv = nderiv[this.nderiv],
@@ -38,6 +38,15 @@ base.learners = list(knn1nderiv0_Euclidean, knn5nderiv0_Euclidean,
                     knn1nderiv1_globMax, knn5nderiv1_globMax,
                     knn1nderiv1_amplitudeDistance, knn5nderiv1_amplitudeDistance,
                     knn1nderiv1_phaseDistance, knn5nderiv1_phaseDistance)
+base.learner.labels = c("Eucl: k = 1, a = 0", "Eucl: k = 5, a = 0",
+                         "global max: k = 1, a = 0", "global max: k = 5, a = 0",
+                         "amplitude: k = 1, a = 0", "amplitude: k = 5, a = 0",
+                         "phase: k = 1, a = 0", "phase: k = 5, a = 0",
+                         
+                         "Eucl: k = 1, a = 1", "Eucl: k = 5, a = 1",
+                         "global max: k = 1, a = 1", "global max: k = 5, a = 1",
+                         "amplitude: k = 1, a = 1", "amplitude: k = 5, a = 1",
+                         "phase: k = 1, a = 1", "phase: k = 5, a = 1")
 
 # Ensemble learners
 # with knne Fuchs etal 2016
@@ -89,7 +98,7 @@ base.learners = BBmisc::extractSubList(nn_ensemble_mod$learner.model$base.models
 base.learners.id = sapply(base.learners, getLearnerId)
 plot.data = data.frame(id = base.learners.id, weight = weight)
 
-
+# TODO fix labels of base learners
 # barplot with the nnensemble weights
 weight.plot <- ggplot(data = plot.data, aes(x = id, y = weight)) +
   geom_bar(stat = "identity") +
