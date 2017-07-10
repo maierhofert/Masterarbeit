@@ -5,7 +5,7 @@ source("R/create_base_learners.R")
 source("R/tune_base_learners.R")
 source("R/tune_opt_knn_nderiv_learners.R")
 # source("R/benchmark.R")
-source("R/benchmark_simulation_greven")
+source("R/benchmark_simulation_greven.R")
 date()
 # save benchmarking result
 saveRDS(bmr, paste0("Benchmark_results/", Sys.Date(), "simu_warped_greven_bmr.RDS"))
