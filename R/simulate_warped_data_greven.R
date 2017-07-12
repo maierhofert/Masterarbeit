@@ -21,6 +21,14 @@ warping_fun = function(x, shape = 1, rate = 1) {
   cumsum(r_vec) / sum(r_vec)
 }
 
+# # plot examples of warping functions
+# phase_factor = 1
+# class = 10
+# plot(warping_fun(x_seq, 
+#             rate = 0.1 + phase_factor * seq(1/class, class, 
+#                                             length.out = length(x_seq))
+# ))
+
 set.seed(1234)
 for(nclasses in c(2, 10)) {
   for(nobs_per_class in c(100)) {
@@ -88,7 +96,7 @@ for(nclasses in c(2, 10)) {
 }
 
 # Look into the simulated data
-path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc1_phf0.RDS"
+path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc0_phf1.RDS"
 simu_data = readRDS(path)
 # plot the individual observations
 fda::matplot(t(simu_data[,-51]), type = "l", 
