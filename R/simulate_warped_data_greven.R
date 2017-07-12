@@ -88,7 +88,7 @@ for(nclasses in c(2, 10)) {
 }
 
 # Look into the simulated data
-path = "Daten/Simulated Data/warped_greven/warped_greven_ncl10_nobs100_vbc1_phf0.RDS"
+path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc1_phf0.RDS"
 simu_data = readRDS(path)
 # plot the individual observations
 fda::matplot(t(simu_data[,-51]), type = "l", 
