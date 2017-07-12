@@ -1,5 +1,4 @@
-# this file creates simulated warped functional data sets using trigonometric functions
-# initiate data support
+# this file creates simulated warped functional data sets as proposed in srivastava
 length_per_data = 50
 x_seq = seq(-3, 3, length.out = length_per_data)
 
