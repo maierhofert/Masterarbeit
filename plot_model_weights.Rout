@@ -124,3 +124,58 @@ Loaded dtw v1.18-1. See ?dtw for help, citation("dtw") for use in publication.
 +                          target = "target")
 > 
 > nn_ensemble_mod = train(learner = nn_ensemble, task = tsk)
+> rf_ensemble_mod = train(learner = rf_ensemble, task = tsk)
+> 
+> # #############
+> # generate data for the nn_ensemble plot
+> weight = nn_ensemble_mod$learner.model$weights
+> base.learners = BBmisc::extractSubList(nn_ensemble_mod$learner.model$base.models, "learner",
++                                        simplify = FALSE)
+> base.learners.id = sapply(base.learners, getLearnerId)
+> plot.data = data.frame(id = base.learners.id, weight = weight)
+> 
+> # TODO fix labels of base learners
+> # barplot with the nnensemble weights
+> weight.plot <- ggplot(data = plot.data, aes(x = id, y = weight)) +
++   geom_bar(stat = "identity") +
++   xlab("base model") +
++   mytheme +
++   theme(axis.text.x = element_text(angle = 90, 
++                                    # size = 8,
++                                    vjust = 0.5))
+> weight.plot
+> ggsave(paste0("Grafiken/weightplot_nn_ensemble.pdf"), weight.plot, 
++        width = 13, height = 7)
+> 
+> 
+> # generate data for the rf_ensemble plot
+> library("randomForest")
+randomForest 4.6-12
+Type rfNews() to see new features/changes/bug fixes.
+
+Attaching package: ‘randomForest’
+
+The following object is masked from ‘package:ggplot2’:
+
+    margin
+
+> randomForest_mod = rf_ensemble_mod$learner.model$super.model$learner.model
+> feat_imp = importance(randomForest_mod)
+> plot.data = data.frame(id = rownames(feat_imp), var_imp = as.vector(feat_imp))
+> varImpPlot(randomForest_mod)
+> # barplot with the nnensemble weights
+> weight.plot <- ggplot(data = plot.data, aes(x = id, y = var_imp)) +
++   geom_bar(stat = "identity") +
++   xlab("base model") +
++   ylab("variable importance") +
++   mytheme +
++   theme(axis.text.x = element_text(angle = 90, 
++                                    # size = 8,
++                                    vjust = 0.5))
+> weight.plot
+> ggsave(paste0("Grafiken/weightplot_rf_ensemble.pdf"), weight.plot, 
++        width = 13, height = 7)
+> 
+> proc.time()
+      user     system    elapsed 
+244660.344      6.832 244803.900 
