@@ -36,15 +36,17 @@ if (on_server) {
   parallelStartSocket(cpus = 10, level = "mlr.resample") # level = "mlr.resample"
   parallelLibrary("dtw", level = "mlr.resample")
 } else {
-  parallelStartSocket(cpus = 4)
-  parallelLibrary("dtw")
+  parallelStartSocket(cpus = 4, level = "mlr.resample")
+  parallelLibrary("dtw", level = "mlr.resample")
 }
 
 # set a seed for reproducibility
 parallel::clusterSetRNGStream(iseed = 42)
 
-bmr = benchmark(learners = c(lrns, opt_knn_nderiv_learners),
-                tasks = tsks,
+bmr = benchmark(learners = c(reference_lrns, ensemble_lrns,
+                             opt_lrns,
+                             noisy_lrns, warped_lrns),
+                tasks = tsks[[1]],
                 resamplings = res_instances,
                 models = FALSE,
                 keep.pred = FALSE,
