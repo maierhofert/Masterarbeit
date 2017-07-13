@@ -160,7 +160,7 @@ knn_eucl_ensemble = makeStackedLearner(id = "knn_eucl_ensemble",
                                        predict.type = "prob",
                                        resampling = makeResampleDesc("CV", iters = 3L),
                                        method = "classif.bs.optimal")
-knn_eucl_ensemble$short.name = "Eucl-ens: k 1, 3, 5, 7; nderiv 0"
+knn_eucl_ensemble$short.name = "Eucl-ens: k 1, 5, 9, 13; nderiv 0"
   
 nderiv_eucl_ensemble = makeStackedLearner(id = "nderiv_eucl_ensemble",
                                           base.learners = nderiv_eucl_lrns,
@@ -185,7 +185,7 @@ semimet_ensemble$short.name = "semimet-ens: k 1; nderiv 0"
 #                                              predict.type = "prob",
 #                                              resampling = makeResampleDesc("CV", iters = 3L),
 #                                              method = "classif.bs.optimal")
-# nderivKnn_eucl_ensemble$short.name = "Eucl-ens: k 1, 3, 5, 7; nderiv 0, 1, 2"
+# nderivKnn_eucl_ensemble$short.name = "Eucl-ens: k 1, 5, 9, 13; nderiv 0, 1, 2"
 
 nderivKnnSemimet_ensemble = makeStackedLearner(id = "nderivKnnSemimet_ensemble",
                                              base.learners = c(nderivKnn_eucl_lrns,
@@ -195,7 +195,7 @@ nderivKnnSemimet_ensemble = makeStackedLearner(id = "nderivKnnSemimet_ensemble",
                                              predict.type = "prob",
                                              resampling = makeResampleDesc("CV", iters = 3L),
                                              method = "classif.bs.optimal")
-nderivKnnSemimet_ensemble$short.name = "semimet-ens: k 1, 3, 5, 7; nderiv 0, 1, 2"
+nderivKnnSemimet_ensemble$short.name = "semimet-ens: k 1, 5, 9, 13; nderiv 0, 1, 2"
 
 
 # with random forest ensemble
@@ -206,7 +206,7 @@ nderivKnnSemimet_ensemble$short.name = "semimet-ens: k 1, 3, 5, 7; nderiv 0, 1, 
 #                                            use.feat = TRUE,
 #                                            # resampling = makeResampleDesc("CV", iters = 3L),
 #                                            method = "stack.cv")
-# rf_feat_eucl_ensemble$short.name = "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; use feat"
+# rf_feat_eucl_ensemble$short.name = "Eucl-rf: k 1, 5, 9, 13; nderiv 0, 1, 2; use feat"
 # 
 # rf_nofeat_eucl_ensemble = makeStackedLearner(id = "rf_nofeat_eucl_ensemble",
 #                                              base.learners = nderivKnn_eucl_lrns, 
@@ -215,7 +215,7 @@ nderivKnnSemimet_ensemble$short.name = "semimet-ens: k 1, 3, 5, 7; nderiv 0, 1, 
 #                                              use.feat = FALSE,
 #                                              # resampling = makeResampleDesc("CV", iters = 3L),
 #                                              method = "stack.cv")
-# rf_nofeat_eucl_ensemble$short.name = "Eucl-rf: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat"
+# rf_nofeat_eucl_ensemble$short.name = "Eucl-rf: k 1, 5, 9, 13; nderiv 0, 1, 2; no feat"
 
 # random forest ensemble for different semimetrics
 rf_feat_ensemble = makeStackedLearner(id = "rf_feat_semimet_ensemble",
@@ -228,7 +228,7 @@ rf_feat_ensemble = makeStackedLearner(id = "rf_feat_semimet_ensemble",
                                            use.feat = TRUE,
                                            # resampling = makeResampleDesc("CV", iters = 3L),
                                            method = "stack.cv")
-rf_feat_ensemble$short.name = "rf-ens: k 1, 3, 5, 7; nderiv 0, 1, 2; use feat"
+rf_feat_ensemble$short.name = "rf-ens: k 1, 5, 9, 13; nderiv 0, 1, 2; use feat"
 
 rf_nofeat_ensemble = makeStackedLearner(id = "rf_nofeat_semimet_ensemble",
                                              base.learners = c(nderivKnn_eucl_lrns,
@@ -240,7 +240,7 @@ rf_nofeat_ensemble = makeStackedLearner(id = "rf_nofeat_semimet_ensemble",
                                              use.feat = FALSE,
                                              # resampling = makeResampleDesc("CV", iters = 3L),
                                              method = "stack.cv")
-rf_nofeat_ensemble$short.name = "rf-ens: k 1, 3, 5, 7; nderiv 0, 1, 2; no feat"
+rf_nofeat_ensemble$short.name = "rf-ens: k 1, 5, 9, 13; nderiv 0, 1, 2; no feat"
 
 
 
