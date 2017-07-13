@@ -5,7 +5,9 @@ data_path = "Daten/TSC Problems"
 data_names = list.dirs(data_path, full.names = FALSE, recursive = FALSE)
 data_names = data_names[!data_names %in% c("", "Data Descriptions", 
                                            "ElectricDeviceOn", "ECGMeditation", 
-                                          "EpilepsyX", "EthanolLevel", "HeartbeatBIDMC", "Yoga",
+                                          "EpilepsyX", "EthanolLevel", 
+                                          "HeartbeatBIDMC", "Yoga",
+                                          "StarLightCurves",
                                           "WormsTwoClass")]
 
 # absolute paths to the data sets
