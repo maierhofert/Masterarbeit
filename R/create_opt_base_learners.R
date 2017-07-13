@@ -8,15 +8,19 @@ hp.ctrl = makeTuneControlGrid()
 hp.res = makeResampleDesc("CV", iters = 5)
 
 # parameter values
-knn.vals = c(1, 3, 5, 7)
+knn.vals = c(1L, 5L, 9L, 13L)
 knn.pars = makeDiscreteLearnerParam("knn", knn.vals)
-nderiv.vals = c(0, 1, 2)
+nderiv.vals = c(0L, 1L, 2L)
 nderiv.pars = makeDiscreteLearnerParam("nderiv", nderiv.vals)
+semimet.vals = c(0L, 1L, 2L)
+semimet.pars = makeDiscreteLearnerParam("metric", semimet.vals)
+
 
 # parameter sets
 parSet.knn = makeParamSet(knn.pars)
 parSet.nderiv = makeParamSet(nderiv.pars)
-parSet.knnNderiv = makeParamSet(knn.pars, nderiv.pars)
+parSet.semimet = makeParamSet(semimet.pars)
+parSet.knnNderivSemimet = makeParamSet(knn.pars, nderiv.pars, semimet.pars)
 
 # base learners with optimal nderiv/knn/semimetric
 knnOptNderiv0_eucl = makeLearner(cl = "fdaclassif.classiKnn",
@@ -43,20 +47,32 @@ knn1NderivOpt_eucl = makeTuneWrapper(learner = knn1NderivOpt_eucl,
 knn1NderivOpt_eucl$short.name = "Eucl: k 1; opt nderiv"
 
 
-knnOptNderivOpt_eucl = makeLearner(cl = "fdaclassif.classiKnn",
-                                   id = "knnOptNderivOpt_eucl",
-                                   metric = "Euclidean",
+knn1Nderiv0_semimetOpt = makeLearner(cl = "fdaclassif.classiKnn",
+                                 id = "knn1Nderiv0_semimetOpt",
+                                 # metric = "Euclidean",
+                                 predict.type = "prob")
+knn1Nderiv0_semimetOpt = makeTuneWrapper(learner = knn1Nderiv0_semimetOpt, 
+                                     resampling = hp.res,
+                                     measures = multiclass.brier,
+                                     par.set = parSet.semimet,
+                                     control = hp.ctrl)
+knn1Nderiv0_semimetOpt$short.name = "Opt semimet: k 1; nderiv 0"
+
+
+knnOptNderivOptSemimetOpt = makeLearner(cl = "fdaclassif.classiKnn",
+                                   id = "knnOptNderivOptSemimetOpt",
+                                   # metric = "Euclidean",
                                    predict.type = "prob")
-knnOptNderivOpt_eucl = makeTuneWrapper(learner = knnOptNderivOpt_eucl, 
+knnOptNderivOptSemimetOpt = makeTuneWrapper(learner = knnOptNderivOptSemimetOpt, 
                                        resampling = hp.res,
                                        measures = multiclass.brier,
-                                       par.set = parSet.knnNderiv,
+                                       par.set = parSet.knnNderivSemimet,
                                        control = hp.ctrl)
-knnOptNderivOpt_eucl$short.name = "Eucl: opt k; opt nderiv"
+knnOptNderivOptSemimetOpt$short.name = "Opt semimet: opt k; opt nderiv"
 
 
-opt_knn_nderiv_learners = list(knn1NderivOpt_eucl, knnOptNderiv0_eucl, 
-                               knnOptNderivOpt_eucl)
+opt_lrns = list(knn1NderivOpt_eucl, knnOptNderiv0_eucl, knn1Nderiv0_semimetOpt,
+                knnOptNderivOptSemimetOpt)
 # # run test
 # mod = train(knnOptNderivOpt_eucl, task1)
 # mod$learner.model$opt.result
