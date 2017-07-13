@@ -56,7 +56,7 @@ for(nclasses in c(2, 10)) {
             this.spline = class_splines[[class]]
             # sample spline coefficients for a new observation of a class by adding a 
             # random error to the spline coefficients of the class
-            this.spline$fit$coef = this.spline$fit$coef + rnorm(length(sp$fit$coef), sd = sqrt(var_within_classes))
+            this.spline$fit$coef = this.spline$fit$coef + rnorm(length(sp$fit$coef), sd = 1)
             simu_data[i + nobs_per_class * (class - 1),] = 
               predict(this.spline, 
                       x = warping_fun(x_seq, 
@@ -79,7 +79,7 @@ for(nclasses in c(2, 10)) {
         
         
         simu_data_task = makeFDAClassifTask(data = save_data,
-                                            id = paste0("random_splines",
+                                            id = paste0("warped_greven",
                                                         "_ncl", nclasses, 
                                                         "_nobs", nobs_per_class, 
                                                         "_vbc", var_between_classes,
@@ -95,11 +95,11 @@ for(nclasses in c(2, 10)) {
   }
 }
 
-# Look into the simulated data
-path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc0_phf1.RDS"
-simu_data = readRDS(path)
-# plot the individual observations
-fda::matplot(t(simu_data[,-51]), type = "l", 
-             lty = simu_data[,51],
-             col = simu_data[,51])
+# # Look into the simulated data
+# path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc0_phf1.RDS"
+# simu_data = readRDS(path)
+# # plot the individual observations
+# fda::matplot(t(simu_data[,-51]), type = "l", 
+#              lty = simu_data[,51],
+#              col = simu_data[,51])
 
