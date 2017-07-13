@@ -2,50 +2,26 @@
 data_path = "Daten/TSC Problems"
 
 # This file reads in the data sets from the UCR TSC archive
-data_names = list.dirs(data_path, full.names = FALSE)
-data_names = data_names[data_names != ""]
+data_names = list.dirs(data_path, full.names = FALSE, recursive = FALSE)
+data_names = data_names[!data_names %in% c("", "Data Descriptions", 
+                                           "ElectricDeviceOn", "ECGMeditation", 
+                                          "EpilepsyX", "EthanolLevel", "HeartbeatBIDMC", "Yoga",
+                                          "WormsTwoClass")]
 
 # absolute paths to the data sets
 data_paths = paste0(data_path, "/", data_names, "/", data_names, ".arff")
 names(data_paths) = data_names
 
-
-# take out car if CV folds = 100 because it does not have enough observations
-# take ightCurves because too big
-# FordAB are quite large as well
-sensor = c("Car", 
-           "Earthquakes",
-           # "FordA", "FordB", 
-           "InsectWingbeatSound", "ItalyPowerDemand",
-           "Lightning2", "Lightning7", "MoteStrain", 
-           # "Phoneme", "Plane",
-           "SonyAIBORobotSurface1", "SonyAIBORobotSurface2",
-           # "StarLightCurves", 
-           "Trace") #, 
-# "Wafer")
-spectro = c("Beef", "Coffee", "Ham", "Meat", 
-            # "OliveOil", 
-            "Strawberry", "Wine")
-images = c("Adiac", "ArrowHead", "BeetleFly", "BirdChicken",
-           "DiatomSizeReduction", 
-           "DistalPhalanxOutlineAgeGroup",
-           "DistalPhalanxOutlineCorrect", "DistalPhalanxTW",
-           "FaceAll", "FaceFour", "FacesUCR", 
-           # "FiftyWords",
-           "Fish", 
-           # "HandOutlines", 
-           "Herring", "MedicalImages",
-           "MiddlePhalanxOutlineAgeGroup", "MiddlePhalanxOutlineCorrect", "MiddlePhalanxTW",
-           "OSULeaf",
-           "PhalangesOutlinesCorrect",
-           "ProximalPhalanxOutlineAgeGroup",
-           "ProximalPhalanxOutlineCorrect",
-           "ProximalPhalanxTW",
-           "ShapesAll", "SwedishLeaf", "Symbols", 
-           "WordSynonyms", "Yoga")
 # read in the data sets
 library("foreign")
-data_list = lapply(data_paths[c(images, sensor, spectro)], read.arff)
+
+# data_list = lapply(data_paths, read.arff)
+data_list = list()
+
+for(i in 1:length(data_paths)) {
+  data_list[[i]] = read.arff(data_paths[i])
+}
+names(data_list) = data_names
 
 # # create the data sets for classiFunc package
 # Phoneme = read.arff(data_paths[65])
@@ -66,12 +42,21 @@ for(i in 1:length(data_list)) {
 
 # create FDA tasks
 library("mlr")
-tsks = lapply(data_list, function(dat) {
-  makeFDAClassifTask(data = dat[,1:(ncol(dat) - 1)],
-                     id = toString(dat$name[1]),
-                     fd.features = list(ff = 1:(ncol(dat) - 2)),
-                     target = "target")
-})
+# tsks = lapply(data_list, function(dat) {
+#   makeFDAClassifTask(data = dat[,1:(ncol(dat) - 1)],
+#                      id = toString(dat$name[1]),
+#                      fd.features = list(ff = 1:(ncol(dat) - 2)),
+#                      target = "target")
+# })
+
+tsks = list()
+for(i in 1:length(data_list)) {
+  dat = data_list[[i]]
+  tsks[[i]] = makeFDAClassifTask(data = dat[,1:(ncol(dat) - 1)],
+                       id = toString(dat$name[1]),
+                       fd.features = list(ff = 1:(ncol(dat) - 2)),
+                       target = "target")
+}
 
 # select feasible tasks
 name = nobs = obslen = rep(NA, length(tsks))
@@ -81,13 +66,13 @@ for(i in 1:length(tsks)) {
   obslen[i] = getTaskNFeats(tsks[[i]])
 }
 df = data.frame(name, nobs, obslen, nobs*obslen)
-# hist(df$nobs...obslen, breaks = 100)
-# summary(df$nobs...obslen)
-# quantile(df$nobs...obslen, 0.9)
-# df_red = df[df$nobs...obslen <= 100000,]
-
-# # "Benchmark_results/2017-06-29bmr.RDS"
-# tsks = tsks[df$nobs...obslen <= 100000]
+hist(df$nobs...obslen, breaks = 100)
+summary(df$nobs...obslen)
+quantile(df$nobs...obslen, 0.4)
+df_red = df[df$nobs...obslen <= 100000,]
+nrow(df_red)
 
 # 
-tsks = tsks[df$nobs...obslen > 100000 & df$nobs...obslen < 300000]
+tsks = tsks[df$nobs...obslen <= 100000]
+
+
