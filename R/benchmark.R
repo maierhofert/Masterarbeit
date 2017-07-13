@@ -23,8 +23,8 @@ if (on_server) {
 #  Stratification for tasks of type 'fdaclassif' not supported
 set.seed(1234)
 res_instances = lapply(tsks, makeResampleInstance, desc = res)
-# TODO delete the next line
-res_instances = makeResampleInstance(desc = res, task = tsks[[1]])
+# # TODO delete the next line
+# res_instances = makeResampleInstance(desc = res, task = tsks[[1]])
 
 #################################################################
 # start benchmarking
@@ -47,7 +47,7 @@ parallel::clusterSetRNGStream(iseed = 42)
 bmr = benchmark(learners = c(reference_lrns, ensemble_lrns,
                              opt_lrns,
                              noisy_lrns, warped_lrns),
-                tasks = tsks[[1]],
+                tasks = tsks, # [[1]],
                 resamplings = res_instances,
                 models = FALSE,
                 keep.pred = FALSE,
