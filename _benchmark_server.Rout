@@ -235,3 +235,11 @@ Mapping in parallel: mode = socket; cpus = 10; elements = 10.
 Task: SwedishLeaf, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.224,mmce.test.mean=0.11,timetrain.test.mean=0.0272,timepredict.test.mean=2.51e+04,timeboth.test.mean=2.51e+04
+Task: WordSynonyms, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.528,mmce.test.mean=0.264,timetrain.test.mean=0.0504,timepredict.test.mean=7.43e+04,timeboth.test.mean=7.43e+04
+Task: Earthquakes, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
