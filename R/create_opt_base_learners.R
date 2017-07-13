@@ -8,11 +8,11 @@ hp.ctrl = makeTuneControlGrid()
 hp.res = makeResampleDesc("CV", iters = 5)
 
 # parameter values
-knn.vals = c(1L, 5L, 9L, 13L)
+knn.vals = c(1, 5, 9, 13)
 knn.pars = makeDiscreteLearnerParam("knn", knn.vals)
-nderiv.vals = c(0L, 1L, 2L)
+nderiv.vals = c(0, 1, 2)
 nderiv.pars = makeDiscreteLearnerParam("nderiv", nderiv.vals)
-semimet.vals = c(0L, 1L, 2L)
+semimet.vals = c("Euclidean", "Manhattan", "globMax", "globMin")
 semimet.pars = makeDiscreteLearnerParam("metric", semimet.vals)
 
 
@@ -74,6 +74,6 @@ knnOptNderivOptSemimetOpt$short.name = "Opt semimet: opt k; opt nderiv"
 opt_lrns = list(knn1NderivOpt_eucl, knnOptNderiv0_eucl, knn1Nderiv0_semimetOpt,
                 knnOptNderivOptSemimetOpt)
 # # run test
-# mod = train(knnOptNderivOpt_eucl, task1)
+# mod = train(knn1NderivOpt_eucl, tsks[[1]])
 # mod$learner.model$opt.result
 
