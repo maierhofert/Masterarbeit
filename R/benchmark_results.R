@@ -4,32 +4,38 @@ library("ggplot2")
 mytheme = theme_bw(20)
 
 # read in most current benchmark
-bmr = readRDS("Benchmark_results/2017-06-29bmr.RDS")
+bmr = readRDS("Benchmark_results/2017-07-13bmr.RDS")
 name = "bmr"
 
 # pretty labels for learners
 lrns.colors = c("grey20", "grey60",
                 "darkorange3",
                 "orange1", "goldenrod", 
-                # "violetred2",
-                # "darkslateblue", "deeppink4",
-                "red3",
-                "navy", "deeppink4",
+                #
+                "red3", "red1", 
+                "navy", "royalblue2",
+                "coral", "coral3",
+                "deeppink4", "deeppink1",
+                #
                 "chartreuse1", "chartreuse3",
-                "darkolivegreen3", "darkorchid1", 
-                "red1", 
-                "royalblue2", "deeppink1")
+                "darkolivegreen3", "darkorchid1"
+)
 lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned", 
              "knn1nderiv0_dtw", 
              "knn1nderiv0_phase", "knn1nderiv0_amplitude", 
-             "knn_eucl_ensemble",
-             "nderiv_eucl_ensemble", "nderivKnn_eucl_ensemble",
-             "rf_nofeat_eucl_ensemble", "rf_feat_eucl_ensemble",
-             "rf_noisy_ensemble", "noisy_eucl_ensemble",
-             "knn1NderivOpt_eucl.tuned", "knnOptNderiv0_eucl.tuned",
-             "knnOptNderivOpt_eucl.tuned")
+             #
+             "knn_eucl_ensemble", "knnOptNderiv0_eucl.tuned",
+             "nderiv_eucl_ensemble", "knn1NderivOpt_eucl.tuned",
+             "semimet_ensemble", "knn1Nderiv0_semimetOpt.tuned",
+             "nderivKnnSemimet_ensemble", "knnOptNderivOptSemimetOpt.tuned",
+             # 
+             "rf_nofeat_semimet_ensemble", "rf_feat_semimet_ensemble",
+             #
+             "rf_noisy_ensemble", "noisy_eucl_ensemble")
 
-order.lrns = c(1:2, 6:8, c(14, 13, 15), 9:10, 12:11, 3:5)
+order.lrns = c(1:3, 16:17, c(4, 10, 5, 11, 6, 12, 7, 13),
+               8:9, 14:15)
+# order.lrns = 1:17
 
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
@@ -38,8 +44,7 @@ p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE,
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
   scale_x_continuous(breaks = 1:15, minor_breaks = 1:15) +
   scale_color_manual(values = lrns.colors, 
-                     limits = getBMRLearnerShortNames(bmr),
-                     breaks = getBMRLearnerShortNames(bmr)[order.lrns], 
+                     limits = getBMRLearnerShortNames(bmr)[order.lrns],
                      name = "")  +
   xlab("Rank of Brier score") +
   mytheme +
@@ -53,8 +58,7 @@ ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots,
 p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE,
                                 order.lrns = getBMRLearnerIds(bmr)[order.lrns]) + 
   scale_fill_manual(values = lrns.colors, 
-                    limits = getBMRLearnerShortNames(bmr), 
-                    breaks = getBMRLearnerShortNames(bmr)[order.lrns],
+                    limits = getBMRLearnerShortNames(bmr)[order.lrns], 
                     name = "model") +
   ylab("count") +
   mytheme
@@ -70,8 +74,9 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = TRUE,
                         facet.wrap.ncol = 2L,
                         order.lrns = getBMRLearnerIds(bmr)[order.lrns]) +
   geom_boxplot(aes(fill = learner.id)) +
-  scale_fill_manual(values = lrns.colors[order.lrns],
-    name = "") +
+  scale_fill_manual(values = lrns.colors,
+                    limits = getBMRLearnerShortNames(bmr)[order.lrns],
+                    name = "") +
   ylab("Brier score") +
   mytheme +
   guides(fill = F) +
