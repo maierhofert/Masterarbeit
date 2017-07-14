@@ -12,3 +12,4 @@ parallelMap::parallelStartSocket(cpus = 4)
 parallel::clusterSetRNGStream(iseed = 42)
 
 warning(parallelMap::parallelLapply(1:10, rnorm)[[10]])
+parallelStop()
