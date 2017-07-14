@@ -83,7 +83,7 @@ library("fda")
 
 set.seed(1234)
 for(nclasses in c(2, 10)) {
-  for(nobs_per_class in c(10, 100)) {
+  for(nobs_per_class in c(20, 100)) {
     for(var_within_classes in c(0.5, 2)) {
       # dummy object to plot pretty spline basis
       basisobj = create.bspline.basis(c(0, 1), nbasis = nbasis, norder = norder)
@@ -136,7 +136,7 @@ for(nclasses in c(2, 10)) {
 }
 
 # Look into the simulated data
-path = "Daten/Simulated Data/random_splines/random_splines_ncl2_nobs10_vwc2.RDS"
+path = "Daten/Simulated Data/random_splines/random_splines_ncl2_nobs20_vwc2.RDS"
 simu_data = readRDS(path)
 # plot the individual observations
 fda::matplot(t(simu_data[,-51]), type = "l", 
