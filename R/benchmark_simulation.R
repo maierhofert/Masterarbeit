@@ -46,7 +46,9 @@ if (on_server) {
 # set a seed for reproducibility
 parallel::clusterSetRNGStream(iseed = 42)
 
-bmr = benchmark(learners = c(lrns, opt_knn_nderiv_learners),
+bmr = benchmark(learners = c(reference_lrns, ensemble_lrns,
+                             opt_lrns,
+                             noisy_lrns, warped_lrns),
                 tasks = tsks,
                 resamplings = res_instances,
                 models = FALSE,
