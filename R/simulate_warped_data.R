@@ -6,7 +6,7 @@ x_seq = seq(0, 2*pi, length.out = length_per_data)
 # data simulation
 set.seed(123)
 for(nclasses in c(2, 10)) {
-  # for(nobs_per_class in c(10, 100)) { # TODO später groß laufen lassen
+  # for(nobs_per_class in c(10, 100)) {
   for(nobs_per_class in c(100)) {
     # initiate data frames
     class_centers = matrix(NA, ncol = length_per_data, nrow = nclasses)
@@ -16,7 +16,9 @@ for(nclasses in c(2, 10)) {
       for(vamp in c(0.1, 1)) {
         for(class in 1:nclasses) {
           class.phase = 2 * pi * class / nclasses
-          class.amp = 1
+          class.amp = 1 # maybe that has to be a hyper parameter as well?
+          # class.amp = 1 + class / nclasses
+          # should be posssible to switch that on or off
           class_centers[class,] = class.amp * cos(class.phase + x_seq)
           for(i in 1:nobs_per_class) {
             this.phase = class.phase + runif(1, 0, max.phase.dif * pi)
