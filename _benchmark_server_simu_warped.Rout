@@ -21,8 +21,7 @@ Type 'q()' to quit R.
 
 > # this file can be used to run the benchmarking on a server
 > date()
-[1] "Thu Jun 29 15:08:11 2017"
-> # source("R/UCR_TSC_data.R")
+[1] "Thu Jul 13 21:14:39 2017"
 > source("R/create_base_learners.R")
 Loading required package: ParamHelpers
 Loading required package: proxy
@@ -39,500 +38,176 @@ The following object is masked from ‘package:base’:
 
 Loaded dtw v1.18-1. See ?dtw for help, citation("dtw") for use in publication.
 
-> source("R/tune_base_learners.R")
-> source("R/tune_opt_knn_nderiv_learners.R")
-> # source("R/benchmark.R")
-> # source("R/benchmark_simulation.R")
 > source("R/benchmark_simulation_warped.R")
 Starting parallelization in mode=socket with cpus=10.
 Loading packages on slaves for mode socket: dtw
 Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1nderiv0_eucl
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.006,mmce.test.mean=0.003,timetrain.test.mean=0.0187,timepredict.test.mean=0.486,timeboth.test.mean=0.505
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.006,mmce.test.mean=0.003,timetrain.test.mean=0.0202,timepredict.test.mean=0.551,timeboth.test.mean=0.571
 Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1nderiv0_eucl
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.22,mmce.test.mean=0.608,timetrain.test.mean=0.332,timepredict.test.mean=0.161,timeboth.test.mean=0.493
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.22,mmce.test.mean=0.608,timetrain.test.mean=0.339,timepredict.test.mean=0.162,timeboth.test.mean=0.501
 Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: knn1nderiv0_eucl
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean= 0.4,mmce.test.mean= 0.2,timetrain.test.mean=0.0133,timepredict.test.mean=0.474,timeboth.test.mean=0.487
+[Resample] Aggr. Result: multiclass.brier.test.mean= 0.4,mmce.test.mean= 0.2,timetrain.test.mean=0.0199,timepredict.test.mean=0.498,timeboth.test.mean=0.517
 Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: knn1nderiv0_eucl
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean= 1.4,mmce.test.mean=0.701,timetrain.test.mean=0.0155,timepredict.test.mean=0.17,timeboth.test.mean=0.186
+[Resample] Aggr. Result: multiclass.brier.test.mean= 1.4,mmce.test.mean=0.701,timetrain.test.mean=0.0177,timepredict.test.mean=0.173,timeboth.test.mean=0.191
 Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1nderiv0_eucl
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=0.0101,timepredict.test.mean=0.0139,timeboth.test.mean=0.024
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=0.0112,timepredict.test.mean=0.0146,timeboth.test.mean=0.0258
 Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1nderiv0_eucl
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=0.0129,timepredict.test.mean=0.014,timeboth.test.mean=0.0269
+[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=0.0139,timepredict.test.mean=0.0145,timeboth.test.mean=0.0284
 Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: knn1nderiv0_eucl
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.34,mmce.test.mean=0.17,timetrain.test.mean=0.0116,timepredict.test.mean=0.0139,timeboth.test.mean=0.0255
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.34,mmce.test.mean=0.17,timetrain.test.mean=0.0109,timepredict.test.mean=0.0156,timeboth.test.mean=0.0265
 Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: knn1nderiv0_eucl
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.52,mmce.test.mean=0.26,timetrain.test.mean=0.0122,timepredict.test.mean=0.0138,timeboth.test.mean=0.026
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.52,mmce.test.mean=0.26,timetrain.test.mean=0.0155,timepredict.test.mean=0.0142,timeboth.test.mean=0.0297
 Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: fdaclassif.classiKernel.tuned
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.0383,mmce.test.mean=0.003,timetrain.test.mean= 126,timepredict.test.mean=0.615,timeboth.test.mean= 126
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.0383,mmce.test.mean=0.003,timetrain.test.mean= 134,timepredict.test.mean=0.649,timeboth.test.mean= 135
 Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: fdaclassif.classiKernel.tuned
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.754,mmce.test.mean=0.636,timetrain.test.mean= 121,timepredict.test.mean=0.943,timeboth.test.mean= 122
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.754,mmce.test.mean=0.636,timetrain.test.mean= 136,timepredict.test.mean=1.07,timeboth.test.mean= 137
 Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: fdaclassif.classiKernel.tuned
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.267,mmce.test.mean=0.169,timetrain.test.mean= 127,timepredict.test.mean=0.653,timeboth.test.mean= 128
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.267,mmce.test.mean=0.169,timetrain.test.mean= 131,timepredict.test.mean=0.664,timeboth.test.mean= 132
 Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: fdaclassif.classiKernel.tuned
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.784,mmce.test.mean=0.682,timetrain.test.mean= 118,timepredict.test.mean=0.692,timeboth.test.mean= 118
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.784,mmce.test.mean=0.682,timetrain.test.mean= 123,timepredict.test.mean=0.702,timeboth.test.mean= 124
 Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: fdaclassif.classiKernel.tuned
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.0888,mmce.test.mean=0.005,timetrain.test.mean=7.34,timepredict.test.mean=0.0368,timeboth.test.mean=7.38
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.0888,mmce.test.mean=0.005,timetrain.test.mean=7.71,timepredict.test.mean=0.0375,timeboth.test.mean=7.75
 Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: fdaclassif.classiKernel.tuned
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00567,mmce.test.mean=   0,timetrain.test.mean=7.52,timepredict.test.mean=0.0414,timeboth.test.mean=7.56
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.00567,mmce.test.mean=   0,timetrain.test.mean=7.67,timepredict.test.mean=0.0448,timeboth.test.mean=7.71
 Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: fdaclassif.classiKernel.tuned
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.212,mmce.test.mean=0.135,timetrain.test.mean=7.05,timepredict.test.mean=0.0349,timeboth.test.mean=7.09
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.212,mmce.test.mean=0.135,timetrain.test.mean= 7.3,timepredict.test.mean=0.0357,timeboth.test.mean=7.34
 Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: fdaclassif.classiKernel.tuned
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.259,mmce.test.mean=0.165,timetrain.test.mean=7.29,timepredict.test.mean=0.035,timeboth.test.mean=7.32
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.259,mmce.test.mean=0.165,timetrain.test.mean=7.43,timepredict.test.mean=0.0357,timeboth.test.mean=7.46
 Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1nderiv0_dtw
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.262,mmce.test.mean=0.131,timetrain.test.mean=0.0231,timepredict.test.mean= 192,timeboth.test.mean= 192
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.262,mmce.test.mean=0.131,timetrain.test.mean=0.0183,timepredict.test.mean= 198,timeboth.test.mean= 198
 Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1nderiv0_dtw
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.26,mmce.test.mean=0.628,timetrain.test.mean=0.0178,timepredict.test.mean= 195,timeboth.test.mean= 195
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.26,mmce.test.mean=0.628,timetrain.test.mean=0.0204,timepredict.test.mean= 200,timeboth.test.mean= 200
 Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: knn1nderiv0_dtw
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.714,mmce.test.mean=0.357,timetrain.test.mean=0.0158,timepredict.test.mean= 190,timeboth.test.mean= 190
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.714,mmce.test.mean=0.357,timetrain.test.mean=0.0192,timepredict.test.mean= 220,timeboth.test.mean= 220
 Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: knn1nderiv0_dtw
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.48,mmce.test.mean=0.738,timetrain.test.mean=0.0225,timepredict.test.mean= 192,timeboth.test.mean= 192
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.48,mmce.test.mean=0.738,timetrain.test.mean=0.0353,timepredict.test.mean= 218,timeboth.test.mean= 218
 Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1nderiv0_dtw
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=0.0152,timepredict.test.mean=8.09,timeboth.test.mean=8.11
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=0.0327,timepredict.test.mean=9.35,timeboth.test.mean=9.38
 Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1nderiv0_dtw
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=0.0143,timepredict.test.mean=7.59,timeboth.test.mean=7.61
+[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=0.0303,timepredict.test.mean= 8.7,timeboth.test.mean=8.73
 Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: knn1nderiv0_dtw
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.31,mmce.test.mean=0.155,timetrain.test.mean=0.015,timepredict.test.mean=7.56,timeboth.test.mean=7.58
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.31,mmce.test.mean=0.155,timetrain.test.mean=0.0205,timepredict.test.mean=8.77,timeboth.test.mean=8.79
 Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: knn1nderiv0_dtw
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.55,mmce.test.mean=0.275,timetrain.test.mean=0.0151,timepredict.test.mean=7.94,timeboth.test.mean=7.96
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1nderiv0_phase
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   1,mmce.test.mean=0.896,timetrain.test.mean=0.0172,timepredict.test.mean=2.85e+03,timeboth.test.mean=2.85e+03
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1nderiv0_phase
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   1,mmce.test.mean=0.884,timetrain.test.mean=0.0158,timepredict.test.mean=2.85e+03,timeboth.test.mean=2.85e+03
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: knn1nderiv0_phase
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   1,mmce.test.mean=0.907,timetrain.test.mean=0.0214,timepredict.test.mean=2.85e+03,timeboth.test.mean=2.85e+03
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: knn1nderiv0_phase
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.01,mmce.test.mean=0.903,timetrain.test.mean=0.0248,timepredict.test.mean=2.84e+03,timeboth.test.mean=2.84e+03
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1nderiv0_phase
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   1,mmce.test.mean=0.535,timetrain.test.mean=0.0146,timepredict.test.mean= 114,timeboth.test.mean= 114
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1nderiv0_phase
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.925,mmce.test.mean=0.465,timetrain.test.mean=0.0164,timepredict.test.mean= 114,timeboth.test.mean= 114
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: knn1nderiv0_phase
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   1,mmce.test.mean=0.485,timetrain.test.mean=0.0183,timepredict.test.mean= 114,timeboth.test.mean= 114
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: knn1nderiv0_phase
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.07,mmce.test.mean=0.48,timetrain.test.mean=0.036,timepredict.test.mean= 113,timeboth.test.mean= 113
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.55,mmce.test.mean=0.275,timetrain.test.mean=0.0289,timepredict.test.mean=9.08,timeboth.test.mean=9.11
 Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.004,mmce.test.mean=0.002,timetrain.test.mean=0.0476,timepredict.test.mean=2.84e+03,timeboth.test.mean=2.84e+03
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.004,mmce.test.mean=0.002,timetrain.test.mean=0.0215,timepredict.test.mean=3e+03,timeboth.test.mean=3e+03
 Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.18,mmce.test.mean=0.592,timetrain.test.mean=0.0267,timepredict.test.mean=2.85e+03,timeboth.test.mean=2.85e+03
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.18,mmce.test.mean=0.592,timetrain.test.mean=0.0322,timepredict.test.mean=2.99e+03,timeboth.test.mean=2.99e+03
 Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.396,mmce.test.mean=0.198,timetrain.test.mean=0.0256,timepredict.test.mean=2.86e+03,timeboth.test.mean=2.86e+03
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.396,mmce.test.mean=0.198,timetrain.test.mean=0.0337,timepredict.test.mean=3.03e+03,timeboth.test.mean=3.03e+03
 Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.41,mmce.test.mean=0.706,timetrain.test.mean=0.0321,timepredict.test.mean=2.85e+03,timeboth.test.mean=2.85e+03
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.41,mmce.test.mean=0.706,timetrain.test.mean=0.0401,timepredict.test.mean=3.06e+03,timeboth.test.mean=3.06e+03
 Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=0.0163,timepredict.test.mean= 115,timeboth.test.mean= 115
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=0.0283,timepredict.test.mean= 122,timeboth.test.mean= 122
 Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=0.0258,timepredict.test.mean= 114,timeboth.test.mean= 114
+[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=0.0263,timepredict.test.mean= 122,timeboth.test.mean= 122
 Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.34,mmce.test.mean=0.17,timetrain.test.mean=0.0137,timepredict.test.mean= 114,timeboth.test.mean= 114
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.34,mmce.test.mean=0.17,timetrain.test.mean=0.03,timepredict.test.mean= 122,timeboth.test.mean= 122
 Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.59,mmce.test.mean=0.295,timetrain.test.mean=0.014,timepredict.test.mean= 114,timeboth.test.mean= 114
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn_eucl_ensemble
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.59,mmce.test.mean=0.295,timetrain.test.mean=0.0198,timepredict.test.mean= 122,timeboth.test.mean= 122
+Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00755,mmce.test.mean=0.004,timetrain.test.mean=6.65,timepredict.test.mean=1.16,timeboth.test.mean=7.81
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn_eucl_ensemble
+[Resample] Aggr. Result: multiclass.brier.test.mean=   1,mmce.test.mean=0.887,timetrain.test.mean=0.0405,timepredict.test.mean=3.05e+03,timeboth.test.mean=3.05e+03
+Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.688,mmce.test.mean=0.612,timetrain.test.mean=6.99,timepredict.test.mean=1.19,timeboth.test.mean=8.17
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: knn_eucl_ensemble
+[Resample] Aggr. Result: multiclass.brier.test.mean=   1,mmce.test.mean=0.898,timetrain.test.mean=0.0252,timepredict.test.mean=3.03e+03,timeboth.test.mean=3.03e+03
+Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.253,mmce.test.mean=0.155,timetrain.test.mean=7.08,timepredict.test.mean=1.11,timeboth.test.mean= 8.2
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: knn_eucl_ensemble
+[Resample] Aggr. Result: multiclass.brier.test.mean=   1,mmce.test.mean=0.892,timetrain.test.mean=0.0249,timepredict.test.mean=3.04e+03,timeboth.test.mean=3.04e+03
+Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.795,mmce.test.mean=0.677,timetrain.test.mean=7.38,timepredict.test.mean=1.02,timeboth.test.mean= 8.4
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn_eucl_ensemble
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.01,mmce.test.mean=0.908,timetrain.test.mean=0.0631,timepredict.test.mean=3.03e+03,timeboth.test.mean=3.03e+03
+Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00565,mmce.test.mean=0.005,timetrain.test.mean=0.737,timepredict.test.mean=0.122,timeboth.test.mean=0.86
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn_eucl_ensemble
+[Resample] Aggr. Result: multiclass.brier.test.mean=   1,mmce.test.mean=0.455,timetrain.test.mean=0.0275,timepredict.test.mean= 122,timeboth.test.mean= 122
+Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.28e-05,mmce.test.mean=   0,timetrain.test.mean=0.776,timepredict.test.mean=0.0924,timeboth.test.mean=0.869
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: knn_eucl_ensemble
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.925,mmce.test.mean= 0.4,timetrain.test.mean=0.0354,timepredict.test.mean= 122,timeboth.test.mean= 122
+Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.21,mmce.test.mean=0.135,timetrain.test.mean=0.789,timepredict.test.mean=0.0983,timeboth.test.mean=0.887
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: knn_eucl_ensemble
+[Resample] Aggr. Result: multiclass.brier.test.mean=   1,mmce.test.mean=0.52,timetrain.test.mean=0.0255,timepredict.test.mean= 121,timeboth.test.mean= 121
+Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.281,mmce.test.mean=0.18,timetrain.test.mean=0.891,timepredict.test.mean=0.0883,timeboth.test.mean=0.979
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: nderiv_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.006,mmce.test.mean=0.003,timetrain.test.mean=5.62,timepredict.test.mean=0.771,timeboth.test.mean=6.39
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: nderiv_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.21,mmce.test.mean=0.61,timetrain.test.mean=6.02,timepredict.test.mean=0.586,timeboth.test.mean=6.61
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: nderiv_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.398,mmce.test.mean=0.199,timetrain.test.mean=5.58,timepredict.test.mean=0.725,timeboth.test.mean=6.31
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: nderiv_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean= 1.4,mmce.test.mean=0.701,timetrain.test.mean=5.64,timepredict.test.mean=0.588,timeboth.test.mean=6.23
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: nderiv_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=0.729,timepredict.test.mean=0.0824,timeboth.test.mean=0.812
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: nderiv_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1e-08,mmce.test.mean=   0,timetrain.test.mean=0.739,timepredict.test.mean=0.0711,timeboth.test.mean=0.81
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: nderiv_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.34,mmce.test.mean=0.175,timetrain.test.mean=0.702,timepredict.test.mean=0.0738,timeboth.test.mean=0.776
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: nderiv_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.522,mmce.test.mean=0.265,timetrain.test.mean=0.682,timepredict.test.mean=0.0811,timeboth.test.mean=0.763
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: nderivKnn_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00717,mmce.test.mean=0.003,timetrain.test.mean=22.4,timepredict.test.mean= 2.4,timeboth.test.mean=24.8
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: nderivKnn_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.688,mmce.test.mean=0.607,timetrain.test.mean=19.6,timepredict.test.mean= 2.4,timeboth.test.mean=  22
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: nderivKnn_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.254,mmce.test.mean=0.157,timetrain.test.mean=18.9,timepredict.test.mean= 2.3,timeboth.test.mean=21.2
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: nderivKnn_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.795,mmce.test.mean=0.672,timetrain.test.mean=18.8,timepredict.test.mean=2.38,timeboth.test.mean=21.2
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: nderivKnn_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00555,mmce.test.mean=0.005,timetrain.test.mean=2.68,timepredict.test.mean=0.271,timeboth.test.mean=2.96
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: nderivKnn_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.29e-05,mmce.test.mean=   0,timetrain.test.mean=2.89,timepredict.test.mean=0.284,timeboth.test.mean=3.17
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: nderivKnn_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.209,mmce.test.mean=0.125,timetrain.test.mean=2.65,timepredict.test.mean=0.284,timeboth.test.mean=2.93
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: nderivKnn_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.281,mmce.test.mean=0.185,timetrain.test.mean=2.69,timepredict.test.mean=0.312,timeboth.test.mean=3.01
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: rf_nofeat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00431,mmce.test.mean=0.003,timetrain.test.mean=26.2,timepredict.test.mean=2.02,timeboth.test.mean=28.2
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: rf_nofeat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.779,mmce.test.mean=0.633,timetrain.test.mean=23.9,timepredict.test.mean=2.19,timeboth.test.mean=26.1
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: rf_nofeat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.257,mmce.test.mean=0.162,timetrain.test.mean=22.7,timepredict.test.mean=2.11,timeboth.test.mean=24.8
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: rf_nofeat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.824,mmce.test.mean=0.707,timetrain.test.mean=24.6,timepredict.test.mean=2.27,timeboth.test.mean=26.9
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: rf_nofeat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=3.52,timepredict.test.mean=0.273,timeboth.test.mean=3.79
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: rf_nofeat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=3.52,timepredict.test.mean=0.273,timeboth.test.mean= 3.8
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: rf_nofeat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.238,mmce.test.mean=0.155,timetrain.test.mean=3.61,timepredict.test.mean= 0.3,timeboth.test.mean=3.91
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: rf_nofeat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.308,mmce.test.mean=0.185,timetrain.test.mean= 3.6,timepredict.test.mean=0.264,timeboth.test.mean=3.87
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: rf_feat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00396,mmce.test.mean=0.003,timetrain.test.mean=22.4,timepredict.test.mean=2.14,timeboth.test.mean=24.5
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: rf_feat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.682,mmce.test.mean=0.593,timetrain.test.mean=25.2,timepredict.test.mean=2.24,timeboth.test.mean=27.4
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: rf_feat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.235,mmce.test.mean=0.154,timetrain.test.mean=24.5,timepredict.test.mean=2.16,timeboth.test.mean=26.6
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: rf_feat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.765,mmce.test.mean=0.664,timetrain.test.mean=25.8,timepredict.test.mean=2.11,timeboth.test.mean=27.9
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: rf_feat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00446,mmce.test.mean=0.005,timetrain.test.mean=3.72,timepredict.test.mean=0.268,timeboth.test.mean=3.99
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: rf_feat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=6.42e-05,mmce.test.mean=   0,timetrain.test.mean=3.64,timepredict.test.mean=0.274,timeboth.test.mean=3.91
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: rf_feat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.229,mmce.test.mean=0.175,timetrain.test.mean=3.73,timepredict.test.mean=0.28,timeboth.test.mean=4.01
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: rf_feat_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.289,mmce.test.mean=0.175,timetrain.test.mean=3.77,timepredict.test.mean=0.271,timeboth.test.mean=4.04
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: rf_noisy_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00473,mmce.test.mean=0.003,timetrain.test.mean= 370,timepredict.test.mean=39.2,timeboth.test.mean= 409
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: rf_noisy_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.662,mmce.test.mean=0.621,timetrain.test.mean= 388,timepredict.test.mean=39.9,timeboth.test.mean= 427
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: rf_noisy_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.251,mmce.test.mean=0.167,timetrain.test.mean= 380,timepredict.test.mean=39.4,timeboth.test.mean= 419
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: rf_noisy_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.76,mmce.test.mean=0.667,timetrain.test.mean= 385,timepredict.test.mean=40.3,timeboth.test.mean= 426
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: rf_noisy_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=34.9,timepredict.test.mean=3.18,timeboth.test.mean=38.1
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: rf_noisy_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=2.89e-05,mmce.test.mean=   0,timetrain.test.mean=35.3,timepredict.test.mean=3.26,timeboth.test.mean=38.6
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: rf_noisy_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.227,mmce.test.mean=0.145,timetrain.test.mean=35.2,timepredict.test.mean=3.23,timeboth.test.mean=38.5
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: rf_noisy_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.301,mmce.test.mean=0.185,timetrain.test.mean=34.9,timepredict.test.mean=3.17,timeboth.test.mean=38.1
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: noisy_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.889,mmce.test.mean=0.847,timetrain.test.mean= 273,timepredict.test.mean=41.1,timeboth.test.mean= 314
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: noisy_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.893,mmce.test.mean=0.855,timetrain.test.mean= 270,timepredict.test.mean=41.4,timeboth.test.mean= 312
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: noisy_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.891,mmce.test.mean=0.843,timetrain.test.mean= 266,timepredict.test.mean=41.2,timeboth.test.mean= 307
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: noisy_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.894,mmce.test.mean=0.851,timetrain.test.mean= 264,timepredict.test.mean=  41,timeboth.test.mean= 306
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: noisy_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.495,mmce.test.mean=0.445,timetrain.test.mean=26.6,timepredict.test.mean= 3.3,timeboth.test.mean=29.9
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: noisy_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.493,mmce.test.mean=0.435,timetrain.test.mean=26.6,timepredict.test.mean=3.28,timeboth.test.mean=29.9
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: noisy_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.476,mmce.test.mean=0.35,timetrain.test.mean=26.9,timepredict.test.mean=3.28,timeboth.test.mean=30.2
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: noisy_eucl_ensemble
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.493,mmce.test.mean=0.45,timetrain.test.mean=26.9,timepredict.test.mean=3.28,timeboth.test.mean=30.2
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1NderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.006,mmce.test.mean=0.003,timetrain.test.mean=4.48,timepredict.test.mean=0.149,timeboth.test.mean=4.63
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1NderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=1.22,mmce.test.mean=0.608,timetrain.test.mean=4.62,timepredict.test.mean=0.14,timeboth.test.mean=4.76
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: knn1NderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean= 0.4,mmce.test.mean= 0.2,timetrain.test.mean=4.49,timepredict.test.mean=0.152,timeboth.test.mean=4.65
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: knn1NderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean= 1.4,mmce.test.mean=0.699,timetrain.test.mean=4.46,timepredict.test.mean=0.192,timeboth.test.mean=4.65
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: knn1NderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=0.926,timepredict.test.mean=0.0206,timeboth.test.mean=0.946
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: knn1NderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=0.929,timepredict.test.mean=0.0165,timeboth.test.mean=0.946
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: knn1NderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.34,mmce.test.mean=0.17,timetrain.test.mean=0.921,timepredict.test.mean=0.0165,timeboth.test.mean=0.938
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: knn1NderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.52,mmce.test.mean=0.26,timetrain.test.mean=0.926,timepredict.test.mean=0.0164,timeboth.test.mean=0.943
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: knnOptNderiv0_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00734,mmce.test.mean=0.004,timetrain.test.mean=5.07,timepredict.test.mean=0.143,timeboth.test.mean=5.21
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: knnOptNderiv0_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.688,mmce.test.mean=0.604,timetrain.test.mean= 5.1,timepredict.test.mean=0.148,timeboth.test.mean=5.25
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: knnOptNderiv0_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.254,mmce.test.mean=0.157,timetrain.test.mean=5.09,timepredict.test.mean=0.147,timeboth.test.mean=5.24
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: knnOptNderiv0_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.795,mmce.test.mean=0.666,timetrain.test.mean=5.07,timepredict.test.mean=0.148,timeboth.test.mean=5.21
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: knnOptNderiv0_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean=1.04,timepredict.test.mean=0.0158,timeboth.test.mean=1.05
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: knnOptNderiv0_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=1.05,timepredict.test.mean=0.018,timeboth.test.mean=1.07
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: knnOptNderiv0_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.215,mmce.test.mean=0.145,timetrain.test.mean=1.07,timepredict.test.mean=0.0163,timeboth.test.mean=1.08
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: knnOptNderiv0_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.28,mmce.test.mean=0.185,timetrain.test.mean=1.09,timepredict.test.mean=0.0158,timeboth.test.mean=1.11
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.1, Learner: knnOptNderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.00533,mmce.test.mean=0.003,timetrain.test.mean=17.7,timepredict.test.mean=0.152,timeboth.test.mean=17.9
-Task: random_trigonometric_ncl10_nobs100_vamp0.1_max.phase.dif0.5, Learner: knnOptNderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.69,mmce.test.mean=0.602,timetrain.test.mean=  18,timepredict.test.mean=0.155,timeboth.test.mean=18.2
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.1, Learner: knnOptNderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.254,mmce.test.mean=0.159,timetrain.test.mean=18.8,timepredict.test.mean=0.192,timeboth.test.mean=18.9
-Task: random_trigonometric_ncl10_nobs100_vamp1_max.phase.dif0.5, Learner: knnOptNderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.797,mmce.test.mean=0.681,timetrain.test.mean=19.2,timepredict.test.mean=0.19,timeboth.test.mean=19.4
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.1, Learner: knnOptNderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.01,mmce.test.mean=0.005,timetrain.test.mean= 3.7,timepredict.test.mean=0.0167,timeboth.test.mean=3.72
-Task: random_trigonometric_ncl2_nobs100_vamp0.1_max.phase.dif0.5, Learner: knnOptNderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=3.72,timepredict.test.mean=0.0169,timeboth.test.mean=3.73
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.1, Learner: knnOptNderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.22,mmce.test.mean=0.145,timetrain.test.mean=3.67,timepredict.test.mean=0.017,timeboth.test.mean=3.69
-Task: random_trigonometric_ncl2_nobs100_vamp1_max.phase.dif0.5, Learner: knnOptNderivOpt_eucl.tuned
-Exporting objects to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.279,mmce.test.mean=0.19,timetrain.test.mean=3.62,timepredict.test.mean=0.0176,timeboth.test.mean=3.64
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.07,mmce.test.mean=0.515,timetrain.test.mean=0.0275,timepredict.test.mean= 121,timeboth.test.mean= 121
 Stopped parallelization. All cleaned up.
 > date()
-[1] "Thu Jun 29 23:26:50 2017"
+[1] "Fri Jul 14 04:55:36 2017"
 > # save benchmarking result
 > saveRDS(bmr, paste0("Benchmark_results/", Sys.Date(), "simu_warped_bmr.RDS"))
 > saveRDS(bmr, "Benchmark_results/bmr.RDS")
 > 
 > proc.time()
      user    system   elapsed 
-   91.772     2.700 29938.228 
+  113.824     1.620 27678.513 
