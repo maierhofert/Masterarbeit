@@ -1,5 +1,6 @@
 # this file creates simulated warped functional data sets using trigonometric functions
 # initiate data support
+library("mlr")
 length_per_data = 50
 x_seq = seq(0, 2*pi, length.out = length_per_data)
 
@@ -12,12 +13,12 @@ for(nclasses in c(2, 10)) {
     class_centers = matrix(NA, ncol = length_per_data, nrow = nclasses)
     simu_data = matrix(NA, ncol = length_per_data, nrow = nclasses * nobs_per_class)
     
-    for(max.phase.dif in c(0.1, 0.5)) {
-      for(vamp in c(0.1, 1)) {
+    for(max.phase.dif in c(1, 1.5)) {
+      for(vamp in c(0.5, 2)) {
         for(class in 1:nclasses) {
-          class.phase = 2 * pi * class / nclasses
-          class.amp = 1 # maybe that has to be a hyper parameter as well?
-          # class.amp = 1 + class / nclasses
+          class.phase = pi * class / nclasses
+          # class.amp = 1 # maybe that has to be a hyper parameter as well?
+          class.amp = 1 + class / nclasses
           # should be posssible to switch that on or off
           class_centers[class,] = class.amp * cos(class.phase + x_seq)
           for(i in 1:nobs_per_class) {
@@ -50,11 +51,11 @@ for(nclasses in c(2, 10)) {
   }
 }
 
-# # Look into the simulated data
-# path = "Daten/Simulated Data/random_trigonometric/random_trigonometric_ncl2_nobs10_vamp1_max.phase.dif0.1.RDS"
-# simu_data = readRDS(path)
-# # plot the individual observations
-# fda::matplot(t(simu_data[,-51]), type = "l", 
-#              lty = simu_data[,51],
-#              col = simu_data[,51])
+# Look into the simulated data
+path = "Daten/Simulated Data/random_trigonometric/random_trigonometric_ncl2_nobs100_vamp2_max.phase.dif1.RDS"
+simu_data = readRDS(path)
+# plot the individual observations
+fda::matplot(t(simu_data[,-51]), type = "l",
+             lty = simu_data[,51],
+             col = simu_data[,51])
 # matplot(t(class_centers))
