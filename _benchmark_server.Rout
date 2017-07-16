@@ -253,19 +253,19 @@ Exporting objects to slaves for mode s[Resample] Aggr. Result: multiclass.brier.
 Task: Adiac, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-s to slaves for mode socket: .mlr.slave.options
-Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.345,mmce.test.mean=0.255,timetrain.test.mean=40.7,timepredict.test.mean=0.316,timeboth.test.mean=  41
-Task: MiddlePhalanxOutlineCorrect, Learner: fdaclassif.classiKernel.tuned
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.45,mmce.test.mean=0.723,timetrain.test.mean=0.0297,timepredict.test.mean=2.33e+04,timeboth.test.mean=2.33e+04
+Task: DiatomSizeReduction, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.324,mmce.test.mean=0.211,timetrain.test.mean= 124,timepredict.test.mean=0.881,timeboth.test.mean= 125
-Task: MiddlePhalanxTW, Learner: fdaclassif.classiKernel.tuned
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.06,mmce.test.mean=0.528,timetrain.test.mean=0.0574,timepredict.test.mean=1.53e+04,timeboth.test.mean=1.53e+04
+Task: FaceAll, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.481,mmce.test.mean=0.393,timetrain.test.mean=41.4,timepredict.test.mean=0.265,timeboth.test.mean=41.6
-Task: Plane, Learner: fdaclassif.classiKernel.tuned
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.196,mmce.test.mean=0.0969,timetrain.test.mean=0.0353,timepredict.test.mean=1.05e+05,timeboth.test.mean=1.05e+05
+Task: FacesUCR, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+ting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
 [Resample] Aggr. Result: multiclass.brier.test.mean=0.0333,mmce.test.mean=0.0238,timetrain.test.mean=9.87,timepredict.test.mean=0.0506,timeboth.test.mean=9.92
 Task: ProximalPhalanxOutlineAgeGroup, Learner: fdaclassif.classiKernel.tuned
@@ -2101,5 +2101,225 @@ Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
 [Resample] Aggr. Result: multiclass.brier.test.mean=0.25,mmce.test.mean=0.125,timetrain.test.mean=0.0585,timepredict.test.mean= 532,timeboth.test.mean= 532
 Task: Car, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.467,mmce.test.mean=0.233,timetrain.test.mean=0.0407,timepredict.test.mean=6.09e+03,timeboth.test.mean=6.09e+03
+Task: Coffee, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.18,mmce.test.mean=0.09,timetrain.test.mean=0.0322,timepredict.test.mean= 322,timeboth.test.mean= 322
+Task: DistalPhalanxOutlineAgeGroup, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.461,mmce.test.mean=0.23,timetrain.test.mean=0.0219,timepredict.test.mean=2.23e+03,timeboth.test.mean=2.23e+03
+Task: DistalPhalanxOutlineCorrect, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.53,mmce.test.mean=0.265,timetrain.test.mean=0.0327,timepredict.test.mean=5.91e+03,timeboth.test.mean=5.91e+03
+Task: DistalPhalanxTW, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.578,mmce.test.mean=0.289,timetrain.test.mean=0.0411,timepredict.test.mean=2.26e+03,timeboth.test.mean=2.26e+03
+Task: ECG200, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean= 0.3,mmce.test.mean=0.15,timetrain.test.mean=0.035,timepredict.test.mean= 478,timeboth.test.mean= 478
+Task: FaceFour, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.139,mmce.test.mean=0.0696,timetrain.test.mean=0.0696,timepredict.test.mean=1.99e+03,timeboth.test.mean=1.99e+03
+Task: GunPoint, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.02,mmce.test.mean=0.01,timetrain.test.mean=0.0395,timepredict.test.mean=1.13e+03,timeboth.test.mean=1.13e+03
+Task: Ham, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.347,mmce.test.mean=0.173,timetrain.test.mean=0.0726,timepredict.test.mean=1.08e+04,timeboth.test.mean=1.08e+04
+Task: Herring, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.906,mmce.test.mean=0.453,timetrain.test.mean=0.0502,timepredict.test.mean=5.45e+03,timeboth.test.mean=5.45e+03
+Task: ItalyPowerDemand, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.146,mmce.test.mean=0.073,timetrain.test.mean=0.0184,timepredict.test.mean= 766,timeboth.test.mean= 766
+Task: Lightning2, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.477,mmce.test.mean=0.239,timetrain.test.mean=0.0532,timepredict.test.mean=7.55e+03,timeboth.test.mean=7.55e+03
+Task: Lightning7, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.744,mmce.test.mean=0.372,timetrain.test.mean=0.0503,timepredict.test.mean=2.61e+03,timeboth.test.mean=2.61e+03
+Task: Meat, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean= 0.2,mmce.test.mean= 0.1,timetrain.test.mean=0.0413,timepredict.test.mean=3.65e+03,timeboth.test.mean=3.65e+03
+Task: MiddlePhalanxOutlineAgeGroup, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.636,mmce.test.mean=0.318,timetrain.test.mean=0.0252,timepredict.test.mean=2.35e+03,timeboth.test.mean=2.35e+03
+Task: MiddlePhalanxOutlineCorrect, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.624,mmce.test.mean=0.312,timetrain.test.mean=0.0314,timepredict.test.mean=6.08e+03,timeboth.test.mean=6.08e+03
+Task: MiddlePhalanxTW, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.911,mmce.test.mean=0.456,timetrain.test.mean=0.0212,timepredict.test.mean=2.34e+03,timeboth.test.mean=2.34e+03
+Task: Plane, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.00952,mmce.test.mean=0.00476,timetrain.test.mean=0.0281,timepredict.test.mean=1.12e+03,timeboth.test.mean=1.12e+03
+Task: ProximalPhalanxOutlineAgeGroup, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.453,mmce.test.mean=0.226,timetrain.test.mean=0.0259,timepredict.test.mean=2.8e+03,timeboth.test.mean=2.8e+03
+Task: ProximalPhalanxOutlineCorrect, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.46,mmce.test.mean=0.23,timetrain.test.mean=0.0268,timepredict.test.mean=6.08e+03,timeboth.test.mean=6.08e+03
+Task: ProximalPhalanxTW, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.515,mmce.test.mean=0.258,timetrain.test.mean=0.0239,timepredict.test.mean=2.8e+03,timeboth.test.mean=2.8e+03
+Task: ShapeletSim, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.86,mmce.test.mean=0.43,timetrain.test.mean=0.0522,timepredict.test.mean=1.27e+04,timeboth.test.mean=1.27e+04
+Task: SonyAIBORobotSurface1, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.274,mmce.test.mean=0.137,timetrain.test.mean=0.0254,timepredict.test.mean=2.24e+03,timeboth.test.mean=2.24e+03
+Task: SonyAIBORobotSurface2, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.208,mmce.test.mean=0.104,timetrain.test.mean=0.0227,timepredict.test.mean=4.8e+03,timeboth.test.mean=4.8e+03
+Task: SyntheticControl, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean= 0.8,mmce.test.mean= 0.4,timetrain.test.mean=0.0281,timepredict.test.mean=1.53e+03,timeboth.test.mean=1.53e+03
+Task: ToeSegmentation1, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.339,mmce.test.mean=0.164,timetrain.test.mean=0.047,timepredict.test.mean=6.91e+03,timeboth.test.mean=6.91e+03
+Task: ToeSegmentation2, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.254,mmce.test.mean=0.127,timetrain.test.mean=0.046,timepredict.test.mean=4.08e+03,timeboth.test.mean=4.08e+03
+Task: Trace, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=   0,mmce.test.mean=   0,timetrain.test.mean=0.0351,timepredict.test.mean=3.8e+03,timeboth.test.mean=3.8e+03
+Task: TwoLeadECG, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.0103,mmce.test.mean=0.00516,timetrain.test.mean=0.0284,timepredict.test.mean=1.09e+04,timeboth.test.mean=1.09e+04
+Task: Wine, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.0545,mmce.test.mean=0.0273,timetrain.test.mean=0.0293,timepredict.test.mean= 843,timeboth.test.mean= 843
+Task: ArrowHead, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.199,mmce.test.mean=0.0994,timetrain.test.mean=0.0383,timepredict.test.mean=3.51e+03,timeboth.test.mean=3.51e+03
+Task: Beef, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.231,mmce.test.mean=0.115,timetrain.test.mean=0.0576,timepredict.test.mean= 998,timeboth.test.mean= 998
+Task: BeetleFly, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.15,mmce.test.mean=0.075,timetrain.test.mean=0.0299,timepredict.test.mean= 532,timeboth.test.mean= 532
+Task: BirdChicken, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.25,mmce.test.mean=0.125,timetrain.test.mean=0.0376,timepredict.test.mean= 532,timeboth.test.mean= 532
+Task: Car, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.317,mmce.test.mean=0.158,timetrain.test.mean=0.0628,timepredict.test.mean=6.08e+03,timeboth.test.mean=6.08e+03
+Task: Coffee, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.113,mmce.test.mean=0.0567,timetrain.test.mean=0.0301,timepredict.test.mean= 321,timeboth.test.mean= 321
+Task: DistalPhalanxOutlineAgeGroup, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.61,mmce.test.mean=0.273,timetrain.test.mean=0.0276,timepredict.test.mean=2.22e+03,timeboth.test.mean=2.22e+03
+Task: DistalPhalanxOutlineCorrect, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.671,mmce.test.mean=0.306,timetrain.test.mean=0.0246,timepredict.test.mean=5.88e+03,timeboth.test.mean=5.88e+03
+Task: DistalPhalanxTW, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.801,mmce.test.mean=0.377,timetrain.test.mean=0.0214,timepredict.test.mean=2.22e+03,timeboth.test.mean=2.22e+03
+Task: ECG200, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.278,mmce.test.mean=0.139,timetrain.test.mean=0.0302,timepredict.test.mean= 444,timeboth.test.mean= 444
+Task: FaceFour, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.02,mmce.test.mean=0.01,timetrain.test.mean=0.0467,timepredict.test.mean=1.94e+03,timeboth.test.mean=1.94e+03
+Task: GunPoint, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.07,mmce.test.mean=0.035,timetrain.test.mean=0.0291,timepredict.test.mean=1.11e+03,timeboth.test.mean=1.11e+03
+Task: Ham, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.348,mmce.test.mean=0.174,timetrain.test.mean=0.0409,timepredict.test.mean=1.07e+04,timeboth.test.mean=1.07e+04
+Task: Herring, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.941,mmce.test.mean=0.471,timetrain.test.mean=0.0468,timepredict.test.mean=5.45e+03,timeboth.test.mean=5.45e+03
+Task: ItalyPowerDemand, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.502,mmce.test.mean=0.205,timetrain.test.mean=0.0193,timepredict.test.mean= 767,timeboth.test.mean= 767
+Task: Lightning2, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.77,mmce.test.mean=0.385,timetrain.test.mean=0.0659,timepredict.test.mean=7.55e+03,timeboth.test.mean=7.55e+03
+Task: Lightning7, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.29,mmce.test.mean=0.643,timetrain.test.mean=0.0364,timepredict.test.mean=2.6e+03,timeboth.test.mean=2.6e+03
+Task: Meat, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.267,mmce.test.mean=0.133,timetrain.test.mean=0.0524,timepredict.test.mean=3.64e+03,timeboth.test.mean=3.64e+03
+Task: MiddlePhalanxOutlineAgeGroup, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.755,mmce.test.mean=0.339,timetrain.test.mean=0.0265,timepredict.test.mean=2.35e+03,timeboth.test.mean=2.35e+03
+Task: MiddlePhalanxOutlineCorrect, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.644,mmce.test.mean=0.282,timetrain.test.mean=0.0329,timepredict.test.mean=6.05e+03,timeboth.test.mean=6.05e+03
+Task: MiddlePhalanxTW, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.11,mmce.test.mean=0.53,timetrain.test.mean=0.0342,timepredict.test.mean=2.33e+03,timeboth.test.mean=2.33e+03
+Task: Plane, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.00952,mmce.test.mean=   0,timetrain.test.mean=0.0306,timepredict.test.mean=1.12e+03,timeboth.test.mean=1.12e+03
+Task: ProximalPhalanxOutlineAgeGroup, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.716,mmce.test.mean=0.344,timetrain.test.mean=0.0295,timepredict.test.mean=2.79e+03,timeboth.test.mean=2.79e+03
+Task: ProximalPhalanxOutlineCorrect, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.649,mmce.test.mean=0.254,timetrain.test.mean=0.0476,timepredict.test.mean=6.05e+03,timeboth.test.mean=6.05e+03
+Task: ProximalPhalanxTW, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.793,mmce.test.mean=0.423,timetrain.test.mean=0.028,timepredict.test.mean=2.77e+03,timeboth.test.mean=2.77e+03
+Task: ShapeletSim, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
