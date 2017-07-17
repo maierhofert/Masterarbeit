@@ -142,7 +142,7 @@ p.cd_ens_better = plotCritDifferences(g_ens_better, pretty.names = TRUE) +
         plot.margin = unit(c(2, 1, 0.5, 0.5), "lines"))
 p.cd_ens_better
 
-ggsave(paste0("Grafiken/benchmark/", name, "ensemble_better_cd.pdf"),
+ggsave(paste0("Grafiken/benchmark/", name, "_ensemble_better_cd.pdf"),
        plot = p.cd_ens_better, width = 0.8*13, height = 0.8*9)
 
 
@@ -165,5 +165,5 @@ p.cd_rf_better = plotCritDifferences(g_rf_better, pretty.names = TRUE) +
         plot.margin = unit(c(2, 1, 0.5, 0.5), "lines"))
 p.cd_rf_better
 
-ggsave(paste0("Grafiken/benchmark/", name, "rf_better_cd.pdf"),
+ggsave(paste0("Grafiken/benchmark/", name, "_rf_better_cd.pdf"),
        plot = p.cd_rf_better, width = 0.8*13, height = 0.8*9)
