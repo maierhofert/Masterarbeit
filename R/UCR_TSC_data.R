@@ -5,11 +5,11 @@ data_path = "Daten/TSC Problems"
 data_names = list.dirs(data_path, full.names = FALSE, recursive = FALSE)
 data_names = data_names[!data_names %in% c("", "Data Descriptions", 
                                            "ElectricDeviceOn", "ECGMeditation", 
-                                          "EpilepsyX", "EthanolLevel", 
-                                          "HeartbeatBIDMC", "OliveOil",
-                                          "Yoga",
-                                          "StarLightCurves",
-                                          "WormsTwoClass")]
+                                           "EpilepsyX", "EthanolLevel", 
+                                           "HeartbeatBIDMC", "OliveOil",
+                                           "Yoga",
+                                           "StarLightCurves",
+                                           "WormsTwoClass")]
 
 # absolute paths to the data sets
 data_paths = paste0(data_path, "/", data_names, "/", data_names, ".arff")
@@ -56,9 +56,9 @@ tsks = list()
 for(i in 1:length(data_list)) {
   dat = data_list[[i]]
   tsks[[i]] = makeFDAClassifTask(data = dat[,1:(ncol(dat) - 1)],
-                       id = toString(dat$name[1]),
-                       fd.features = list(ff = 1:(ncol(dat) - 2)),
-                       target = "target")
+                                 id = toString(dat$name[1]),
+                                 fd.features = list(ff = 1:(ncol(dat) - 2)),
+                                 target = "target")
 }
 
 # select feasible tasks
@@ -75,7 +75,9 @@ quantile(df$nobs...obslen, 0.4)
 df_red = df[df$nobs...obslen <= 100000,]
 nrow(df_red)
 
-# 
-tsks = tsks[df$nobs...obslen <= 100000]
+# # Benchmark_results/2017-07-17bmr.RDS
+# tsks = tsks[df$nobs...obslen <= 100000]
 
+# 
+tsks = tsks[df$nobs...obslen > 100000 & df$nobs...obslen <= 200000]
 
