@@ -107,3 +107,41 @@ p.cd = plotCritDifferences(g, pretty.names = TRUE) +
 p.cd
 ggsave(paste0("Grafiken/benchmark/", name, "_cd.pdf"), p.cd, 
        width = 0.8*13, height = 0.8*9)
+
+# create critical difference diagrams for useful subsets of the learners
+# critical difference diagram
+learner.ids = c("knn1nderiv0_eucl",
+                "fdaclassif.classiKernel.tuned")
+
+# new helper function to extract bmr objects containing only a subset of the learners
+subsetBMR = function(bmr, learner.ids) {
+  bmr_new = bmr
+  bmr_new$results = mlr:::getBMRObjects(bmr, learner.ids = learner.ids,
+                                        fun = function(x) {x})
+  bmr_new$learners = bmr$learners[learner.ids]
+  return(bmr_new)
+}
+
+
+ens_better = c("knn_eucl_ensemble",
+    "nderiv_eucl_ensemble", "semimet_ensemble",            
+    "nderivKnnSemimet_ensemble", 
+    "knn1NderivOpt_eucl.tuned",
+    "knnOptNderiv0_eucl.tuned", "knn1Nderiv0_semimetOpt.tuned",
+    "knnOptNderivOptSemimetOpt.tuned")
+lrns.ids[ens_better]
+
+bmr_ens_better = subsetBMR(bmr, ens_better)
+
+g_ens_better = generateCritDifferencesData(bmr_ens_better, measure = multiclass.brier,
+                                p.value = 0.05, test = "nemenyi")
+p.cd_ens_better = plotCritDifferences(g_ens_better, pretty.names = TRUE) +
+  scale_color_manual(values = lrns.colors[which(lrns.ids %in% ens_better)],
+                     limits = lrns.ids[which(lrns.ids %in% ens_better)],
+                     name = "learner") +
+  theme(text = element_text(size = 10),
+        plot.margin = unit(c(2, 1, 0.5, 0.5), "lines"))
+p.cd_ens_better
+
+ggsave(paste0("Grafiken/benchmark/", name, "ensemble_better_cd.pdf"),
+       p.cd_ens_better, width = 0.8*13, height = 0.8*9)
