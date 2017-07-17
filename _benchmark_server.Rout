@@ -265,10 +265,11 @@ Mapping in parallel: mode = socket; cpus = 10; elements = 10.
 Task: FacesUCR, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-ting objects to slaves for mode socket: .mlr.slave.options
+[Resample] Aggr. Result: multiclass.brier.test.mean= 0.2,mmce.test.mean=0.0986,timetrain.test.mean=0.0657,timepredict.test.mean=1.05e+05,timeboth.test.mean=1.05e+05
+Task: Fish, Learner: knn1nderiv0_amplitude
+Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
-[Resample] Aggr. Result: multiclass.brier.test.mean=0.0333,mmce.test.mean=0.0238,timetrain.test.mean=9.87,timepredict.test.mean=0.0506,timeboth.test.mean=9.92
-Task: ProximalPhalanxOutlineAgeGroup, Learner: fdaclassif.classiKernel.tuned
+sif.classiKernel.tuned
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
 [Resample] Aggr. Result: multiclass.brier.test.mean=0.246,mmce.test.mean=0.172,timetrain.test.mean=46.7,timepredict.test.mean=0.359,timeboth.test.mean=47.1
@@ -2323,3 +2324,48 @@ Mapping in parallel: mode = socket; cpus = 10; elements = 10.
 Task: ShapeletSim, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.03,mmce.test.mean=0.015,timetrain.test.mean=0.06,timepredict.test.mean=1.25e+04,timeboth.test.mean=1.25e+04
+Task: SonyAIBORobotSurface1, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.164,mmce.test.mean=0.0822,timetrain.test.mean=0.0291,timepredict.test.mean=2.25e+03,timeboth.test.mean=2.25e+03
+Task: SonyAIBORobotSurface2, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.112,mmce.test.mean=0.0562,timetrain.test.mean=0.0418,timepredict.test.mean=4.71e+03,timeboth.test.mean=4.71e+03
+Task: SyntheticControl, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.24,mmce.test.mean=0.62,timetrain.test.mean=0.0279,timepredict.test.mean=1.49e+03,timeboth.test.mean=1.49e+03
+Task: ToeSegmentation1, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.29,mmce.test.mean=0.126,timetrain.test.mean=0.0423,timepredict.test.mean=6.84e+03,timeboth.test.mean=6.84e+03
+Task: ToeSegmentation2, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.206,mmce.test.mean=0.103,timetrain.test.mean=0.0386,timepredict.test.mean=4.04e+03,timeboth.test.mean=4.04e+03
+Task: Trace, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.35,mmce.test.mean=0.175,timetrain.test.mean=0.0506,timepredict.test.mean=3.76e+03,timeboth.test.mean=3.76e+03
+Task: TwoLeadECG, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.0138,mmce.test.mean=0.00689,timetrain.test.mean=0.0287,timepredict.test.mean=1.07e+04,timeboth.test.mean=1.07e+04
+Task: Wine, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.93,mmce.test.mean=0.417,timetrain.test.mean=0.0331,timepredict.test.mean= 833,timeboth.test.mean= 833
+Stopped parallelization. All cleaned up.
+> # source("R/benchmark_simulation.R")
+> # source("R/benchmark_simulation_warped.R")
+> date()
+[1] "Mon Jul 17 07:53:27 2017"
+> # save benchmarking result
+> saveRDS(bmr, paste0("Benchmark_results/", Sys.Date(), "bmr.RDS"))
+> saveRDS(bmr, "Benchmark_results/bmr.RDS")
+> 
+> proc.time()
+      user     system    elapsed 
+   397.684     17.904 287869.781 
