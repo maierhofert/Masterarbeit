@@ -4,7 +4,7 @@ library("ggplot2")
 mytheme = theme_bw(20)
 
 # read in most current benchmark
-bmr = readRDS("Benchmark_results/2017-07-14simu_warped_bmr.RDS")
+bmr = readRDS("Benchmark_results/2017-07-17simu_warped_bmr.RDS")
 name = "bmr_warped_trigonometric"
 bmr
 
@@ -22,7 +22,7 @@ order.lrns = 1:5
 p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE, 
                         jitter = 0.05, pointsize = 10L) +
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
-  scale_x_continuous(breaks = 1:15, minor_breaks = 1:15) +
+  scale_x_continuous(breaks = 1:5, minor_breaks = 1:5) +
   scale_color_manual(values = lrns.colors,
                      name = "")  +
   xlab("Rank of Brier score") +
@@ -36,6 +36,7 @@ ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots,
 
 p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE) + 
   scale_fill_manual(values = lrns.colors, 
+                    limits = getBMRLearnerShortNames(bmr)[order.lrns], 
                     name = "model") +
   ylab("count") +
   mytheme

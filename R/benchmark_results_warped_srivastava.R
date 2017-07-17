@@ -36,6 +36,7 @@ ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots,
 
 p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE) + 
   scale_fill_manual(values = lrns.colors, 
+                    limits = getBMRLearnerShortNames(bmr)[order.lrns], 
                     name = "model") +
   ylab("count") +
   mytheme
