@@ -17,11 +17,24 @@ lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned",
              "knn1nderiv0_phase", "knn1nderiv0_amplitude")
 order.lrns = 1:5
 
+# pretty labels for simulated data
+simulation.data.limits = c("warped_greven_ncl10_nobs100_vbc0_phf0", "warped_greven_ncl10_nobs100_vbc0_phf1",
+                           "warped_greven_ncl10_nobs100_vbc1_phf0", "warped_greven_ncl10_nobs100_vbc1_phf1",
+                           "warped_greven_ncl2_nobs100_vbc0_phf0", "warped_greven_ncl2_nobs100_vbc0_phf1",
+                           "warped_greven_ncl2_nobs100_vbc1_phf0", "warped_greven_ncl2_nobs100_vbc1_phf1")
+
+simulation.data.labels = c("ncl 10; vbc 0; ph.f 1", "ncl 10; vbc 0; ph.f 1",
+                           "ncl 10; vbc 1; ph.f 0", "ncl 10; vbc 1; ph.f 1",
+                           #
+                           "ncl   2; vbc 0; ph.f 1", "ncl   2; vbc 0; ph.f 1",
+                           "ncl   2; vbc 1; ph.f 0", "ncl   2; vbc 1; ph.f 1")
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
 p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE, 
                         jitter = 0.05, pointsize = 10L) +
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
+  scale_y_discrete(limits = simulation.data.limits,
+                   labels = simulation.data.labels) +
   scale_x_continuous(breaks = 1:15, minor_breaks = 1:15) +
   scale_color_manual(values = lrns.colors,
                      name = "")  +

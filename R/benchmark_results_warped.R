@@ -17,11 +17,33 @@ lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned",
              "knn1nderiv0_phase", "knn1nderiv0_amplitude")
 order.lrns = 1:5
 
+# pretty labels for simulated data
+simulation.data.limits = c("random_trigonometric_ncl10_nobs100_vamp0.5_max.phase.dif1", 
+                           "random_trigonometric_ncl10_nobs100_vamp0.5_max.phase.dif1.5",
+                           "random_trigonometric_ncl10_nobs100_vamp2_max.phase.dif1",    
+                           "random_trigonometric_ncl10_nobs100_vamp2_max.phase.dif1.5",  
+                           "random_trigonometric_ncl2_nobs100_vamp0.5_max.phase.dif1",   
+                           "random_trigonometric_ncl2_nobs100_vamp0.5_max.phase.dif1.5", 
+                           "random_trigonometric_ncl2_nobs100_vamp2_max.phase.dif1",     
+                           "random_trigonometric_ncl2_nobs100_vamp2_max.phase.dif1.5")
+
+simulation.data.labels = c("ncl 10; vamp 0.5; max.ph.diff 1   ", 
+                           "ncl 10; vamp 0.5; max.ph.diff 1.5",
+                           "ncl 10; vamp    2; max.ph.diff 1   ", 
+                           "ncl 10; vamp    2; max.ph.diff 1.5",
+                           #
+                           "ncl   2; vamp 0.5; max.ph.diff 1   ", 
+                           "ncl   2; vamp 0.5; max.ph.diff 1.5",
+                           "ncl   2; vamp    2; max.ph.diff 1   ", 
+                           "ncl   2; vamp    2; max.ph.diff 1.5")
+
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
 p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE, 
                         jitter = 0.05, pointsize = 10L) +
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
+  scale_y_discrete(limits = simulation.data.limits,
+                   labels = simulation.data.labels) +
   scale_x_continuous(breaks = 1:5, minor_breaks = 1:5) +
   scale_color_manual(values = lrns.colors,
                      name = "")  +
