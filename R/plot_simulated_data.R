@@ -37,7 +37,7 @@ p = simu_plot(plot_data) +
   geom_line(size = 1)
 p
 
-ggsave("Grafiken/simu_data_random_splines_ncl2_nobs20_vwc0.5.pdf", p,
+ggsave("Grafiken/simu_data_random_splines_ncl2_nobs20_vwc0_5.pdf", p,
        height = 7, width = 10)
 
 
@@ -53,7 +53,7 @@ plot_data = my_transform(simu_data)
 p2 = simu_plot(plot_data)
 p2
 
-ggsave("Grafiken/simu_data_random_trigonometric_ncl2_nobs100_vamp0.5_max.phase.dif1.pdf", p2,
+ggsave("Grafiken/simu_data_random_trigonometric_ncl2_nobs100_vamp0_5_max.phase.dif1.pdf", p2,
        height = 7, width = 10)
 
 
@@ -68,8 +68,33 @@ plot_data = my_transform(simu_data)
 p3.1 = simu_plot(plot_data)
 p3.1
 
-ggsave("Grafiken/simu_data_random_srivastava_ncl2_nobs100_cl.z.diff0_cl.a.diff0.pdf", p3.1,
+ggsave("Grafiken/simu_data_random_srivastava_ncl2_nobs100_cl_z_diff0_cl_a_diff0.pdf", p3.1,
        height = 7, width = 10)
+
+###############
+path = "Daten/Simulated Data/random_srivastava/random_srivastava_ncl2_nobs100_cl.z.diff0_cl.a.diff1.RDS"
+simu_data = readRDS(path)
+
+plot_data = my_transform(simu_data)
+
+p3.2 = simu_plot(plot_data)
+p3.2
+
+ggsave("Grafiken/simu_data_random_srivastava_ncl2_nobs100_cl_z_diff0_cl_a_diff1.pdf", p3.2,
+       height = 7, width = 10)
+
+###############
+path = "Daten/Simulated Data/random_srivastava/random_srivastava_ncl2_nobs100_cl.z.diff0.1_cl.a.diff0.RDS"
+simu_data = readRDS(path)
+
+plot_data = my_transform(simu_data)
+
+p3.3 = simu_plot(plot_data)
+p3.3
+
+ggsave("Grafiken/simu_data_random_srivastava_ncl2_nobs100_cl_z_diff0_1_cl_a_diff0.pdf", p3.3,
+       height = 7, width = 10)
+
 
 ###############
 path = "Daten/Simulated Data/random_srivastava/random_srivastava_ncl2_nobs100_cl.z.diff0.1_cl.a.diff1.RDS"
@@ -80,7 +105,7 @@ plot_data = my_transform(simu_data)
 p3.4 = simu_plot(plot_data)
 p3.4
 
-ggsave("Grafiken/random_srivastava_ncl2_nobs100_cl.z.diff0.1_cl.a.diff1.pdf", p3,
+ggsave("Grafiken/simu_data_random_srivastava_ncl2_nobs100_cl_z_diff0_1_cl_a_diff1.pdf", p3.4,
        height = 7, width = 10)
 
 # ###########################################################
