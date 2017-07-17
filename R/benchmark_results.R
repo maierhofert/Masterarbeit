@@ -4,7 +4,7 @@ library("ggplot2")
 mytheme = theme_bw(20)
 
 # read in most current benchmark
-bmr = readRDS("Benchmark_results/2017-07-13bmr.RDS")
+bmr = readRDS("Benchmark_results/2017-07-17bmr.RDS")
 name = "bmr"
 
 # pretty labels for learners
