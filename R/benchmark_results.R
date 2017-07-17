@@ -122,14 +122,13 @@ subsetBMR = function(bmr, learner.ids) {
   return(bmr_new)
 }
 
-
+# is it better to ensemble or to choose using CV
 ens_better = c("knn_eucl_ensemble",
     "nderiv_eucl_ensemble", "semimet_ensemble",            
     "nderivKnnSemimet_ensemble", 
     "knn1NderivOpt_eucl.tuned",
     "knnOptNderiv0_eucl.tuned", "knn1Nderiv0_semimetOpt.tuned",
     "knnOptNderivOptSemimetOpt.tuned")
-lrns.ids[ens_better]
 
 bmr_ens_better = subsetBMR(bmr, ens_better)
 
@@ -144,4 +143,27 @@ p.cd_ens_better = plotCritDifferences(g_ens_better, pretty.names = TRUE) +
 p.cd_ens_better
 
 ggsave(paste0("Grafiken/benchmark/", name, "ensemble_better_cd.pdf"),
-       p.cd_ens_better, width = 0.8*13, height = 0.8*9)
+       plot = p.cd_ens_better, width = 0.8*13, height = 0.8*9)
+
+
+# is it better to use the rf or the nn ensemble
+rf_better = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned",
+              "knn1nderiv0_dtw", 
+              "nderivKnnSemimet_ensemble", 
+              "rf_feat_semimet_ensemble", "rf_nofeat_semimet_ensemble",
+              "rf_noisy_ensemble", "noisy_eucl_ensemble")
+
+bmr_rf_better = subsetBMR(bmr, rf_better)
+
+g_rf_better = generateCritDifferencesData(bmr_rf_better, measure = multiclass.brier,
+                                           p.value = 0.05, test = "nemenyi")
+p.cd_rf_better = plotCritDifferences(g_rf_better, pretty.names = TRUE) +
+  scale_color_manual(values = lrns.colors[which(lrns.ids %in% rf_better)],
+                     limits = lrns.ids[which(lrns.ids %in% rf_better)],
+                     name = "learner") +
+  theme(text = element_text(size = 10),
+        plot.margin = unit(c(2, 1, 0.5, 0.5), "lines"))
+p.cd_rf_better
+
+ggsave(paste0("Grafiken/benchmark/", name, "rf_better_cd.pdf"),
+       plot = p.cd_rf_better, width = 0.8*13, height = 0.8*9)
