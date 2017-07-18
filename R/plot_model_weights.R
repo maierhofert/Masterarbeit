@@ -63,8 +63,14 @@ rf_ensemble = makeStackedLearner(id = "rf_nofeat_eucl_ensemble",
                                  predict.type = "prob",
                                  use.feat = FALSE,
                                  method = "stack.cv")
-
 rf_ensemble$short.name = "rf ensemble"
+
+source("R/growth_study_data.R")
+tsk = makeFDAClassifTask(data = growth_wide[,2:ncol(growth_wide)],
+                         id = "growth_study",
+                         fd.features = list(ff = 2:(ncol(growth_wide) - 1)),
+                         target = "sex")
+
 
 # # read in example task
 # dat = read.arff("Daten/TSC Problems/ECG200/ECG200.arff")
@@ -76,19 +82,23 @@ rf_ensemble$short.name = "rf ensemble"
 # matplot(t(dat[subs,1:96]), type = "l",
 #         lty = as.numeric(dat[subs,97]),
 #         col = factor(dat[subs,97]))
-
-# read in example task
-dat = read.arff("Daten/TSC Problems/ArrowHead/ArrowHead.arff")
-# only use two classes
-dat = dat[dat$target %in% c(0, 1),]
-dat$target = droplevels(dat$target)
-tsk = makeFDAClassifTask(data = dat,
-                         id = "ArrowHead",
-                         fd.features = list(ff = 1:(ncol(dat) - 1)),
-                         target = "target")
+# 
+# # read in example task
+# dat = read.arff("Daten/TSC Problems/ArrowHead/ArrowHead.arff")
+# # only use two classes
+# dat = dat[dat$target %in% c(0, 1),]
+# dat$target = droplevels(dat$target)
+# tsk = makeFDAClassifTask(data = dat,
+#                          id = "ArrowHead",
+#                          fd.features = list(ff = 1:(ncol(dat) - 1)),
+#                          target = "target")
 
 nn_ensemble_mod = train(learner = nn_ensemble, task = tsk)
 rf_ensemble_mod = train(learner = rf_ensemble, task = tsk)
+
+# save models
+saveRDS(rf_ensemble_mod, "rf_ensemble_mod.RDS")
+saveRDS(nn_ensemble_mod, "nn_ensemble_mod.RDS")
 
 # #############
 # generate data for the nn_ensemble plot
@@ -109,7 +119,7 @@ weight.plot <- ggplot(data = plot.data, aes(x = id, y = weight)) +
                                    vjust = 0.5))
 weight.plot
 ggsave(paste0("Grafiken/weightplot_nn_ensemble.pdf"), weight.plot, 
-       width = 13, height = 7)
+       width = 12, height = 10)
 
 
 # generate data for the rf_ensemble plot
@@ -129,4 +139,4 @@ weight.plot <- ggplot(data = plot.data, aes(x = id, y = var_imp)) +
                                    vjust = 0.5))
 weight.plot
 ggsave(paste0("Grafiken/weightplot_rf_ensemble.pdf"), weight.plot, 
-       width = 13, height = 7)
+       width = 12, height = 10)
