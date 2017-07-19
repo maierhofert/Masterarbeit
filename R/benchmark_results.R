@@ -150,7 +150,7 @@ ggsave(paste0("Grafiken/benchmark/", name, "_ensemble_better_cd.pdf"),
 # is it better to use the rf or the nn ensemble
 rf_better = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned",
               "knn1nderiv0_dtw", 
-              "nderivKnnSemimet_ensemble", 
+              "nderivKnnSemimet_ensemble", "knnOptNderivOptSemimetOpt.tuned",
               "rf_feat_semimet_ensemble", "rf_nofeat_semimet_ensemble",
               "rf_noisy_ensemble", "noisy_eucl_ensemble")
 
