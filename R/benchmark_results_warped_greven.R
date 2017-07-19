@@ -14,7 +14,7 @@ lrns.colors = c("grey20", "grey60",
                 "orange1", "goldenrod")
 lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned", 
              "knn1nderiv0_dtw", 
-             "knn1nderiv0_phase", "knn1nderiv0_amplitude")
+             "knn1nderiv0_amplitude", "knn1nderiv0_phase")
 order.lrns = 1:5
 
 # pretty labels for simulated data
