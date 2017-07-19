@@ -190,3 +190,4 @@ p.cd_ref_mod
 
 ggsave(paste0("Grafiken/benchmark/", name, "_ref_mod_cd.pdf"),
        plot = p.cd_ref_mod, width = 0.8*13, height = 0.8*9)
+
