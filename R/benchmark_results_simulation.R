@@ -11,43 +11,45 @@ name = "bmr_simu"
 lrns.colors = c("grey20", "grey60",
                 "darkorange3",
                 "orange1", "goldenrod", 
-                # "violetred2",
-                # "darkslateblue", "deeppink4",
-                "red3",
-                "navy", "deeppink4",
+                #
+                "red3", "red1", 
+                "navy", "royalblue2",
+                "coral", "coral3",
+                "deeppink4", "deeppink1",
+                #
                 "chartreuse1", "chartreuse3",
-                "darkolivegreen3", "darkorchid1", 
-                "royalblue2", 
-                "red1", "deeppink1")
+                "darkolivegreen3", "darkorchid1"
+)
 lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned", 
              "knn1nderiv0_dtw", 
              "knn1nderiv0_phase", "knn1nderiv0_amplitude", 
-             "knn_eucl_ensemble",
-             "nderiv_eucl_ensemble", "nderivKnn_eucl_ensemble",
-             "rf_nofeat_eucl_ensemble", "rf_feat_eucl_ensemble",
-             "rf_noisy_ensemble", "noisy_eucl_ensemble",
-             "knn1NderivOpt_eucl.tuned", "knnOptNderiv0_eucl.tuned",
-             "knnOptNderivOpt_eucl.tuned")
+             #
+             "knn_eucl_ensemble", "knnOptNderiv0_eucl.tuned",
+             "nderiv_eucl_ensemble", "knn1NderivOpt_eucl.tuned",
+             "semimet_ensemble", "knn1Nderiv0_semimetOpt.tuned",
+             "nderivKnnSemimet_ensemble", "knnOptNderivOptSemimetOpt.tuned",
+             # 
+             "rf_nofeat_semimet_ensemble", "rf_feat_semimet_ensemble",
+             #
+             "rf_noisy_ensemble", "noisy_eucl_ensemble")
+
+order.lrns = c(1:3, 16:17, c(4, 10, 5, 11, 6, 12, 7, 13),
+               8:9, 14:15)
 
 # pretty labels for simulated data
-simulation.data.limits = c("random_splines_ncl10_nobs10_vwc0.5", "random_splines_ncl10_nobs10_vwc2", 
+simulation.data.limits = c("random_splines_ncl10_nobs20_vwc0.5", "random_splines_ncl10_nobs20_vwc2", 
                            "random_splines_ncl10_nobs100_vwc0.5", "random_splines_ncl10_nobs100_vwc2",
-                           "random_splines_ncl2_nobs10_vwc0.5", "random_splines_ncl2_nobs10_vwc2", 
+                           "random_splines_ncl2_nobs20_vwc0.5", "random_splines_ncl2_nobs20_vwc2", 
                            "random_splines_ncl2_nobs100_vwc0.5", "random_splines_ncl2_nobs100_vwc2")
 
-simulation.data.labels = c("ncl 10; nobs   10; vwc 0.5", 
-                           # "ncl 10; nobs   10; vwc    1",
-                           "ncl 10; nobs   10; vwc    2", 
+simulation.data.labels = c("ncl 10; nobs   20; vwc 0.5", 
+                           "ncl 10; nobs   20; vwc    2", 
                            "ncl 10; nobs 100; vwc 0.5",
-                           # "ncl 10; nobs 100; vwc    1", 
                            "ncl 10; nobs 100; vwc    2",
-                           "ncl   2; nobs   10; vwc 0.5", 
-                           # "ncl   2; nobs   10; vwc    1", 
-                           "ncl   2; nobs   10; vwc    2", 
-                           "ncl   2; nobs 100; vwc 0.5", 
-                           # "ncl   2; nobs 100; vwc    1", 
+                           "ncl   2; nobs   20; vwc 0.5",
+                           "ncl   2; nobs   20; vwc    2", 
+                           "ncl   2; nobs 100; vwc 0.5",
                            "ncl   2; nobs 100; vwc    2")
-order.lrns = c(1:2, 6:8, c(14, 13, 15), 9:10, 12:11, 3:5)
 
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
@@ -56,16 +58,14 @@ p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE,
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
   scale_y_discrete(limits = simulation.data.limits,
                    labels = simulation.data.labels) +
-  scale_x_continuous(breaks = 1:15, minor_breaks = 1:15) +
+  scale_x_continuous(breaks = 1:17, minor_breaks = 1:17) +
   scale_color_manual(values = lrns.colors, 
-                     limits = getBMRLearnerShortNames(bmr),
-                     breaks = getBMRLearnerShortNames(bmr)[order.lrns], 
+                     limits = getBMRLearnerShortNames(bmr)[order.lrns],
                      name = "")  +
   xlab("Rank of Brier score") +
   mytheme +
   theme(legend.position = "bottom",
         plot.margin = unit(c(1, 5, 0.5, 0.5), "lines"))
-# , text = element_text(size = 20))
 p.dots
 
 ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots, 
@@ -73,8 +73,7 @@ ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots,
 
 p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE) + 
   scale_fill_manual(values = lrns.colors, 
-                    limits = getBMRLearnerShortNames(bmr), 
-                    breaks = getBMRLearnerShortNames(bmr)[order.lrns],
+                    limits = getBMRLearnerShortNames(bmr)[order.lrns], 
                     name = "model") +
   ylab("count") +
   mytheme
@@ -90,8 +89,9 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = TRUE,
                         facet.wrap.ncol = 2L,
                         order.lrns = getBMRLearnerIds(bmr)[order.lrns]) +
   geom_boxplot(aes(fill = learner.id)) +
-  scale_fill_manual(values = lrns.colors[order.lrns],
-    name = "") +
+  scale_fill_manual(values = lrns.colors,
+                    limits = getBMRLearnerShortNames(bmr)[order.lrns],
+                    name = "") +
   ylab("Brier score") +
   mytheme +
   guides(fill = F) +

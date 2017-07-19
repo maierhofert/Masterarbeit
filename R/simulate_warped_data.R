@@ -19,7 +19,6 @@ for(nclasses in c(2, 10)) {
           class.phase = pi * class / nclasses
           # class.amp = 1 # maybe that has to be a hyper parameter as well?
           class.amp = 1 + class / nclasses
-          # should be posssible to switch that on or off
           class_centers[class,] = class.amp * cos(class.phase + x_seq)
           for(i in 1:nobs_per_class) {
             this.phase = class.phase + runif(1, 0, max.phase.dif * pi)

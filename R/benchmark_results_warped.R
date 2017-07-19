@@ -4,7 +4,7 @@ library("ggplot2")
 mytheme = theme_bw(20)
 
 # read in most current benchmark
-bmr = readRDS("Benchmark_results/2017-07-14simu_warped_bmr.RDS")
+bmr = readRDS("Benchmark_results/2017-07-17simu_warped_bmr.RDS")
 name = "bmr_warped_trigonometric"
 bmr
 
@@ -17,12 +17,34 @@ lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned",
              "knn1nderiv0_phase", "knn1nderiv0_amplitude")
 order.lrns = 1:5
 
+# pretty labels for simulated data
+simulation.data.limits = c("random_trigonometric_ncl10_nobs100_vamp0.5_max.phase.dif1", 
+                           "random_trigonometric_ncl10_nobs100_vamp0.5_max.phase.dif1.5",
+                           "random_trigonometric_ncl10_nobs100_vamp2_max.phase.dif1",    
+                           "random_trigonometric_ncl10_nobs100_vamp2_max.phase.dif1.5",  
+                           "random_trigonometric_ncl2_nobs100_vamp0.5_max.phase.dif1",   
+                           "random_trigonometric_ncl2_nobs100_vamp0.5_max.phase.dif1.5", 
+                           "random_trigonometric_ncl2_nobs100_vamp2_max.phase.dif1",     
+                           "random_trigonometric_ncl2_nobs100_vamp2_max.phase.dif1.5")
+
+simulation.data.labels = c("ncl 10; vamp 0.5; max.ph.diff 1   ", 
+                           "ncl 10; vamp 0.5; max.ph.diff 1.5",
+                           "ncl 10; vamp    2; max.ph.diff 1   ", 
+                           "ncl 10; vamp    2; max.ph.diff 1.5",
+                           #
+                           "ncl   2; vamp 0.5; max.ph.diff 1   ", 
+                           "ncl   2; vamp 0.5; max.ph.diff 1.5",
+                           "ncl   2; vamp    2; max.ph.diff 1   ", 
+                           "ncl   2; vamp    2; max.ph.diff 1.5")
+
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
 p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE, 
                         jitter = 0.05, pointsize = 10L) +
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
-  scale_x_continuous(breaks = 1:15, minor_breaks = 1:15) +
+  scale_y_discrete(limits = simulation.data.limits,
+                   labels = simulation.data.labels) +
+  scale_x_continuous(breaks = 1:5, minor_breaks = 1:5) +
   scale_color_manual(values = lrns.colors,
                      name = "")  +
   xlab("Rank of Brier score") +
@@ -36,6 +58,7 @@ ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots,
 
 p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE) + 
   scale_fill_manual(values = lrns.colors, 
+                    limits = getBMRLearnerShortNames(bmr)[order.lrns], 
                     name = "model") +
   ylab("count") +
   mytheme

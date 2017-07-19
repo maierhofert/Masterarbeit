@@ -17,11 +17,35 @@ lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned",
              "knn1nderiv0_phase", "knn1nderiv0_amplitude")
 order.lrns = 1:5
 
+# pretty labels for simulated data
+simulation.data.limits = c("random_srivastava_ncl10_nobs100_cl.z.diff0_cl.a.diff0",  
+                           "random_srivastava_ncl10_nobs100_cl.z.diff0_cl.a.diff1",  
+                           "random_srivastava_ncl10_nobs100_cl.z.diff0.1_cl.a.diff0",
+                           "random_srivastava_ncl10_nobs100_cl.z.diff0.1_cl.a.diff1",
+                           "random_srivastava_ncl2_nobs100_cl.z.diff0_cl.a.diff0",   
+                           "random_srivastava_ncl2_nobs100_cl.z.diff0_cl.a.diff1",   
+                           "random_srivastava_ncl2_nobs100_cl.z.diff0.1_cl.a.diff0", 
+                           "random_srivastava_ncl2_nobs100_cl.z.diff0.1_cl.a.diff1")
+
+simulation.data.labels = c("ncl 10; cl.z.diff    0; cl.a.diff 0",
+                           "ncl 10; cl.z.diff    0; cl.a.diff 1",
+                           "ncl 10; cl.z.diff 0.1; cl.a.diff 0",
+                           "ncl 10; cl.z.diff 0.1; cl.a.diff 1",
+                           #
+                           "ncl   2; cl.z.diff    0; cl.a.diff 0",
+                           "ncl   2; cl.z.diff    0; cl.a.diff 1",
+                           "ncl   2; cl.z.diff 0.1; cl.a.diff 0",
+                           "ncl   2; cl.z.diff 0.1; cl.a.diff 1"
+                           )
+
+
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
 p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE, 
                         jitter = 0.05, pointsize = 10L) +
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
+  scale_y_discrete(limits = simulation.data.limits,
+                   labels = simulation.data.labels) +
   scale_x_continuous(breaks = 1:15, minor_breaks = 1:15) +
   scale_color_manual(values = lrns.colors,
                      name = "")  +
@@ -36,6 +60,7 @@ ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots,
 
 p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE) + 
   scale_fill_manual(values = lrns.colors, 
+                    limits = getBMRLearnerShortNames(bmr)[order.lrns], 
                     name = "model") +
   ylab("count") +
   mytheme

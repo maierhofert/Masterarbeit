@@ -57,7 +57,7 @@ boys_der2$sex = "male"
 colnames(boys_der2) <- c("time", "ID", "height", "sex")
 boys_der2$deriv = 2
 
-boys_der3 <- melt(boyGrowth_der2, value.name = "height")
+boys_der3 <- melt(boyGrowth_der3, value.name = "height")
 boys_der3$sex = "male"
 colnames(boys_der3) <- c("time", "ID", "height", "sex")
 boys_der3$deriv = 3
@@ -79,7 +79,7 @@ girls_der2$sex = "female"
 colnames(girls_der2) <- c("time", "ID", "height", "sex")
 girls_der2$deriv = 2
 
-girls_der3 <- melt(girlGrowth_der2, value.name = "height")
+girls_der3 <- melt(girlGrowth_der3, value.name = "height")
 girls_der3$sex = "female"
 colnames(girls_der3) <- c("time", "ID", "height", "sex")
 girls_der3$deriv = 3
@@ -88,82 +88,11 @@ girls_der3$deriv = 3
 growth_long <- rbind(boys, boys_der, boys_der2, boys_der3,
                      girls, girls_der, girls_der2, girls_der2, girls_der3)
 growth_long$time <- growth_long$time / 10
-# growth_long$sex <- factor(dat$sex)
 
+# Cast the data frame into the wide format
+# Careful here with the fixed
+growth_wide <- dcast(ID + sex + deriv ~ time, value.var = "height", 
+                     fun.aggregate = mean, data = growth_long)
+colnames(growth_wide)[4:ncol(growth_wide)] <- paste0("t", colnames(growth_wide)[4:ncol(growth_wide)])
 
-# # Cast the data frame into the wide format
-# # Careful here with the fixed
-# growth_wide <- dcast(ID + sex + deriv ~ time, value.var = "height", data = growth_long)
-# colnames(growth_wide)[4:ncol(growth_wide)] <- paste0("t", colnames(growth_wide)[4:ncol(growth_wide)])
-# 
-# 
-# # Transform this into the notation of Fuchs
-# x <- list(as.matrix(growth_wide[growth_wide$deriv == 0, 4:ncol(growth_wide)]))
-# xul <- x[[1]]
-# y <- rep(0, nrow(growth_wide[growth_wide$deriv == 0,]))
-# y[growth_wide[growth_wide$deriv == 0,2] == "female"] <- 1
-# 
-# # tt <- growth_long$time[1:31]
-# tt <- unique(growth_long$time)
-# 
-# # 10 times repeated 10 fold cross validation
-# nfolds = 10
-# repetitions = 10
-# 
-# # Set up the CV data sets
-# x.inb.cal <- list()
-# x.inb.val <- list()
-# 
-# y.inb.cal <- list()
-# y.inb.val <- list()
-# 
-# set.seed("29112016")
-# 
-# for(times in 1:repetitions) {
-#   # Initialize list for every repetition
-#   x.inb.cal[[times]] <- list()
-#   x.inb.val[[times]] <- list()
-#   y.inb.cal[[times]] <- list()
-#   y.inb.val[[times]] <- list()
-#   
-#   # Split randomly into the nfold groups
-#   group <- sample(rep(1:nfolds, length.out = nrow(xul)), 
-#                   size = nrow(xul), replace = FALSE)
-#   
-#   # get the according samples from x or y
-#   for(i in 1:nfolds) {
-#     x.inb.cal[[times]][[i]] <- list(xul[group != i,])
-#     x.inb.val[[times]][[i]] <- list(xul[group == i,])
-#     y.inb.cal[[times]][[i]] <- y[group != i]
-#     y.inb.val[[times]][[i]] <- y[group == i]
-#   }
-# }
-# 
-# ### Plotting the growth study data
-# 
-# library("ggplot2")
-# 
-# # create new variables for plotting
-# 
-# # # derivatives
-# # growth_long <- ddply(growth_long, .(ID), function(dat) {
-# #   dat <- mutate(dat, height_deriv = c(diff(dat$height) / diff(dat$time), 0))
-# #   dat <- mutate(dat, height_deriv2 = c(diff(dat$height_deriv)[-31] / 
-# #                                          diff(dat$time)[-31], 0))
-# #   mutate(dat, height_deriv3 = c(diff(dat$height_deriv2)[-30:-31] / 
-# #                                   diff(dat$time)[-30:-31], 0, 0))
-# # })
-# 
-# 
-# 
-# # prettier German sex
-# growth_long$Geschlecht = "m?nnl."
-# growth_long$Geschlecht[growth_long$sex == "female"] = "weibl."
-# 
-# growth_long$Geschlecht2 = "m?nnlich"
-# growth_long$Geschlecht2[growth_long$sex == "female"] = "weiblich"
-
-
-
-
-
+growth_wide = growth_wide[growth_wide$deriv == 0, -3]
