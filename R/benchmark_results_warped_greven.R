@@ -23,11 +23,15 @@ simulation.data.limits = c("warped_greven_ncl10_nobs100_vbc0_phf0", "warped_grev
                            "warped_greven_ncl2_nobs100_vbc0_phf0", "warped_greven_ncl2_nobs100_vbc0_phf1",
                            "warped_greven_ncl2_nobs100_vbc1_phf0", "warped_greven_ncl2_nobs100_vbc1_phf1")
 
-simulation.data.labels = c("ncl 10; vbc 0; ph.f 1", "ncl 10; vbc 0; ph.f 1",
-                           "ncl 10; vbc 1; ph.f 0", "ncl 10; vbc 1; ph.f 1",
+simulation.data.labels = c("ncl 10; vbc 0; ph.f 0", 
+                           "ncl 10; vbc 0; ph.f 1",
+                           "ncl 10; vbc 1; ph.f 0", 
+                           "ncl 10; vbc 1; ph.f 1",
                            #
-                           "ncl   2; vbc 0; ph.f 1", "ncl   2; vbc 0; ph.f 1",
-                           "ncl   2; vbc 1; ph.f 0", "ncl   2; vbc 1; ph.f 1")
+                           "ncl   2; vbc 0; ph.f 0", 
+                           "ncl   2; vbc 0; ph.f 1",
+                           "ncl   2; vbc 1; ph.f 0", 
+                           "ncl   2; vbc 1; ph.f 1")
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
 p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE, 
