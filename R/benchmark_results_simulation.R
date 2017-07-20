@@ -18,11 +18,11 @@ lrns.colors = c("grey20", "grey60",
                 "deeppink4", "deeppink1",
                 #
                 "chartreuse1", "chartreuse3",
-                "darkolivegreen3", "darkorchid1"
+                "darkorchid1", "darkolivegreen3"
 )
 lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned", 
              "knn1nderiv0_dtw", 
-             "knn1nderiv0_phase", "knn1nderiv0_amplitude", 
+             "knn1nderiv0_amplitude", "knn1nderiv0_phase", 
              #
              "knn_eucl_ensemble", "knnOptNderiv0_eucl.tuned",
              "nderiv_eucl_ensemble", "knn1NderivOpt_eucl.tuned",
@@ -31,10 +31,10 @@ lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned",
              # 
              "rf_nofeat_semimet_ensemble", "rf_feat_semimet_ensemble",
              #
-             "rf_noisy_ensemble", "noisy_eucl_ensemble")
+             "noisy_eucl_ensemble", "rf_noisy_ensemble")
 
-order.lrns = c(1:3, 16:17, c(4, 10, 5, 11, 6, 12, 7, 13),
-               8:9, 14:15)
+order.lrns = c(1:3, 16:17, c(4, 11, 5, 10, 6, 12, 7, 13),
+               9:8, 15:14)
 
 # pretty labels for simulated data
 simulation.data.limits = c("random_splines_ncl10_nobs20_vwc0.5", "random_splines_ncl10_nobs20_vwc2", 
