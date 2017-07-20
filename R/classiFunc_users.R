@@ -1,10 +1,13 @@
 
 library("ggplot2")
-library(installr)
+library("installr")
 mytheme = theme_bw(20)
 
 # The first two functions might take a good deal of time to run (depending on the date range)
-RStudio_CRAN_data_folder <- download_RStudio_CRAN_data(START = '2017-05-29', END = '2017-06-28')
+RStudio_CRAN_data_folder <- download_RStudio_CRAN_data(START = '2017-05-29',
+                                                       END = '2017-07-19',
+                                                       # log_folder = "../Rlog/"
+                                                       )
 my_RStudio_CRAN_data <- read_RStudio_CRAN_data(RStudio_CRAN_data_folder, packages = c("mlr", "classiFunc"))
 
 # # standard barplot
@@ -22,11 +25,11 @@ bp = ggplot(data = lp, aes(time, V1, group = package)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 bp
 ggsave(paste0("Grafiken/classiFunc_downloads.pdf"), bp, 
-       width = 13, height = 7)
+       width = 12, height = 7)
 
 # number of countries
 length(table(my_RStudio_CRAN_data[!duplicated(my_RStudio_CRAN_data$ip_id), ]$country))
-# number of downloads (not unique)
+# number of downloads (unique)
 sum(lp$V1)
 
 # mlr ggplot barplot
@@ -39,4 +42,4 @@ bp = ggplot(data = lp, aes(time, V1, group = package)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 bp
 ggsave(paste0("Grafiken/mlr_downloads.pdf"), bp, 
-       width = 13, height = 7)
+       width = 12, height = 7)
