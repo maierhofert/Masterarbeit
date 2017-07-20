@@ -99,8 +99,8 @@ nn_ensemble_mod = train(learner = nn_ensemble, task = tsk)
 rf_ensemble_mod = train(learner = rf_ensemble, task = tsk)
 
 # save models
-saveRDS(rf_ensemble_mod, "rf_ensemble_mod.RDS")
-saveRDS(nn_ensemble_mod, "nn_ensemble_mod.RDS")
+saveRDS(rf_ensemble_mod, paste0("rf_ensemble_mod", Sys.Date(), ".RDS"))
+saveRDS(nn_ensemble_mod, paste0("nn_ensemble_mod", Sys.Date(), ".RDS"))
 # read in the models
 rf_ensemble_mod = readRDS("rf_ensemble_mod.RDS")
 nn_ensemble_mod = readRDS("nn_ensemble_mod.RDS")
