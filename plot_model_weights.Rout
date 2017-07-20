@@ -99,8 +99,23 @@ Loaded dtw v1.18-1. See ?dtw for help, citation("dtw") for use in publication.
 +                                  predict.type = "prob",
 +                                  use.feat = FALSE,
 +                                  method = "stack.cv")
-> 
 > rf_ensemble$short.name = "rf ensemble"
+> 
+> source("R/growth_study_data.R")
+Loading required package: splines
+Loading required package: Matrix
+
+Attaching package: ‘fda’
+
+The following object is masked from ‘package:graphics’:
+
+    matplot
+
+> tsk = makeFDAClassifTask(data = growth_wide[,2:ncol(growth_wide)],
++                          id = "growth_study",
++                          fd.features = list(ff = 2:(ncol(growth_wide) - 1)),
++                          target = "sex")
+> 
 > 
 > # # read in example task
 > # dat = read.arff("Daten/TSC Problems/ECG200/ECG200.arff")
@@ -112,15 +127,74 @@ Loaded dtw v1.18-1. See ?dtw for help, citation("dtw") for use in publication.
 > # matplot(t(dat[subs,1:96]), type = "l",
 > #         lty = as.numeric(dat[subs,97]),
 > #         col = factor(dat[subs,97]))
-> 
-> # read in example task
-> dat = read.arff("Daten/TSC Problems/ArrowHead/ArrowHead.arff")
-> # only use two classes
-> dat = dat[dat$target %in% c(0, 1),]
-> dat$target = droplevels(dat$target)
-> tsk = makeFDAClassifTask(data = dat,
-+                          id = "ArrowHead",
-+                          fd.features = list(ff = 1:(ncol(dat) - 1)),
-+                          target = "target")
+> # 
+> # # > rf_ensemble_mod = train(learner = rf_ensemble, task = tsk)
+ArrowHead/ArrowHead.arff")
+> # # only use two classes
+> # dat = dat[dat$target %in% c(0, 1),]
+> # dat$target = droplevels(dat$target)
+> # tsk = makeFDAClassifTask(data = dat,
+> #                          id = "ArrowHead",
+> #                          fd.features = list(ff = 1:(ncol(dat) - 1)),
+> #                          target = "target")
 > 
 > nn_ensemble_mod = train(learner = nn_ensemble, task = tsk)
+> rf_ensemble_mod = train(learner = rf_ensemble, task = tsk)
+> 
+> # save models
+> saveRDS(rf_ensemble_mod, "rf_ensemble_mod.RDS")
+> saveRDS(nn_ensemble_mod, "nn_ensemble_mod.RDS")
+> 
+> # #############
+> # generate data for the nn_ensemble plot
+> weight = nn_ensemble_mod$learner.model$weights
+> base.learners = BBmisc::extractSubList(nn_ensemble_mod$learner.model$base.models, "learner",
++                                        simplify = FALSE)
+> base.learners.id = sapply(base.learners, getLearnerId)
+> plot.data = data.frame(id = base.learners.id, weight = weight)
+> 
+> # TODO fix labels of base learners
+> # barplot with the nnensemble weights
+> weight.plot <- ggplot(data = plot.data, aes(x = id, y = weight)) +
++   geom_bar(stat = "identity") +
++   xlab("base model") +
++   mytheme +
++   theme(axis.text.x = element_text(angle = 90, 
++                                    # size = 8,
++                                    vjust = 0.5))
+> weight.plot
+> ggsave(paste0("Grafiken/weightplot_nn_ensemble.pdf"), weight.plot, 
++        width = 12, height = 10)
+> 
+> 
+> # generate data for the rf_ensemble plot
+> library("randomForest")
+randomForest 4.6-12
+Type rfNews() to see new features/changes/bug fixes.
+
+Attaching package: ‘randomForest’
+
+The following object is masked from ‘package:ggplot2’:
+
+    margin
+
+> randomForest_mod = rf_ensemble_mod$learner.model$super.model$learner.model
+> feat_imp = importance(randomForest_mod)
+> plot.data = data.frame(id = rownames(feat_imp), var_imp = as.vector(feat_imp))
+> varImpPlot(randomForest_mod)
+> # barplot with the nnensemble weights
+> weight.plot <- ggplot(data = plot.data, aes(x = id, y = var_imp)) +
++   geom_bar(stat = "identity") +
++   xlab("base model") +
++   ylab("variable importance") +
++   mytheme +
++   theme(axis.text.x = element_text(angle = 90, 
++                                    # size = 8,
++                                    vjust = 0.5))
+> weight.plot
+> ggsave(paste0("Grafiken/weightplot_rf_ensemble.pdf"), weight.plot, 
++        width = 12, height = 10)
+> 
+> proc.time()
+     user    system   elapsed 
+43924.932     2.992 43952.785 
