@@ -140,6 +140,8 @@ varImpPlot(randomForest_mod)
 # barplot with the nnensemble weights
 weight.plot <- ggplot(data = plot.data, aes(x = id, y = var_imp)) +
   geom_bar(stat = "identity") +
+  scale_x_discrete(breaks = base.learners.id,
+                   labels = base.learner.labels) +
   xlab("base model") +
   ylab("variable importance") +
   mytheme +
