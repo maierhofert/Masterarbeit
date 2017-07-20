@@ -1,28 +1,31 @@
 # This file can be used to create simulated data
 
-# # set hyperparameters for simulation
-# nclasses = 3
-# nknots = 10
-# norder = 3 # for cubic spline
-# nbasis = nknots + norder - 1 # - 2 ? see help of create.bspline.basis
-# 
-# nobs_per_class = 10
-# length_per_data = 50
-# x_seq = seq(0, 1, length.out = length_per_data)
+# set hyperparameters for simulation
+nclasses = 3
+nknots = 10
+norder = 3 # for cubic spline
+nbasis = nknots + norder - 1 # - 2 ? see help of create.bspline.basis
 
-# # create one object outside of the loops
-# # dummy object to plot pretty spline basis
-# library(fda)
-# basisobj = create.bspline.basis(c(0, 1), nbasis = nbasis, norder = norder)
-# plot(basisobj)
-# 
-# 
-# 
+nobs_per_class = 10
+length_per_data = 50
+x_seq = seq(0, 1, length.out = length_per_data)
+
+# create one object outside of the loops
+# dummy object to plot pretty spline basis
+library(fda)
+basisobj = create.bspline.basis(c(0, 1), nbasis = nbasis, norder = norder)
+pdf("Grafiken/Bsplines_basis3.pdf", width = 12, height = 7)
+par(mar = c(5, 7, 4, 2) + 0.1)
+plot(basisobj, col = 1, lty = 1, cex.axis = 2, cex.lab = 2.5, 
+     xlab = "t", ylab = expression(B[j](t)))
+par(mar = c(5, 4, 4, 2) + 0.1)
+dev.off()
+
 # class_splines = list()
 # class_centers = matrix(NA, ncol = length_per_data, nrow = nclasses)
 # simu_data = matrix(NA, ncol = length_per_data, nrow = nclasses * nobs_per_class)
-# 
-# # actual data simulation
+#
+# # data simulation
 # set.seed(1234)
 # for(class in 1:nclasses) {
 #   # create a cubic basis object to be (ab)used
