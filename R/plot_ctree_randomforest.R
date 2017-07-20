@@ -2,7 +2,7 @@
 library("mlr")
 library("ggplot2")
 library("party")
-mytheme = theme_classic(15)
+mytheme = theme_classic(20)
 pdf.height = 5
 pdf.width = 7
 
@@ -40,6 +40,7 @@ rf = train(learner = rf.lrn, task = mod.task)
 tree.plot.raw = plotLearnerPrediction(tree.lrn, mod.task, features = c("glucose", "BMI"))
 tree.plot = tree.plot.raw + 
   ggtitle("") +
+  scale_fill_manual(values = c("firebrick3", "steelblue3")) +
   ylab("Body Mass Index") + 
   xlab("Plasma Glucose") +
   mytheme
@@ -50,6 +51,7 @@ ggsave("Grafiken/tree_plot.pdf", tree.plot,
 rf.plot.raw = plotLearnerPrediction(rf.lrn, mod.task, features = c("glucose", "BMI"))
 rf.plot = rf.plot.raw + 
   ggtitle("") +
+  scale_fill_manual(values = c("firebrick3", "steelblue3")) +
   ylab("Body Mass Index") + 
   xlab("Plasma Glucose") +
   mytheme
