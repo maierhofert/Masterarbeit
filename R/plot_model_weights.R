@@ -53,7 +53,7 @@ base.learner.labels = c("Eucl: k = 1, a = 0", "Eucl: k = 5, a = 0",
 nn_ensemble = makeStackedLearner(id = "knn_eucl_ensemble",
                                        base.learners = base.learners,
                                        predict.type = "prob",
-                                       resampling = makeResampleDesc("CV", iters = 5L),
+                                       resampling = makeResampleDesc("CV", iters = 20L),
                                        method = "classif.bs.optimal")
 nn_ensemble$short.name = "nn ensemble"
 
@@ -93,12 +93,19 @@ tsk = makeFDAClassifTask(data = growth_wide[,2:ncol(growth_wide)],
 #                          fd.features = list(ff = 1:(ncol(dat) - 1)),
 #                          target = "target")
 
+# train the models
+# this has a run time of about 2 days
 nn_ensemble_mod = train(learner = nn_ensemble, task = tsk)
 rf_ensemble_mod = train(learner = rf_ensemble, task = tsk)
 
 # save models
 saveRDS(rf_ensemble_mod, "rf_ensemble_mod.RDS")
 saveRDS(nn_ensemble_mod, "nn_ensemble_mod.RDS")
+# read in the models
+rf_ensemble_mod = readRDS("rf_ensemble_mod.RDS")
+nn_ensemble_mod = readRDS("nn_ensemble_mod.RDS")
+
+
 
 # #############
 # generate data for the nn_ensemble plot
@@ -112,10 +119,12 @@ plot.data = data.frame(id = base.learners.id, weight = weight)
 # barplot with the nnensemble weights
 weight.plot <- ggplot(data = plot.data, aes(x = id, y = weight)) +
   geom_bar(stat = "identity") +
+  scale_x_discrete(breaks = base.learners.id,
+                   labels = base.learner.labels) +
   xlab("base model") +
   mytheme +
   theme(axis.text.x = element_text(angle = 90, 
-                                   # size = 8,
+                                   hjust = 0.95,
                                    vjust = 0.5))
 weight.plot
 ggsave(paste0("Grafiken/weightplot_nn_ensemble.pdf"), weight.plot, 
@@ -135,7 +144,7 @@ weight.plot <- ggplot(data = plot.data, aes(x = id, y = var_imp)) +
   ylab("variable importance") +
   mytheme +
   theme(axis.text.x = element_text(angle = 90, 
-                                   # size = 8,
+                                   hjust = 0.95,
                                    vjust = 0.5))
 weight.plot
 ggsave(paste0("Grafiken/weightplot_rf_ensemble.pdf"), weight.plot, 
