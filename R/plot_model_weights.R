@@ -2,7 +2,7 @@ library("ggplot2")
 library("mlr")
 library("foreign")
 # generate plots
-mytheme = theme_bw(20)
+mytheme = theme_bw(25)
 
 # read in learners
 source("R/create_base_learners.R")
