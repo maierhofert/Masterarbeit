@@ -2,7 +2,7 @@
 
 # plot and save with ggplot
 library("ggplot2")
-mytheme = theme_bw(20)
+mytheme = theme_bw(30)
 #  create a transformation function
 my_transform = function(simu_data) {
   # transform into long format
@@ -21,6 +21,7 @@ simu_plot = function(plot_data) {
                        values = c("firebrick3", "steelblue3")) +
     xlab("t") +
     ylab("x(t)") +
+    guides(col = FALSE) +
     mytheme
 }
 
@@ -37,7 +38,8 @@ p = simu_plot(plot_data) +
   geom_line(size = 1)
 p
 
-ggsave("Grafiken/simu_data_random_splines_ncl2_nobs20_vwc0_5.pdf", p,
+ggsave("Grafiken/simu_data_random_splines_ncl2_nobs20_vwc0_5.pdf", 
+       p,
        height = 7, width = 10)
 
 
@@ -111,39 +113,39 @@ ggsave("Grafiken/simu_data_random_srivastava_ncl2_nobs100_cl_z_diff0_1_cl_a_diff
 # ###########################################################
 # # random greven
 # read in the simulated data
-path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc0_phf0.RDS"
-simu_data = readRDS(path)
-
-plot_data = my_transform(simu_data)
-
-p4.1 = simu_plot(plot_data)
-p4.1
-
-ggsave("Grafiken/simu_data_warped_greven_ncl2_nobs100_vbc0_phf0.pdf", p4.1,
-       height = 7, width = 10)
-
-path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc1_phf0.RDS"
-simu_data = readRDS(path)
-
-plot_data = my_transform(simu_data)
-
-p4.2 = simu_plot(plot_data)
-p4.2
-
-ggsave("Grafiken/simu_data_warped_greven_ncl2_nobs100_vbc1_phf0.pdf", p4.2,
-       height = 7, width = 10)
-
-# ###########
-path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc0_phf1.RDS"
-simu_data = readRDS(path)
-
-plot_data = my_transform(simu_data)
-
-p4.3 = simu_plot(plot_data)
-p4.3
-
-ggsave("Grafiken/simu_data_warped_greven_ncl2_nobs100_vbc0_phf1.pdf", p4.3,
-       height = 7, width = 10)
+# path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc0_phf0.RDS"
+# simu_data = readRDS(path)
+# 
+# plot_data = my_transform(simu_data)
+# 
+# p4.1 = simu_plot(plot_data)
+# p4.1
+# 
+# ggsave("Grafiken/simu_data_warped_greven_ncl2_nobs100_vbc0_phf0.pdf", p4.1,
+#        height = 7, width = 10)
+# 
+# path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc1_phf0.RDS"
+# simu_data = readRDS(path)
+# 
+# plot_data = my_transform(simu_data)
+# 
+# p4.2 = simu_plot(plot_data)
+# p4.2
+# 
+# ggsave("Grafiken/simu_data_warped_greven_ncl2_nobs100_vbc1_phf0.pdf", p4.2,
+#        height = 7, width = 10)
+# 
+# # ###########
+# path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc0_phf1.RDS"
+# simu_data = readRDS(path)
+# 
+# plot_data = my_transform(simu_data)
+# 
+# p4.3 = simu_plot(plot_data)
+# p4.3
+# 
+# ggsave("Grafiken/simu_data_warped_greven_ncl2_nobs100_vbc0_phf1.pdf", p4.3,
+#        height = 7, width = 10)
 # ###########
 path = "Daten/Simulated Data/warped_greven/warped_greven_ncl2_nobs100_vbc1_phf1.RDS"
 simu_data = readRDS(path)
