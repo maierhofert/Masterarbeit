@@ -619,3 +619,11 @@ Mapping in parallel: mode = socket; cpus = 10; elements = 10.
 Task: SwedishLeaf, Learner: knn1nderiv0_amplitude
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.07,mmce.test.mean=0.537,timetrain.test.mean=0.03,timepredict.test.mean=2.5e+04,timeboth.test.mean=2.5e+04
+Task: Adiac, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.838,mmce.test.mean=0.434,timetrain.test.mean=0.0432,timepredict.test.mean=2.31e+04,timeboth.test.mean=2.31e+04
+Task: CBF, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
