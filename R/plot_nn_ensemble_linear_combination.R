@@ -19,7 +19,7 @@ p <- ggplot(pp(50), aes(x=x,y=y)) +
 p_equal <- p + geom_tile(aes(fill=equal)) +
   scale_fill_gradient2("ensemble-\nestimation\n",
                        low = "firebrick3", mid = "white",
-                       high = "dodgerblue3", midpoint = 0.5, space = "Lab",
+                       high = "steelblue3", midpoint = 0.5, space = "Lab",
                        na.value = "grey50", guide = "colourbar") +
   xlab("estimation 1 (weight 1)") + ylab("estimation 2 (weight 1)")
 p_equal
@@ -28,7 +28,7 @@ p_equal
 p_x_two_thirds <-  p + geom_tile(aes(fill=x_two_thirds)) +
   scale_fill_gradient2("ensemble-\nestimation\n",
                        low = "firebrick3", mid = "white",
-                       high = "dodgerblue3", midpoint = 0.5, space = "Lab",
+                       high = "steelblue3", midpoint = 0.5, space = "Lab",
                        na.value = "grey50", guide = "colourbar") +
   xlab("estimation 1 (weight 2/3)") + ylab("estimation 2 (weight 1/3)")
 p_x_two_thirds
@@ -37,7 +37,7 @@ p_x_two_thirds
 p_x <- p + geom_tile(aes(fill=x)) +
   scale_fill_gradient2("ensemble-\nestimation\n",
                        low = "firebrick3", mid = "white",
-                       high = "dodgerblue3", midpoint = 0.5, space = "Lab",
+                       high = "steelblue3", midpoint = 0.5, space = "Lab",
                        na.value = "grey50", guide = "colourbar") +
   xlab("estimation 1 (weight 1)") + ylab("estimation 2 (weight 0)")
 p_x
