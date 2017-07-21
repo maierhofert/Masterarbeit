@@ -1,4 +1,4 @@
-# create example plots for the simulated data
+# this file creates example plots for all simulated data
 
 # plot and save with ggplot
 library("ggplot2")

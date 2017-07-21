@@ -1,5 +1,6 @@
 # this file creates learners with optimal values for
-# knn and nderiv
+# knn and nderiv and semimetric
+# to be included in the benchmark experiments
 library("mlr")
 
 # hyper parameters for optimal nderiv/knn/semimetric

@@ -1,5 +1,6 @@
 # this file creates learners form fuchs etal 2015 that need
 # automated hyperparameter setting
+# they are not inlcuded in the benchmark experiment of the thesis but are fully functional
 library("mlr")
 
 # base learners as proposed in fuchs etal

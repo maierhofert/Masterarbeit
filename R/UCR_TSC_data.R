@@ -1,7 +1,10 @@
+# this file reads in the UCR TSC data and creates mlr taks for them to be 
+# used in the benchmark experiment
+
 # Path to this R-File
 data_path = "Daten/TSC Problems"
 
-# This file reads in the data sets from the UCR TSC archive
+# get names of all data sets
 data_names = list.dirs(data_path, full.names = FALSE, recursive = FALSE)
 data_names = data_names[!data_names %in% c("", "Data Descriptions", 
                                            "ElectricDeviceOn", "ECGMeditation", 
@@ -77,7 +80,8 @@ nrow(df_red)
 
 # # Benchmark_results/2017-07-17bmr.RDS
 # tsks = tsks[df$nobs...obslen <= 100000]
+tsks = tsks[df$nobs...obslen <= 100000]
 
-# 
-tsks = tsks[df$nobs...obslen > 100000 & df$nobs...obslen <= 200000]
+# # never finished (it was not even half way done after 8 days on the server)
+# tsks = tsks[df$nobs...obslen > 100000 & df$nobs...obslen <= 200000]
 

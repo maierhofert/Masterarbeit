@@ -1,4 +1,4 @@
-# In diesem File werden deskriptive Grafiken zur Berkeley Growth Study erstellt
+# this file creates plots for the Berkley growth study data
 # Underived height
 source("R/growth_study_data.R")
 mytheme = theme_bw(20)
@@ -8,7 +8,7 @@ col.male = "chartreuse3"
 col.male = "royalblue"
 col.female = "chartreuse3"
 
-# Funktion zur Erstellung der Grafiken
+# function to create figures
 plot_data <- function(deriv) {
   ggplot(growth_long[growth_long$deriv == deriv,]) +
     geom_line(aes(time, height, colour = sex, group = ID)) +
@@ -48,7 +48,7 @@ p2 <- plot_data(deriv = 2) +
 
 
 
-# Abspeichern der Grafiken
+# save plots
 ggsave(filename = "Grafiken/Berkeley_growth_study/height.pdf", 
        plot = p0, height = 7, width = 12)
 # ggsave(filename = "Grafiken/Berkeley_growth_study/height_no_facet.pdf", 
@@ -63,8 +63,8 @@ ggsave(filename = "Grafiken/Berkeley_growth_study/height_2der.pdf",
 
 
 ################################################################################
-# Weitere Grafiken
-# Erstelle die Mittelwertskurve
+# further figures 
+# create mean curves per sex
 mean_long <- aggregate(height ~ time + sex + deriv + sex, 
                        growth_long, mean)
 
@@ -83,7 +83,7 @@ manh_plot <- function(deriv) {
     geom_ribbon(aes(x = time, ymax = female, ymin = male), 
                 data = mean_long2[mean_long2$deriv == deriv,],
                 alpha = 0.2) +
-    # Mittelwertslinien der Geschlechter
+    # mean curves per sex
     geom_line(aes(time, height, colour = sex), size = 2) +
     scale_color_manual(name = "sex",
                        values = c(col.female, col.male)) +
@@ -123,7 +123,7 @@ ggsave(filename = "Grafiken/Berkeley_growth_study/manh_dist_2der_no_legend.pdf",
 
 
 # ###############################################################################
-# Maximums - Semimetrik
+# maximums semimetric
 max_long <- mean_long
 max_long <- ddply(max_long, .(sex, deriv), mutate, 
                   maximum = max(height),
@@ -165,7 +165,7 @@ max_plot <- function(deriv) {
   mytheme
 }
 
-# Erstellen der Grafiken
+# create plots
 max0 <- max_plot(deriv = 0) + 
   ylab("height in cm") +
   xlab("age in years")
@@ -204,7 +204,7 @@ srv_plot <- function(deriv) {
     mytheme
 }
 
-# Erstellen der Grafiken
+# create plots
 srv0 <- srv_plot(deriv = 0) + 
   ylab("srv(height in cm)") +
   xlab("age in years")

@@ -1,5 +1,6 @@
+# this file creates the models/learners for the benchmark experiments
 library("mlr")
-# benchmark classifiers
+# reference models classifiers
 k1nd0_eucl = makeLearner(cl = "fdaclassif.classiKnn",
                          id = paste0("knn", 1, "nderiv", 0,
                                      "_eucl"),

@@ -1,3 +1,5 @@
+# this file crates a nearest neighbor ensemble and a random forest ensemble
+# for the growth study data and plots the weights of the base models
 library("ggplot2")
 library("mlr")
 library("foreign")

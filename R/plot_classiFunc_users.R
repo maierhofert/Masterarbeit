@@ -1,3 +1,5 @@
+# this file downloads and plots the daily number of downloads for the
+# classiFunc and the mlr package
 library("ggplot2")
 library("installr")
 mytheme = theme_bw(20)
