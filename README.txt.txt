@@ -1,5 +1,5 @@
-This file described the digital supplement. The folder Masterarbeit contains an R-Project
-which is tracked on Github "maierhofert/Masterarbeit".
+This file described the digital supplement. The folder Masterarbeit is an R-Project
+which is tracked on Github at "maierhofert/Masterarbeit".
 Structure of Files:
 Masterarbeit.Rproj: master file for this project. Open this in RStudio to run all R Code.
 Benchmark Experiments: Results of the benchmark experiments as .RDS, saved with date and 

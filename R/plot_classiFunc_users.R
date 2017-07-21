@@ -1,13 +1,12 @@
-
 library("ggplot2")
 library("installr")
 mytheme = theme_bw(20)
 
 # The first two functions might take a good deal of time to run (depending on the date range)
-RStudio_CRAN_data_folder <- download_RStudio_CRAN_data(START = '2017-05-29',
-                                                       END = '2017-07-18',
-                                                       log_folder = "../Rlog/"
-                                                       )
+RStudio_CRAN_data_folder <- download_RStudio_CRAN_data(# log_folder = "../Rlog/"
+  START = '2017-05-29',
+  END = '2017-07-19')
+
 my_RStudio_CRAN_data <- read_RStudio_CRAN_data(RStudio_CRAN_data_folder, packages = c("mlr", "classiFunc"))
 
 # # standard barplot
