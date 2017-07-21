@@ -1,4 +1,4 @@
-# This file can be used to create simulated data
+# This file can be used to create the warped splines data
 
 # parameters for splines
 nknots = 10

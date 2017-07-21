@@ -1,4 +1,6 @@
-# this file creates simulated warped functional data sets as proposed in srivastava
+# this file creates simulated warped functional data sets as proposed in 
+# srivastava 2016
+# this is the warped bimodal data
 length_per_data = 50
 x_seq = seq(-3, 3, length.out = length_per_data)
 

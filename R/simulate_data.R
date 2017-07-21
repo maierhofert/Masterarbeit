@@ -1,4 +1,4 @@
-# This file can be used to create simulated data
+# This file creates the random splines data
 
 # set hyperparameters for simulation
 nclasses = 3

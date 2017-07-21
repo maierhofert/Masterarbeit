@@ -1,4 +1,5 @@
-# this file creates simulated warped functional data sets using trigonometric functions
+# this file creates the simulated warped data
+
 # initiate data support
 library("mlr")
 length_per_data = 50
