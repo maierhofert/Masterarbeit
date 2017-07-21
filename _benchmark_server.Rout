@@ -627,3 +627,19 @@ Mapping in parallel: mode = socket; cpus = 10; elements = 10.
 Task: CBF, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=1.18,mmce.test.mean=0.59,timetrain.test.mean=0.032,timepredict.test.mean=1.71e+04,timeboth.test.mean=1.71e+04
+Task: DiatomSizeReduction, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.0315,mmce.test.mean=0.0157,timetrain.test.mean=0.0364,timepredict.test.mean=1.53e+04,timeboth.test.mean=1.53e+04
+Task: ECGFiveDays, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.115,mmce.test.mean=0.0577,timetrain.test.mean=0.0376,timepredict.test.mean=1.75e+04,timeboth.test.mean=1.75e+04
+Task: Fish, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.131,mmce.test.mean=0.0657,timetrain.test.mean=0.0391,timepredict.test.mean=3.27e+04,timeboth.test.mean=3.27e+04
+Task: MedicalImages, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
