@@ -53,7 +53,7 @@ base.learner.labels = c("Eucl: k = 1, a = 0", "Eucl: k = 5, a = 0",
 nn_ensemble = makeStackedLearner(id = "knn_eucl_ensemble",
                                        base.learners = base.learners,
                                        predict.type = "prob",
-                                       resampling = makeResampleDesc("CV", iters = 20L),
+                                       resampling = makeResampleDesc("CV", iters = 5L),
                                        method = "classif.bs.optimal")
 nn_ensemble$short.name = "nn ensemble"
 
@@ -71,41 +71,17 @@ tsk = makeFDAClassifTask(data = growth_wide[,2:ncol(growth_wide)],
                          fd.features = list(ff = 2:(ncol(growth_wide) - 1)),
                          target = "sex")
 
-
-# # read in example task
-# dat = read.arff("Daten/TSC Problems/ECG200/ECG200.arff")
-# tsk = makeFDAClassifTask(data = dat[,1:ncol(dat)],
-#                          id = "ECG200",
-#                          fd.features = list(ff = 1:(ncol(dat) - 1)),
-#                          target = "target")
-# subs = 1:4
-# matplot(t(dat[subs,1:96]), type = "l",
-#         lty = as.numeric(dat[subs,97]),
-#         col = factor(dat[subs,97]))
-# 
-# # read in example task
-# dat = read.arff("Daten/TSC Problems/ArrowHead/ArrowHead.arff")
-# # only use two classes
-# dat = dat[dat$target %in% c(0, 1),]
-# dat$target = droplevels(dat$target)
-# tsk = makeFDAClassifTask(data = dat,
-#                          id = "ArrowHead",
-#                          fd.features = list(ff = 1:(ncol(dat) - 1)),
-#                          target = "target")
-
 # train the models
 # this has a run time of about 2 days
 nn_ensemble_mod = train(learner = nn_ensemble, task = tsk)
 rf_ensemble_mod = train(learner = rf_ensemble, task = tsk)
 
 # save models
-saveRDS(rf_ensemble_mod, paste0("rf_ensemble_mod", Sys.Date(), ".RDS"))
-saveRDS(nn_ensemble_mod, paste0("nn_ensemble_mod", Sys.Date(), ".RDS"))
+saveRDS(rf_ensemble_mod, paste0("rf_ensemble_mod.RDS"))
+saveRDS(nn_ensemble_mod, paste0("nn_ensemble_mod.RDS"))
 # read in the models
 rf_ensemble_mod = readRDS("rf_ensemble_mod.RDS")
 nn_ensemble_mod = readRDS("nn_ensemble_mod.RDS")
-
-
 
 # #############
 # generate data for the nn_ensemble plot
@@ -115,7 +91,7 @@ base.learners = BBmisc::extractSubList(nn_ensemble_mod$learner.model$base.models
 base.learners.id = sapply(base.learners, getLearnerId)
 plot.data = data.frame(id = base.learners.id, weight = weight)
 
-# TODO fix labels of base learners
+
 # barplot with the nnensemble weights
 weight.plot <- ggplot(data = plot.data, aes(x = id, y = weight)) +
   geom_bar(stat = "identity") +
