@@ -62,7 +62,7 @@ p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE,
   scale_color_manual(values = lrns.colors, 
                      limits = getBMRLearnerShortNames(bmr)[order.lrns],
                      name = "")  +
-  xlab("Rank of Brier score") +
+  xlab("rank of Brier score") +
   mytheme +
   theme(legend.position = "bottom",
         plot.margin = unit(c(1, 5, 0.5, 0.5), "lines"))
@@ -98,7 +98,7 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = TRUE,
   theme(text = element_text(size = 15),
         plot.margin = unit(c(1, 5, 0.5, 0.5), "lines"),
         axis.title.x = element_blank(), 
-        axis.text.x = element_text(angle = -45, hjust = 0),
+        axis.text.x = element_text(angle = -60, hjust = 0),
         legend.position = "bottom")
 labeller = function(lab) {
   pos = which(simulation.data.limits ==lab)
@@ -107,7 +107,7 @@ labeller = function(lab) {
 p.box$data$task.id = sapply(p.box$data$task.id, labeller)
 p.box
 ggsave(paste0("Grafiken/benchmark/", name, "_boxplot.pdf"), p.box, 
-       width = 12, height = 13)
+       width = 12, height = 14.5)
 
 # Friedman Test
 friedmanTestBMR(bmr, measure = multiclass.brier)

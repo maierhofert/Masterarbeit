@@ -41,8 +41,8 @@ tree.plot.raw = plotLearnerPrediction(tree.lrn, mod.task, features = c("glucose"
 tree.plot = tree.plot.raw + 
   ggtitle("") +
   scale_fill_manual(values = c("firebrick3", "steelblue3")) +
-  ylab("Body Mass Index") + 
-  xlab("Plasma Glucose") +
+  ylab("body mass index") + 
+  xlab("plasma glucose") +
   mytheme
 tree.plot
 ggsave("Grafiken/tree_plot.pdf", tree.plot,
@@ -52,8 +52,8 @@ rf.plot.raw = plotLearnerPrediction(rf.lrn, mod.task, features = c("glucose", "B
 rf.plot = rf.plot.raw + 
   ggtitle("") +
   scale_fill_manual(values = c("firebrick3", "steelblue3")) +
-  ylab("Body Mass Index") + 
-  xlab("Plasma Glucose") +
+  ylab("body mass index") + 
+  xlab("plasma glucose") +
   mytheme
 rf.plot
 ggsave("Grafiken/rf_plot.pdf", rf.plot,

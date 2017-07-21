@@ -36,18 +36,16 @@ lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned",
 order.lrns = c(1:3, 16:17, c(4, 11, 5, 10, 6, 12, 7, 13),
                9:8, 15:14)
 
-# order.lrns = 1:17
-
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
 p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE, 
                         jitter = 0.05, pointsize = 10L) +
   guides(col = guide_legend(ncol = 2, override.aes = aes(size = 4))) +
-  scale_x_continuous(breaks = 1:15, minor_breaks = 1:15) +
+  scale_x_continuous(breaks = 1:17, minor_breaks = 1:15) +
   scale_color_manual(values = lrns.colors, 
                      limits = getBMRLearnerShortNames(bmr)[order.lrns],
                      name = "")  +
-  xlab("Rank of Brier score") +
+  xlab("rank of Brier score") +
   mytheme +
   theme(legend.position = "bottom",
         plot.margin = unit(c(1, 5, 0.5, 0.5), "lines"))
@@ -61,6 +59,9 @@ p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE,
   scale_fill_manual(values = lrns.colors, 
                     limits = getBMRLearnerShortNames(bmr)[order.lrns], 
                     name = "model") +
+  scale_x_discrete(breaks = 1:17, 
+                   labels = c(1, "", 3, "", 5, "", 7, "", 9, "", 
+                              11, "", 13, "", 15, "", 17)) +
   ylab("count") +
   mytheme
 p.bars
@@ -84,11 +85,11 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = TRUE,
   theme(text = element_text(size = 15),
         plot.margin = unit(c(1, 5, 0.5, 0.5), "lines"),
         axis.title.x = element_blank(), 
-        axis.text.x = element_text(angle = -45, hjust = 0),
+        axis.text.x = element_text(angle = -60, hjust = 0),
         legend.position = "bottom")
 p.box
 ggsave(paste0("Grafiken/benchmark/", name, "_boxplot.pdf"), p.box, 
-       width = 13, height = 30)
+       width = 13, height = 55, limitsize = FALSE)
 
 # Friedman Test
 friedmanTestBMR(bmr, measure = multiclass.brier)

@@ -2,7 +2,7 @@ library("foreign")
 library("mlr")
 library("reshape2")
 library("ggplot2")
-mytheme = theme_bw(20)
+mytheme = theme_bw(30)
 
 dat = read.arff("Daten/TSC Problems/BeetleFly/BeetleFly.arff")
 # dat$target = droplevels(dat$target)
