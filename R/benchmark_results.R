@@ -1,4 +1,5 @@
-# this file looks into the results of the benchmark analysis
+# this file looks into the results of the benchmark analysis 
+# for the UCR TSC data
 library("mlr")
 library("ggplot2")
 mytheme = theme_bw(20)
