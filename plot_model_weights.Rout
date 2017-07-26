@@ -129,29 +129,7 @@ The following object is masked from ‘package:graphics’:
 > #         col = factor(dat[subs,97]))
 > # 
 > # # read in example task
-> # dat = read.arff("Daten/TSC Problems/ArrowHead/ArrowHead.arff")
-> # # only use two classes
-> # dat = dat[dat$target %in% c(0, 1),]
-> # dat$target = droplevels(dat$target)
-> # tsk = makeFDAClassifTask(data = dat,
-> #                          id = "ArrowHead",
-> #                          fd.features = list(ff = 1:(ncol(dat) - 1)),
-> #                          target = "target")
-> 
-> # train the models
-> # this has a run time of about 2 days
-> nn_ensemble_mod = train(learner = nn_ensemble, task = tsk)
-> rf_ensemble_mod = train(learner = rf_ensemble, task = tsk)
-> 
-> # save models
-> saveRDS(rf_ensemble_mod, paste0("rf_ensemble_mod", Sys.Date(), ".RDS"))
-> saveRDS(nn_ensemble_mod, paste0("nn_ensemble_mod", Sys.Date(), ".RDS"))
-> # read in the models
-> rf_ensemble_mod = readRDS("rf_ensemble_mod.RDS")
-> nn_ensemble_mod = readRDS("nn_ensemble_mod.RDS")
-> 
-> 
-> 
+> # dat = read.arff("Daten/TSC Problems> 
 > # #############
 > # generate data for the nn_ensemble plot
 > weight = nn_ensemble_mod$learner.model$weights
@@ -164,22 +142,48 @@ The following object is masked from ‘package:graphics’:
 > # barplot with the nnensemble weights
 > weight.plot <- ggplot(data = plot.data, aes(x = id, y = weight)) +
 +   geom_bar(stat = "identity") +
-+   scale_x_discrete(breaks = base.learners.id,
-+                    labels = base.learner.labels) +
 +   xlab("base model") +
 +   mytheme +
 +   theme(axis.text.x = element_text(angle = 90, 
-+                                    hjust = 0.95,
++                                    # size = 8,
 +                                    vjust = 0.5))
 > weight.plot
 > ggsave(paste0("Grafiken/weightplot_nn_ensemble.pdf"), weight.plot, 
-+        width = 12, height = 10)
++        width = 13, height = 7)
 > 
 > 
 > # generate data for the rf_ensemble plot
 > library("randomForest")
 randomForest 4.6-12
 Type rfNews() to see new features/changes/bug fixes.
+
+Attaching package: ‘randomForest’
+
+The following object is masked from ‘package:ggplot2’:
+
+    margin
+
+> randomForest_mod = rf_ensemble_mod$learner.model$super.model$learner.model
+> feat_imp = importance(randomForest_mod)
+> plot.data = data.frame(id = rownames(feat_imp), var_imp = as.vector(feat_imp))
+> varImpPlot(randomForest_mod)
+> # barplot with the nnensemble weights
+> weight.plot <- ggplot(data = plot.data, aes(x = id, y = var_imp)) +
++   geom_bar(stat = "identity") +
++   xlab("base model") +
++   ylab("variable importance") +
++   mytheme +
++   theme(axis.text.x = element_text(angle = 90, 
++                                    # size = 8,
++                                    vjust = 0.5))
+> weight.plot
+> ggsave(paste0("Grafiken/weightplot_rf_ensemble.pdf"), weight.plot, 
++        width = 13, height = 7)
+> 
+> proc.time()
+     user    system   elapsed 
+231421.67      8.78 231556.02 
+atures/changes/bug fixes.
 
 Attaching package: ‘randomForest’
 

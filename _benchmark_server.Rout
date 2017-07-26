@@ -643,3 +643,26 @@ Mapping in parallel: mode = socket; cpus = 10; elements = 10.
 Task: MedicalImages, Learner: knn1nderiv0_phase
 Exporting objects to slaves for mode socket: .mlr.slave.options
 Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.837,mmce.test.mean=0.427,timetrain.test.mean=0.025,timepredict.test.mean=1.52e+04,timeboth.test.mean=1.52e+04
+Task: MoteStrain, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.059,mmce.test.mean=0.0291,timetrain.test.mean=0.0213,timepredict.test.mean=1.34e+04,timeboth.test.mean=1.34e+04
+Task: OSULeaf, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.136,mmce.test.mean=0.0682,timetrain.test.mean=0.0388,timepredict.test.mean=4.44e+04,timeboth.test.mean=4.44e+04
+Task: SwedishLeaf, Learner: knn1nderiv0_phase
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+[Resample] Aggr. Result: multiclass.brier.test.mean=0.24,mmce.test.mean=0.119,timetrain.test.mean=0.0319,timepredict.test.mean=2.5e+04,timeboth.test.mean=2.5e+04
+Stopped parallelization. All cleaned up.
+> date()
+[1] "Sat Jul 22 10:26:39 2017"
+> # save benchmarking result
+> saveRDS(bmr, paste0("Benchmark_results/", Sys.Date(), "bmr.RDS"))
+> saveRDS(bmr, "Benchmark_results/bmr.RDS")
+> 
+> proc.time()
+      user     system    elapsed 
+   245.984      8.360 434571.612 
