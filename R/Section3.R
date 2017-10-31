@@ -1,75 +1,10 @@
 # this is the R Code that will be used in Section 3 of the paper
 
-# install.packages("classiFunc")
-library("classiFunc")
 
-## Creating Models
-# chunk 1
-
-# classiKnn(classes, fdata, grid = 1:ncol(fdata), knn = 1L, 
-#           metric = "Euclidean", nderiv = 0L, 
-#           derived = FALSE, deriv.method = "base.diff",
-#           custom.metric = function(x, y, ...) {
-#             return(sqrt(sum((x - y)^2)))}, 
-#           ...)
-# classiKernel(classes, fdata, grid = 1:ncol(fdata), h = 1,
-#              metric = "Euclidean", ker = "Ker.norm", nderiv = 0L, 
-#              derived = FALSE, deriv.method = "base.diff",
-#              custom.metric = function(x, y, ...) {
-#                return(sqrt(sum((x - y)^2)))}, 
-#              custom.ker = function(u) {
-#                return(dnorm(u))}, 
-#              ...) 
-
-classiKnn(classes, fdata, grid = 1:ncol(fdata), knn = 1L, 
-          metric = "L2", nderiv = 0L, ...)
-
-classiKernel(classes, fdata, grid = 1:ncol(fdata), h = 1, 
-             metric = "L2", ker = "Ker.norm", 
-             nderiv = 0L, ...)
-
-
-# # chunk 2
-# 
-# # install the package once
-# install.packages("classiFunc")
-# 
-# # load the package in every new R-session
-# library("classiFunc")
-# 
-# # load the example data
-# data("Growth", package = "classiFunc")
-# 
-# # determine number of observations N
-# N = nrow(Growth$height)
-# 
-# # randomly assign data to test and training data
-# set.seed(12345)
-# train_ids = sample(1:N, size = 0.8 * N, replace = FALSE)
-# test_ids = (1:N)[!(1:N) %in% train_ids]
-# 
-# # create nearest neighbor estimator with default values
-# nn_mod1 = classiKnn(classes = Growth$sex[train_ids], 
-#                  fdata = Growth$height[train_ids,])
-# 
-# # create nearest neighbor estimator using the supremum distance
-# nn_mod2 = classiKernel(classes = Growth$sex[train_ids], 
-#                  fdata = Growth$height[train_ids,],
-#                  # metric = "supremum",
-#                  h = 0.2)
-# 
-# 
-# # Chunk 3
-# # predict the nearest neighbor estimators
-# pred1 = predict(nn_mod1, newdata = Growth$height[test_ids,])
-# pred2 = predict(nn_mod2, newdata = Growth$height[test_ids,])
-# 
-# # Chunk 4
-# table(pred = pred1, true = Growth$sex[test_ids])
-# table(pred = pred2, true = Growth$sex[test_ids])
 
 
 ################################################################################
+### Section 3, classiFunc package
 # install the package once
 install.packages("classiFunc")
 
@@ -84,9 +19,8 @@ data("DTI", package = "classiFunc")
 # randomly assign participant IDs into test and training data
 set.seed(1234)
 IDs = unique(DTI$ID)
-train_ids = sample(IDs, size = 0.95 * length(IDs))
 # vector encoding if observation is part of test or training data
-train_rows = DTI$ID %in% train_ids
+train_rows = DTI$ID %in% sample(IDs, size = 0.95 * length(IDs))
 
 # create nearest neighbor estimator with default values
 nn_mod = classiKnn(classes = DTI$case[train_rows], 
@@ -111,25 +45,67 @@ pred_ker = predict(ker_mod, newdata = DTI$rcst[!train_rows,])
 table(pred = pred_nn, true = DTI$case[!train_rows])
 # confusion matrix for kernel estimator
 table(pred = pred_ker, true = DTI$case[!train_rows])
+
 ################################################################################
 
-### Chapter 4, usage through mlr-interface
-# Chunk 4.1
+### Section 4, usage through mlr-interface
+# Chunk 1
+
 # install the mlr package once
 install.packages("mlr")
+# use the version on github if my pull request is not yet merged
 devtools::install_github("maierhofert/mlr", ref = "classiFunc")
 
-# load the package in every new R-session
+# load the mlr package in every new R-session
 library("mlr")
+
+# create learners (= model description in mlr)
+lrn_nn = makeLearner(cl = "classif.classiFunc.knn")
+lrn_ker = makeLearner(cl = "classif.classiFunc.kernel",
+                      ker = "Ker.epa", h = 0.3, nderiv = 1)
+
+
+# Chunk 2
 
 # load the example data
 data("DTI", package = "classiFunc")
 
 # export DTI data to mlr data format
-fdata = makeFunctionalData(data = DTI, fd.features = list(rcst = "rcst", cca = "cca"))
+fdata = makeFunctionalData(DTI, fd.features = list(rcst = "rcst", 
+                                                   cca = "cca"))
+# create mlr task from data
 task = makeClassifTask(data = fdata, target = "case")
 
+# use same train/test split as in  Section 3
+set.seed(1234)
+IDs = unique(DTI$ID)
+# vector encoding if observation is part of test or training data
+train_rows = DTI$ID %in% sample(IDs, size = 0.95 * length(IDs))
 
+# create separate tasks for test/train split
+task_train = subsetTask(task, features = "rcst", subset = train_rows)
+task_test = subsetTask(task, features = "rcst", subset = !train_rows)
+
+
+
+
+# chunk 3
+# create models (train learners on training data)
+mod_nn = train(learner = lrn_nn, task = task_train)
+mod_ker = train(learner = lrn_ker, task = task_train)
+
+# chunk 4
+# use trained models to predict test data
+pred_nn = predict(mod_nn, task = task_test)
+pred_ker = predict(mod_ker, task = task_test)
+
+# chunk 5
+# confusion matrix for nn estimator
+table(pred = getPredictionResponse(pred_nn), 
+      true = DTI$case[!train_rows])
+# confusion matrix for kernel estimator
+table(pred = getPredictionResponse(pred_ker), 
+      true = DTI$case[!train_rows])
 
 
 
