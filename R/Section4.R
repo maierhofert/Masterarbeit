@@ -16,7 +16,7 @@ library("mlr")
 # create learners (= model description in mlr)
 lrn.nn = makeLearner(cl = "classif.classiFunc.knn")
 lrn.ker = makeLearner(cl = "classif.classiFunc.kernel",
-                      ker = "Ker.epa", h = 0.3, nderiv = 1)
+                      ker = "Ker.epa", h = 0.7, nderiv = 1)
 
 
 # Chunk 2
@@ -28,13 +28,13 @@ data("DTI", package = "classiFunc")
 fdata = makeFunctionalData(DTI, fd.features = list(rcst = "rcst", 
                                                    cca = "cca"))
 # create mlr task from data
-task = makeClassifTask(data = fdata, target = "case", blocking = DTI$ID)
+task = makeClassifTask(data = fdata, target = "case")
 
 # use same train/test split as in  Section 3
-set.seed(1234)
+set.seed(123)
 IDs = unique(DTI$ID)
 # vector encoding if observation is part of test or training data
-train.rows = DTI$ID %in% sample(IDs, size = 0.95 * length(IDs))
+train.rows = DTI$ID %in% sample(IDs, size = 0.8 * length(IDs))
 
 # create separate tasks for test/train split
 task.train = subsetTask(task, features = "rcst", subset = train.rows)
@@ -74,7 +74,7 @@ lrn.ker = makeLearner("classif.classiFunc.kernel",
 
 # create parameter set
 parSet.h = makeParamSet(
-  makeNumericParam(id = "h", lower = -2, upper = 2, 
+  makeNumericParam(id = "h", lower = -1, upper = 1, 
                    trafo = function(x) 10 ^ x))
 
 # control for tuning hyper parameters
@@ -85,6 +85,7 @@ ctrl = makeTuneControlGrid(resolution = 15L)
 rdesc = makeResampleDesc("CV", iters = 5)
 
 # create the tuned learner
+set.seed(123)
 lrn.bandwidth.tuned = makeTuneWrapper(learner = lrn.ker, 
                                       resampling = rdesc,
                                       measures = brier,
@@ -92,15 +93,15 @@ lrn.bandwidth.tuned = makeTuneWrapper(learner = lrn.ker,
                                       control = ctrl)
 
 # train the model on the training data task
-m.kern = train(lrn.bandwidth.tuned, task.train)
+m.kern.tuned = train(lrn.bandwidth.tuned, task.train)
 
 
 # Chunk 2
 
 # predict the test data set
-pred.kern = predict(m.kern, task = task.test)
+pred.kern.tuned = predict(m.kern.tuned, task = task.test)
 # confusion matrix for kernel estimator
-table(pred = getPredictionResponse(pred.ker), 
+table(pred = getPredictionResponse(pred.kern.tuned), 
       true = getTaskTargets(task.test))
 
 
@@ -118,16 +119,22 @@ getPredictionProbabilities(pred.kern)
 
 # create base learners
 b.lrn1 = makeLearner("classif.classiFunc.knn", 
-                     id = "L1.lrn",
-                     par.vals = list(metric = "globMax"), 
+                     id = "globMin",
+                     par.vals = list(metric = "globMin"), 
                      predict.type = "prob")
 b.lrn2 = makeLearner("classif.classiFunc.knn", 
-                     id = "L2.lrn",
-                     par.vals = list(metric = "L2"), 
+                     id = "globMax",
+                     par.vals = list(metric = "globMax"), 
                      predict.type = "prob")
-b.lrn3 = makeLearner("classif.classiFunc.knn",
-                     id = "supremum.lrn",
-                     par.vals = list(metric = "supremum"), 
+library("dtw")
+b.lrn3 = makeLearner("classif.classiFunc.knn", 
+                     id = "dtw",
+                     par.vals = list(metric = "dtw"), 
+                     predict.type = "prob")
+
+b.lrn4 = makeLearner("classif.classiFunc.knn",
+                     id = "L2",
+                     par.vals = list(metric = "L2"), 
                      predict.type = "prob")
 
 
@@ -138,14 +145,14 @@ set.seed(1234)
 # create LCE
 # set resampling to 10 fold CV (default is LOO-CV) for faster run time.
 LCE.lrn = makeStackedLearner(
-  base.learners = list(b.lrn1, b.lrn2, b.lrn3), 
+  base.learners = list(b.lrn1, b.lrn2, b.lrn3, b.lrn4), 
   predict.type = "prob", 
   resampling = makeResampleDesc("CV", iters = 10L),
   method = "classif.bs.optimal")
 
 # create RFE
 RFE.lrn = makeStackedLearner(
-  base.learners = list(b.lrn1, b.lrn2, b.lrn3), 
+  base.learners = list(b.lrn1, b.lrn2, b.lrn3, b.lrn4), 
   super.learner = "classif.randomForest",
   predict.type = "prob",
   method = "stack.cv", 
@@ -160,19 +167,25 @@ RFE.m = train(RFE.lrn, task = task.train)
 # Chunk 3
 
 # predict the test data set
-ensemble.pred = predict(ensemble.m, task = task.test)
-rf.ensemble.pred = predict(rf.ensemble.m, task = task.test)
+LCE.pred = predict(LCE.m, task = task.test)
+RFE.pred = predict(RFE.m, task = task.test)
 
 # compute mean misclassification error
-measureMMCE(getTaskTargets(task.test), getPredictionResponse(ensemble.pred))
-measureMMCE(getTaskTargets(task.test), getPredictionResponse(rf.ensemble.pred))
+measureMMCE(getTaskTargets(task.test), getPredictionResponse(LCE.pred))
+measureMMCE(getTaskTargets(task.test), getPredictionResponse(RFE.pred))
 
-getPredictionProbabilities(ensemble.pred)
-getPredictionProbabilities(rf.ensemble.pred)
+getPredictionProbabilities(LCE.pred)
+getPredictionProbabilities(RFE.pred)
 
-rf = rf.ensemble.m$learner.model$super.model$learner.model
+table(pred = getPredictionResponse(LCE.pred), 
+      true = getTaskTargets(task.test))
+table(pred = getPredictionResponse(RFE.pred), 
+      true = getTaskTargets(task.test))
+
+library("randomForest")
+rf = RFE.m$learner.model$super.model$learner.model
 varImpPlot(rf)
-ensemble.m$learner.model$weights
+plot(LCE.m$learner.model$weights)
 
 
 

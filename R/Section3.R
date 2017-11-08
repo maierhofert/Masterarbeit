@@ -25,13 +25,16 @@ library("classiFunc")
 data("DTI", package = "classiFunc")
 # check out help file for DTI data
 ?DTI
-# DTI = DTI[!duplicated(DTI$ID),]
+
+# subsample DTI for equal case control size
+DTI = DTI[!duplicated(DTI$ID),]
+DTI = DTI[1:84,]
 
 # randomly assign participant IDs into test and training data
-set.seed(1234)
+set.seed(123)
 IDs = unique(DTI$ID)
 # vector encoding if observation is part of test or training data
-train.rows = DTI$ID %in% sample(IDs, size = 0.95 * length(IDs))
+train.rows = DTI$ID %in% sample(IDs, size = 0.8 * length(IDs))
 
 # create nearest neighbor estimator with default values
 nn.mod = classiKnn(classes = DTI$case[train.rows], 
@@ -42,7 +45,7 @@ nn.mod = classiKnn(classes = DTI$case[train.rows],
 ker.mod = classiKernel(classes = DTI$case[train.rows], 
                        fdata = DTI$rcst[train.rows,],
                        ker = "Ker.epa",
-                       h = 0.3, 
+                       h = 0.7, 
                        nderiv = 1)
 
 
