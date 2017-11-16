@@ -5,12 +5,12 @@
 # Section 4.1 Replication of Basic Functionality
 # Chunk 1
 
-# install the mlr package once
+# install mlr package once
 install.packages("mlr")
 # use the version on github if my pull request is not yet merged
 devtools::install_github("maierhofert/mlr", ref = "classiFunc")
 
-# load the mlr package in every new R-session
+# load mlr package in every new R-session
 library("mlr")
 
 # create learners (= model description in mlr)
@@ -21,8 +21,12 @@ lrn.ker = makeLearner(cl = "classif.classiFunc.kernel",
 
 # Chunk 2
 
-# load the example data
+# load example data
 data("DTI", package = "classiFunc")
+
+# subsample DTI for equal case control size
+DTI = DTI[!duplicated(DTI$ID),]
+DTI = DTI[1:84,]
 
 # export DTI data to mlr data format
 fdata = makeFunctionalData(DTI, fd.features = list(rcst = "rcst", 
@@ -31,7 +35,7 @@ fdata = makeFunctionalData(DTI, fd.features = list(rcst = "rcst",
 task = makeClassifTask(data = fdata, target = "case")
 
 # use same train/test split as in  Section 3
-set.seed(123)
+set.seed(12345)
 IDs = unique(DTI$ID)
 # vector encoding if observation is part of test or training data
 train.rows = DTI$ID %in% sample(IDs, size = 0.8 * length(IDs))
@@ -59,17 +63,18 @@ pred.ker = predict(mod.ker, task = task.test)
 
 # confusion matrix for nn estimator
 table(pred = getPredictionResponse(pred.nn), 
-      true = DTI$case[!train.rows])
+      true = DTI[!train.rows, "case"])
 # confusion matrix for kernel estimator
 table(pred = getPredictionResponse(pred.ker), 
-      true = DTI$case[!train.rows])
+      true = DTI[!train.rows, "case"])
 
 ################################################################################
 # Section 4.2 Automated Hyperparameter Tuning
 # Chunk 1
 
-# create the classiKernel learner for classification of functional data
+# create classiKernel learner for classification of functional data
 lrn.ker = makeLearner("classif.classiFunc.kernel", 
+                      nderiv = 1,
                       predict.type = "prob")
 
 # create parameter set
@@ -79,26 +84,26 @@ parSet.h = makeParamSet(
 
 # control for tuning hyper parameters
 # use higher resolution in application
-ctrl = makeTuneControlGrid(resolution = 15L)
+ctrl = makeTuneControlGrid(resolution = 20L)
 
 # control for resampling, use 5 fold CV
 rdesc = makeResampleDesc("CV", iters = 5)
 
-# create the tuned learner
-set.seed(123)
+# create tuned learner
+set.seed(12345)
 lrn.bandwidth.tuned = makeTuneWrapper(learner = lrn.ker, 
                                       resampling = rdesc,
                                       measures = brier,
                                       par.set = parSet.h,
                                       control = ctrl)
 
-# train the model on the training data task
+# train model on training data task
 m.kern.tuned = train(lrn.bandwidth.tuned, task.train)
 
 
 # Chunk 2
 
-# predict the test data set
+# predict test data set
 pred.kern.tuned = predict(m.kern.tuned, task = task.test)
 # confusion matrix for kernel estimator
 table(pred = getPredictionResponse(pred.kern.tuned), 
@@ -106,9 +111,8 @@ table(pred = getPredictionResponse(pred.kern.tuned),
 
 
 # Chunk 3
-
 # get predicted probabilities
-getPredictionProbabilities(pred.kern)
+getPredictionProbabilities(pred.kern.tuned)
 
 
 ################################################################################
@@ -158,7 +162,7 @@ RFE.lrn = makeStackedLearner(
   method = "stack.cv", 
   resampling = makeResampleDesc("CV", iters = 10L,  stratify = F))
 
-# train the models on the training data
+# train models on the training data
 LCE.m = train(LCE.lrn, task = task.train)
 RFE.m = train(RFE.lrn, task = task.train)
 
@@ -166,7 +170,7 @@ RFE.m = train(RFE.lrn, task = task.train)
 
 # Chunk 3
 
-# predict the test data set
+# predict test data set
 LCE.pred = predict(LCE.m, task = task.test)
 RFE.pred = predict(RFE.m, task = task.test)
 
