@@ -126,6 +126,7 @@ b.lrn1 = makeLearner("classif.classiFunc.knn",
                      id = "globMin",
                      par.vals = list(metric = "globMin"), 
                      predict.type = "prob")
+
 b.lrn2 = makeLearner("classif.classiFunc.knn", 
                      id = "globMax",
                      par.vals = list(metric = "globMax"), 
@@ -138,10 +139,29 @@ b.lrn3 = makeLearner("classif.classiFunc.knn",
 
 b.lrn4 = makeLearner("classif.classiFunc.knn",
                      id = "L2",
-                     par.vals = list(metric = "L2"), 
+                     par.vals = list(metric = "L2", nderiv = 1), 
+                     predict.type = "prob")
+
+b.lrn5 = makeLearner("classif.classiFunc.knn",
+                     id = "sup",
+                     par.vals = list(metric = "supremum"), 
                      predict.type = "prob")
 
 
+b.lrn6 = makeLearner("classif.classiFunc.knn",
+                     id = "globMin1",
+                     par.vals = list(metric = "globMin", nderiv = 1), 
+                     predict.type = "prob")
+
+b.lrn7 = makeLearner("classif.classiFunc.knn",
+                     id = "globMax1",
+                     par.vals = list(metric = "globMax", nderiv = 1), 
+                     predict.type = "prob")
+
+b.lrn8 = makeLearner("classif.classiFunc.knn",
+                     id = "sup1",
+                     par.vals = list(metric = "supremum", nderiv = 1), 
+                     predict.type = "prob")
 # Chunk 2
 
 set.seed(1234)
@@ -149,42 +169,52 @@ set.seed(1234)
 # create LCE
 # set resampling to 10 fold CV (default is LOO-CV) for faster run time.
 LCE.lrn = makeStackedLearner(
-  base.learners = list(b.lrn1, b.lrn2, b.lrn3, b.lrn4), 
+  base.learners = list(b.lrn1, b.lrn2, b.lrn3, b.lrn4, b.lrn5, b.lrn6, b.lrn7, b.lrn8), 
   predict.type = "prob", 
   resampling = makeResampleDesc("CV", iters = 10L),
   method = "classif.bs.optimal")
 
 # create RFE
 RFE.lrn = makeStackedLearner(
-  base.learners = list(b.lrn1, b.lrn2, b.lrn3, b.lrn4), 
+  base.learners = list(b.lrn1, b.lrn2, b.lrn3, b.lrn4, b.lrn5, b.lrn6, b.lrn7, b.lrn8), 
   super.learner = "classif.randomForest",
   predict.type = "prob",
   method = "stack.cv", 
-  resampling = makeResampleDesc("CV", iters = 10L,  stratify = F))
+  # use.feat = TRUE,
+  resampling = makeResampleDesc("CV", iters = 10L))
+
+
+# Chunk 3
 
 # train models on the training data
 LCE.m = train(LCE.lrn, task = task.train)
 RFE.m = train(RFE.lrn, task = task.train)
 
-################################################################################
 
-# Chunk 3
+# Chunk 4
 
 # predict test data set
 LCE.pred = predict(LCE.m, task = task.test)
 RFE.pred = predict(RFE.m, task = task.test)
 
+# confusion matrix for LCE
+table(pred = getPredictionResponse(LCE.pred), 
+      true = getTaskTargets(task.test))
+# confusion matrix for RFE
+table(pred = getPredictionResponse(RFE.pred), 
+      true = getTaskTargets(task.test))
+
+##############################
+# MISC
 # compute mean misclassification error
 measureMMCE(getTaskTargets(task.test), getPredictionResponse(LCE.pred))
 measureMMCE(getTaskTargets(task.test), getPredictionResponse(RFE.pred))
 
-getPredictionProbabilities(LCE.pred)
-getPredictionProbabilities(RFE.pred)
+# getPredictionProbabilities(LCE.pred)
+# getPredictionProbabilities(RFE.pred)
 
-table(pred = getPredictionResponse(LCE.pred), 
-      true = getTaskTargets(task.test))
-table(pred = getPredictionResponse(RFE.pred), 
-      true = getTaskTargets(task.test))
+
+# plots
 
 library("randomForest")
 rf = RFE.m$learner.model$super.model$learner.model
