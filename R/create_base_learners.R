@@ -1,17 +1,17 @@
 # this file creates the models/learners for the benchmark experiments
 library("mlr")
 # reference models classifiers
-k1nd0_eucl = makeLearner(cl = "fdaclassif.classiKnn",
+k1nd0_eucl = makeLearner(cl = "classif.classiFunc.knn",
                          id = paste0("knn", 1, "nderiv", 0,
                                      "_eucl"),
                          metric = "Euclidean",
                          predict.type = "prob",
                          par.vals = list(knn = 1, nderiv = 0))
 k1nd0_eucl$short.name = "Eucl: k 1; nderiv 0"
-  
+
 # create a dtw learner
 library("dtw")
-k1nd0_dtw = makeLearner(cl = "fdaclassif.classiKnn",
+k1nd0_dtw = makeLearner(cl = "classif.classiFunc.knn",
                         id = paste0("knn", 1, "nderiv", 0,
                                     "_dtw"),
                         metric = "dtw",
@@ -20,7 +20,7 @@ k1nd0_dtw = makeLearner(cl = "fdaclassif.classiKnn",
 k1nd0_dtw$short.name = "dtw: k 1; nderiv 0"
 
 
-lrn.kernel = makeLearner("fdaclassif.classiKernel", predict.type = "prob")
+lrn.kernel = makeLearner("classif.classiFunc.kernel", predict.type = "prob")
 # create parameter set
 parSet.bandwidth = makeParamSet(
   makeNumericParam(id = "h", lower = -1, upper = 4, 
@@ -43,14 +43,14 @@ lrn.kernel.tuned$short.name = "Eucl-Kernel: h CV-opt"
 # ######################################################################
 # define other semimetrics
 # create the phase and amplitude distance learners
-k1nd0_phase = makeLearner(cl = "fdaclassif.classiKnn",
+k1nd0_phase = makeLearner(cl = "classif.classiFunc.knn",
                           id = paste0("knn", 1, "nderiv", 0,
                                       "_phase"),
                           metric = "phaseDistance",
                           predict.type = "prob",
                           par.vals = list(knn = 1, nderiv = 0))
 k1nd0_phase$short.name = "phase: k 1; nderiv 0"
-k1nd0_amplitude = makeLearner(cl = "fdaclassif.classiKnn",
+k1nd0_amplitude = makeLearner(cl = "classif.classiFunc.knn",
                               id = paste0("knn", 1, "nderiv", 0,
                                           "_amplitude"),
                               metric = "amplitudeDistance",
@@ -59,7 +59,7 @@ k1nd0_amplitude = makeLearner(cl = "fdaclassif.classiKnn",
 k1nd0_amplitude$short.name = "amplitude: k 1; nderiv 0"
 
 # global min and global max
-k1nd0_globMax = makeLearner(cl = "fdaclassif.classiKnn",
+k1nd0_globMax = makeLearner(cl = "classif.classiFunc.knn",
                             id = paste0("knn", 1, "nderiv", 0,
                                         "_globMax"),
                             metric = "globMax",
@@ -67,7 +67,7 @@ k1nd0_globMax = makeLearner(cl = "fdaclassif.classiKnn",
                             par.vals = list(knn = 1, nderiv = 0))
 k1nd0_globMax$short.name = "globMax: k 1; nderiv 0"
 
-k1nd0_globMin = makeLearner(cl = "fdaclassif.classiKnn",
+k1nd0_globMin = makeLearner(cl = "classif.classiFunc.knn",
                             id = paste0("knn", 1, "nderiv", 0,
                                         "_globMin"),
                             metric = "globMin",
@@ -75,7 +75,7 @@ k1nd0_globMin = makeLearner(cl = "fdaclassif.classiKnn",
                             par.vals = list(knn = 1, nderiv = 0))
 k1nd0_globMin$short.name = "globMin: k 1; nderiv 0"
 
-k1nd0_Manhattan = makeLearner(cl = "fdaclassif.classiKnn",
+k1nd0_Manhattan = makeLearner(cl = "classif.classiFunc.knn",
                               id = paste0("knn", 1, "nderiv", 0,
                                           "_manhattan"),
                               metric = "Manhattan",
@@ -91,8 +91,8 @@ nderiv = c(0L, 1L, 2L)
 # function to create a list of all hyperparameter combinations
 createHyperParVals = function(knn, nderiv) {
   hyperpar.vals = list()
-  for(i in 1:length(knn)) {
-    for(j in 1:length(nderiv)) {
+  for (i in 1:length(knn)) {
+    for (j in 1:length(nderiv)) {
       hyperpar.vals[[(i - 1)*length(nderiv) + j]] = list(knn = knn[i], nderiv = nderiv[j])
     }
   }
@@ -100,7 +100,7 @@ createHyperParVals = function(knn, nderiv) {
 }
 
 knn_eucl_lrns = lapply(createHyperParVals(knn, nderiv[1]), function(par.set) {
-  makeLearner(cl = "fdaclassif.classiKnn",
+  makeLearner(cl = "classif.classiFunc.knn",
               id = paste0("knn", par.set$knn, "nderiv", par.set$nderiv,
                           "_eucl"),
               metric = "Euclidean",
@@ -109,7 +109,7 @@ knn_eucl_lrns = lapply(createHyperParVals(knn, nderiv[1]), function(par.set) {
 })
 
 nderiv_eucl_lrns = lapply(createHyperParVals(knn[1], nderiv), function(par.set) {
-  makeLearner(cl = "fdaclassif.classiKnn",
+  makeLearner(cl = "classif.classiFunc.knn",
               id = paste0("knn", par.set$knn, "nderiv", par.set$nderiv,
                           "_eucl"),
               metric = "Euclidean",
@@ -118,7 +118,7 @@ nderiv_eucl_lrns = lapply(createHyperParVals(knn[1], nderiv), function(par.set) 
 })
 
 nderivKnn_eucl_lrns = lapply(createHyperParVals(knn, nderiv), function(par.set) {
-  makeLearner(cl = "fdaclassif.classiKnn",
+  makeLearner(cl = "classif.classiFunc.knn",
               id = paste0("knn", par.set$knn, "nderiv", par.set$nderiv,
                           "_eucl"),
               metric = "Euclidean",
@@ -127,7 +127,7 @@ nderivKnn_eucl_lrns = lapply(createHyperParVals(knn, nderiv), function(par.set) 
 })
 
 nderivKnn_manhattan_lrns = lapply(createHyperParVals(knn, nderiv), function(par.set) {
-  makeLearner(cl = "fdaclassif.classiKnn",
+  makeLearner(cl = "classif.classiFunc.knn",
               id = paste0("knn", par.set$knn, "nderiv", par.set$nderiv,
                           "_manhattan"),
               metric = "Manhattan",
@@ -136,7 +136,7 @@ nderivKnn_manhattan_lrns = lapply(createHyperParVals(knn, nderiv), function(par.
 })
 
 nderivKnn_globMax_lrns = lapply(createHyperParVals(knn, nderiv), function(par.set) {
-  makeLearner(cl = "fdaclassif.classiKnn",
+  makeLearner(cl = "classif.classiFunc.knn",
               id = paste0("knn", par.set$knn, "nderiv", par.set$nderiv,
                           "_globMax"),
               metric = "globMax",
@@ -145,7 +145,7 @@ nderivKnn_globMax_lrns = lapply(createHyperParVals(knn, nderiv), function(par.se
 })
 
 nderivKnn_globMin_lrns = lapply(createHyperParVals(knn, nderiv), function(par.set) {
-  makeLearner(cl = "fdaclassif.classiKnn",
+  makeLearner(cl = "classif.classiFunc.knn",
               id = paste0("knn", par.set$knn, "nderiv", par.set$nderiv,
                           "_globMin"),
               metric = "globMin",
@@ -156,149 +156,119 @@ nderivKnn_globMin_lrns = lapply(createHyperParVals(knn, nderiv), function(par.se
 
 # Ensemble learners
 # with knne Fuchs etal 2016
-knn_eucl_ensemble = makeStackedLearner(id = "knn_eucl_ensemble",
-                                       base.learners = knn_eucl_lrns,
-                                       predict.type = "prob",
-                                       resampling = makeResampleDesc("CV", iters = 3L),
-                                       method = "classif.bs.optimal")
-knn_eucl_ensemble$short.name = "Eucl-ens: k 1, 5, 9, 13; nderiv 0"
-  
-nderiv_eucl_ensemble = makeStackedLearner(id = "nderiv_eucl_ensemble",
-                                          base.learners = nderiv_eucl_lrns,
-                                          predict.type = "prob",
-                                          resampling = makeResampleDesc("CV", iters = 3L),
-                                          method = "classif.bs.optimal")
-nderiv_eucl_ensemble$short.name = "Eucl-ens: k 1; nderiv 0, 1, 2"
+# knn_eucl_ensemble = makeStackedLearner(id = "LCE:knn_eucl",
+#                                        base.learners = knn_eucl_lrns,
+#                                        predict.type = "prob",
+#                                        resampling = makeResampleDesc("CV", iters = 10L),
+#                                        method = "classif.bs.optimal")
+# knn_eucl_ensemble$short.name = "LCE: Eucl; k 1, 5, 9, 13; nderiv 0"
+#   
+# nderiv_eucl_ensemble = makeStackedLearner(id = "LCE:nderiv_eucl",
+#                                           base.learners = nderiv_eucl_lrns,
+#                                           predict.type = "prob",
+#                                           resampling = makeResampleDesc("CV", iters = 10L),
+#                                           method = "classif.bs.optimal")
+# nderiv_eucl_ensemble$short.name = "LCE: Eucl; k 1; nderiv 0, 1, 2"
+# 
+# semimet_ensemble = makeStackedLearner(id = "LCE:semimet",
+#                                        base.learners = list(k1nd0_eucl,
+#                                                          k1nd0_Manhattan,
+#                                                          k1nd0_globMax,
+#                                                          k1nd0_globMin),
+#                                        predict.type = "prob",
+#                                        resampling = makeResampleDesc("CV", iters = 10L),
+#                                        method = "classif.bs.optimal")
+# semimet_ensemble$short.name = "LCE: semimet; k 1; nderiv 0"
 
-semimet_ensemble = makeStackedLearner(id = "semimet_ensemble",
-                                       base.learners = list(k1nd0_eucl,
-                                                         k1nd0_Manhattan,
-                                                         k1nd0_globMax,
-                                                         k1nd0_globMin),
-                                       predict.type = "prob",
-                                       resampling = makeResampleDesc("CV", iters = 3L),
-                                       method = "classif.bs.optimal")
-semimet_ensemble$short.name = "semimet-ens: k 1; nderiv 0"
 
-
-# nderivKnn_eucl_ensemble = makeStackedLearner(id = "nderivKnn_eucl_ensemble",
-#                                              base.learners = nderivKnn_eucl_lrns,
-#                                              predict.type = "prob",
-#                                              resampling = makeResampleDesc("CV", iters = 3L),
-#                                              method = "classif.bs.optimal")
-# nderivKnn_eucl_ensemble$short.name = "Eucl-ens: k 1, 5, 9, 13; nderiv 0, 1, 2"
-
-nderivKnnSemimet_ensemble = makeStackedLearner(id = "nderivKnnSemimet_ensemble",
-                                             base.learners = c(nderivKnn_eucl_lrns,
-                                                               nderivKnn_manhattan_lrns,
-                                                               nderivKnn_globMax_lrns,
-                                                               nderivKnn_globMin_lrns),
-                                             predict.type = "prob",
-                                             resampling = makeResampleDesc("CV", iters = 3L),
-                                             method = "classif.bs.optimal")
-nderivKnnSemimet_ensemble$short.name = "semimet-ens: k 1, 5, 9, 13; nderiv 0, 1, 2"
+LCE = makeStackedLearner(id = "LCE",
+                         base.learners = c(nderivKnn_eucl_lrns,
+                                           nderivKnn_manhattan_lrns,
+                                           nderivKnn_globMax_lrns,
+                                           nderivKnn_globMin_lrns),
+                         predict.type = "prob",
+                         resampling = makeResampleDesc("CV", iters = 3L),
+                         method = "classif.bs.optimal")
+LCE$short.name = "LCE"
 
 
 # with random forest ensemble
-# rf_feat_eucl_ensemble = makeStackedLearner(id = "rf_feat_eucl_ensemble",
-#                                            base.learners = nderivKnn_eucl_lrns, 
+
+# random forest ensemble for different semimetrics
+# rf_feat_ensemble = makeStackedLearner(id = "rf_feat_semimet_ensemble",
+#                                            base.learners = c(nderivKnn_eucl_lrns,
+#                                                              nderivKnn_manhattan_lrns,
+#                                                              nderivKnn_globMax_lrns,
+#                                                              nderivKnn_globMin_lrns), 
 #                                            super.learner = "classif.randomForest",
 #                                            predict.type = "prob",
 #                                            use.feat = TRUE,
 #                                            # resampling = makeResampleDesc("CV", iters = 3L),
 #                                            method = "stack.cv")
-# rf_feat_eucl_ensemble$short.name = "Eucl-rf: k 1, 5, 9, 13; nderiv 0, 1, 2; use feat"
-# 
-# rf_nofeat_eucl_ensemble = makeStackedLearner(id = "rf_nofeat_eucl_ensemble",
-#                                              base.learners = nderivKnn_eucl_lrns, 
-#                                              super.learner = "classif.randomForest",
-#                                              predict.type = "prob",
-#                                              use.feat = FALSE,
-#                                              # resampling = makeResampleDesc("CV", iters = 3L),
-#                                              method = "stack.cv")
-# rf_nofeat_eucl_ensemble$short.name = "Eucl-rf: k 1, 5, 9, 13; nderiv 0, 1, 2; no feat"
+# rf_feat_ensemble$short.name = "rf-ens: k 1, 5, 9, 13; nderiv 0, 1, 2; use feat"
 
-# random forest ensemble for different semimetrics
-rf_feat_ensemble = makeStackedLearner(id = "rf_feat_semimet_ensemble",
-                                           base.learners = c(nderivKnn_eucl_lrns,
-                                                             nderivKnn_manhattan_lrns,
-                                                             nderivKnn_globMax_lrns,
-                                                             nderivKnn_globMin_lrns), 
-                                           super.learner = "classif.randomForest",
-                                           predict.type = "prob",
-                                           use.feat = TRUE,
-                                           # resampling = makeResampleDesc("CV", iters = 3L),
-                                           method = "stack.cv")
-rf_feat_ensemble$short.name = "rf-ens: k 1, 5, 9, 13; nderiv 0, 1, 2; use feat"
-
-rf_nofeat_ensemble = makeStackedLearner(id = "rf_nofeat_semimet_ensemble",
-                                             base.learners = c(nderivKnn_eucl_lrns,
-                                                               nderivKnn_manhattan_lrns,
-                                                               nderivKnn_globMax_lrns,
-                                                               nderivKnn_globMin_lrns), 
-                                             super.learner = "classif.randomForest",
-                                             predict.type = "prob",
-                                             use.feat = FALSE,
-                                             # resampling = makeResampleDesc("CV", iters = 3L),
-                                             method = "stack.cv")
-rf_nofeat_ensemble$short.name = "rf-ens: k 1, 5, 9, 13; nderiv 0, 1, 2; no feat"
+RFE = makeStackedLearner(id = "RFE",
+                         base.learners = c(nderivKnn_eucl_lrns,
+                                           nderivKnn_manhattan_lrns,
+                                           nderivKnn_globMax_lrns,
+                                           nderivKnn_globMin_lrns), 
+                         super.learner = "classif.randomForest",
+                         predict.type = "prob",
+                         use.feat = FALSE,
+                         # resampling = makeResampleDesc("CV", iters = 3L),
+                         method = "stack.cv")
+RFE$short.name = "RFE"
 
 
 
 #  learners with a lot of random noisy base learners
 random_knn_100 = list()
-for(i in 1:100) {
-  random_knn_100[[i]] = makeLearner(cl = "fdaclassif.classiKnn",
-                                  id = paste0("noisy_learner", i),
-                                  metric = "custom.metric",
-                                  custom.metric = function(x, y) {
-                                    runif(1)
-                                  },
-                                  predict.type = "prob")
+for (i in 1:100) {
+  random_knn_100[[i]] = makeLearner(cl = "classif.classiFunc.knn",
+                                    id = paste0("noisy_learner", i),
+                                    metric = "custom.metric",
+                                    custom.metric = function(x, y) {
+                                      runif(1)
+                                    },
+                                    predict.type = "prob")
 }
 
-rf_noisy_ensemble = makeStackedLearner(id = "rf_noisy_ensemble",
-                                             base.learners = c(nderivKnn_eucl_lrns,
-                                                               nderivKnn_manhattan_lrns,
-                                                               nderivKnn_globMax_lrns,
-                                                               nderivKnn_globMin_lrns,
-                                                               random_knn_100), 
-                                             super.learner = "classif.randomForest",
-                                             predict.type = "prob",
-                                             use.feat = FALSE,
-                                             # resampling = makeResampleDesc("CV", iters = 3L),
-                                             method = "stack.cv")
-rf_noisy_ensemble$short.name = "rf-ens: noisy"
+RFE_noisy = makeStackedLearner(id = "RFE_noisy",
+                                       base.learners = c(nderivKnn_eucl_lrns,
+                                                         nderivKnn_manhattan_lrns,
+                                                         nderivKnn_globMax_lrns,
+                                                         nderivKnn_globMin_lrns,
+                                                         random_knn_100), 
+                                       super.learner = "classif.randomForest",
+                                       predict.type = "prob",
+                                       use.feat = FALSE,
+                                       # resampling = makeResampleDesc("CV", iters = 3L),
+                                       method = "stack.cv")
+rf_noisy_ensemble$short.name = "noisy RFE"
 
-noisy_ensemble = makeStackedLearner(id = "noisy_eucl_ensemble",
-                                             base.learners = c(nderivKnn_eucl_lrns,
-                                                               nderivKnn_manhattan_lrns,
-                                                               nderivKnn_globMax_lrns,
-                                                               nderivKnn_globMin_lrns,
-                                                               random_knn_100),
-                                             predict.type = "prob",
-                                             resampling = makeResampleDesc("CV", iters = 3L),
-                                             method = "classif.bs.optimal")
-noisy_ensemble$short.name = "nn-ens: noisy"
+LCE_noisy = makeStackedLearner(id = "LCE_noisy",
+                                    base.learners = c(nderivKnn_eucl_lrns,
+                                                      nderivKnn_manhattan_lrns,
+                                                      nderivKnn_globMax_lrns,
+                                                      nderivKnn_globMin_lrns,
+                                                      random_knn_100),
+                                    predict.type = "prob",
+                                    resampling = makeResampleDesc("CV", iters = 3L),
+                                    method = "classif.bs.optimal")
+LCE_noisy$short.name = "noisy LCE"
 
 
 
 # list of learners to be compared together
 reference_lrns = list(k1nd0_eucl, lrn.kernel.tuned, k1nd0_dtw)
-ensemble_lrns = list(knn_eucl_ensemble,
-                     nderiv_eucl_ensemble,
-                     semimet_ensemble,
-                     nderivKnnSemimet_ensemble,
-                     rf_feat_ensemble,
-                     rf_nofeat_ensemble)
-noisy_lrns = list(rf_noisy_ensemble, noisy_ensemble)
-warped_lrns = list(k1nd0_amplitude, k1nd0_phase)
+ensemble_lrns = list(LCE, LCE_noisy,
+                     RFE, RFE_noisy)
 
 
 # # train learners
 # # This is not needed for benchmarking
-# mod1 = train(learner = rf_noisy_ensemble, task = tsks[[1]])
-# mod2 = train(learner = noisy_ensemble, task = tsks[[2]])
+# mod1 = train(learner = LCE, task = tsks[[1]])
+# mod2 = train(learner = LCE, task = tsks[[2]])
 # fda.pred = predict(mod1, task = tsks[[1]])
 # fda.pred2 = predict(mod2, task = tsks[[2]])
 

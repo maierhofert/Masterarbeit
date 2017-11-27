@@ -24,7 +24,7 @@ library("foreign")
 # data_list = lapply(data_paths, read.arff)
 data_list = list()
 
-for(i in 1:length(data_paths)) {
+for (i in 1:length(data_paths)) {
   data_list[[i]] = read.arff(data_paths[i])
 }
 names(data_list) = data_names
@@ -42,31 +42,30 @@ names(data_list) = data_names
 # devtools::use_data(Yoga)
 
 # Create artificial name colum
-for(i in 1:length(data_list)) {
+for (i in 1:length(data_list)) {
   data_list[[i]]["name"] = factor(names(data_list)[i])
 }
 
 # create FDA tasks
 library("mlr")
-# tsks = lapply(data_list, function(dat) {
-#   makeFDAClassifTask(data = dat[,1:(ncol(dat) - 1)],
-#                      id = toString(dat$name[1]),
-#                      fd.features = list(ff = 1:(ncol(dat) - 2)),
-#                      target = "target")
-# })
+for (i in 1:length(data_list)) {
+  # dat = data_list[[i]]
+  mlr_data_list[[i]] = makeFunctionalData(data = data_list[[i]],
+                                          exclude.cols = c("target", "name"))
+}
+
 
 tsks = list()
-for(i in 1:length(data_list)) {
-  dat = data_list[[i]]
-  tsks[[i]] = makeFDAClassifTask(data = dat[,1:(ncol(dat) - 1)],
-                                 id = toString(dat$name[1]),
-                                 fd.features = list(ff = 1:(ncol(dat) - 2)),
-                                 target = "target")
+for (i in 1:length(data_list)) {
+  dat = mlr_data_list[[i]]
+  tsks[[i]] = makeClassifTask(data = dat[, c("target", "fd1")],
+                              id = toString(dat$name[1]),
+                              target = "target")
 }
 
 # select feasible tasks
 name = nobs = obslen = rep(NA, length(tsks))
-for(i in 1:length(tsks)) {
+for (i in 1:length(tsks)) {
   name[i] = getTaskId(tsks[[i]])
   nobs[i] = getTaskSize(tsks[[i]])
   obslen[i] = getTaskNFeats(tsks[[i]])
@@ -75,13 +74,10 @@ df = data.frame(name, nobs, obslen, nobs*obslen)
 hist(df$nobs...obslen, breaks = 100)
 summary(df$nobs...obslen)
 quantile(df$nobs...obslen, 0.4)
-df_red = df[df$nobs...obslen <= 100000,]
+df_red = df[df$nobs...obslen <= 100,]
 nrow(df_red)
 
-# # Benchmark_results/2017-07-17bmr.RDS
-# tsks = tsks[df$nobs...obslen <= 100000]
-tsks = tsks[df$nobs...obslen <= 100000]
-
-# # never finished (it was not even half way done after 8 days on the server)
-# tsks = tsks[df$nobs...obslen > 100000 & df$nobs...obslen <= 200000]
+# # Benchmark_results/2017-
+# go up to 10000
+tsks = tsks[df$nobs...obslen <= 100]
 
