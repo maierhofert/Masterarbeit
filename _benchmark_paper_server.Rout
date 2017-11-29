@@ -22,10 +22,94 @@ Type 'q()' to quit R.
 > # this file can be used to run the benchmarking on a server
 > # for the UCR TSC data
 > date()
-[1] "Wed Nov 29 19:11:03 2017"
+[1] "Wed Nov 29 19:44:35 2017"
 > source("R/UCR_TSC_data.R")
 Loading required package: ParamHelpers
-Error in mlr_data_list[[i]] = makeFunctionalData(data = data_list[[i]],  : 
-  object 'mlr_data_list' not found
-Calls: source -> withVisible -> eval -> eval
-Execution halted
+> source("R/create_base_learners_paper.R")
+Loading required package: proxy
+
+Attaching package: ‘proxy’
+
+The following objects are masked from ‘package:stats’:
+
+    as.dist, dist
+
+The following object is masked from ‘package:base’:
+
+    as.matrix
+
+Loaded dtw v1.18-1. See ?dtw for help, citation("dtw") for use in publication.
+
+> source("R/benchmark_paper.R")
+Starting parallelization in mode=socket with cpus=10.
+Loading packages on slaves for mode socket: dtw
+Task: Beef, Learner: knn1nderiv0_eucl
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Resampling: cross-validation
+Measures:             multiclass.brier   mmce               timetrain          timepredict        timeboth           
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+
+
+Aggregated Result: multiclass.brier.test.mean=0.8253968,mmce.test.mean=0.4126984,timetrain.test.mean=0.0097000,timepredict.test.mean=0.0398000,timeboth.test.mean=0.0495000
+
+
+Task: BeetleFly, Learner: knn1nderiv0_eucl
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Resampling: cross-validation
+Measures:             multiclass.brier   mmce               timetrain          timepredict        timeboth           
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+
+
+Aggregated Result: multiclass.brier.test.mean=0.5500000,mmce.test.mean=0.2750000,timetrain.test.mean=0.0074000,timepredict.test.mean=0.0089000,timeboth.test.mean=0.0163000
+
+
+Task: BirdChicken, Learner: knn1nderiv0_eucl
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Resampling: cross-validation
+Measures:             multiclass.brier   mmce               timetrain          timepredict        timeboth           
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+
+
+Aggregated Result: multiclass.brier.test.mean=0.4500000,mmce.test.mean=0.2250000,timetrain.test.mean=0.0061000,timepredict.test.mean=0.0092000,timeboth.test.mean=0.0153000
+
+
+Task: Beef, Learner: RFE
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Resampling: cross-validation
+Measures:             multiclass.brier   mmce               timetrain          timepredict        timeboth           
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+
+
+Aggregated Result: multiclass.brier.test.mean=0.5147726,mmce.test.mean=0.3514286,timetrain.test.mean=10.7222000,timepredict.test.mean=0.6579000,timeboth.test.mean=11.3801000
+
+
+Task: BeetleFly, Learner: RFE
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Resampling: cross-validation
+Measures:             multiclass.brier   mmce               timetrain          timepredict        timeboth           
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+
+
+Aggregated Result: multiclass.brier.test.mean=0.2877786,mmce.test.mean=0.1750000,timetrain.test.mean=9.0399000,timepredict.test.mean=0.5886000,timeboth.test.mean=9.6285000
+
+
+Task: BirdChicken, Learner: RFE
+Exporting objects to slaves for mode socket: .mlr.slave.options
+Resampling: cross-validation
+Measures:             multiclass.brier   mmce               timetrain          timepredict        timeboth           
+Mapping in parallel: mode = socket; cpus = 10; elements = 10.
+
+
+Aggregated Result: multiclass.brier.test.mean=0.2233430,mmce.test.mean=0.1750000,timetrain.test.mean=8.4585000,timepredict.test.mean=0.5857000,timeboth.test.mean=9.0442000
+
+
+Stopped parallelization. All cleaned up.
+> date()
+[1] "Wed Nov 29 19:46:42 2017"
+> # save benchmarking result
+> saveRDS(bmr, paste0("Benchmark_results/", Sys.Date(), "bmr_paper.RDS"))
+> saveRDS(bmr, "Benchmark_results/bmr.RDS")
+> 
+> proc.time()
+   user  system elapsed 
+106.132   2.180 154.707 
