@@ -2,8 +2,7 @@
 # for the UCR TSC data
 date()
 source("R/UCR_TSC_data.R")
-source("R/create_base_learners.R")
-source("R/create_opt_base_learners.R")
+source("R/create_base_learners_paper.R")
 source("R/benchmark_paper.R")
 date()
 # save benchmarking result
