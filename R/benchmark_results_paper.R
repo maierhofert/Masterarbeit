@@ -11,31 +11,34 @@ name = "bmr"
 # pretty labels for learners
 lrns.colors = c("grey20", "grey60",
                 "darkorange3",
-                "orange1", "goldenrod", 
+                # "orange1", "goldenrod", 
                 #
+                # "navy", "royalblue2",
                 "red3", "red1", 
-                "navy", "royalblue2",
-                "coral", "coral3",
-                "deeppink4", "deeppink1",
+                # "coral", "coral3",
+                # "deeppink4", "deeppink1",
                 #
                 "chartreuse1", "chartreuse3",
-                "darkorchid1", "darkolivegreen3"
+                "navy"
 )
-lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned", 
-             "knn1nderiv0_dtw", 
-             "knn1nderiv0_amplitude", "knn1nderiv0_phase", 
-             #
-             "knn_eucl_ensemble", "knnOptNderiv0_eucl.tuned",
-             "nderiv_eucl_ensemble", "knn1NderivOpt_eucl.tuned",
-             "semimet_ensemble", "knn1Nderiv0_semimetOpt.tuned",
-             "nderivKnnSemimet_ensemble", "knnOptNderivOptSemimetOpt.tuned",
-             # 
-             "rf_nofeat_semimet_ensemble", "rf_feat_semimet_ensemble",
-             #
-             "noisy_eucl_ensemble", "rf_noisy_ensemble")
+# lrns.ids = c("knn1nderiv0_eucl", "fdaclassif.classiKernel.tuned", 
+#              "knn1nderiv0_dtw", 
+#              "knn1nderiv0_amplitude", "knn1nderiv0_phase", 
+#              #
+#              "knn_eucl_ensemble", "knnOptNderiv0_eucl.tuned",
+#              "nderiv_eucl_ensemble", "knn1NderivOpt_eucl.tuned",
+#              "semimet_ensemble", "knn1Nderiv0_semimetOpt.tuned",
+#              "nderivKnnSemimet_ensemble", "knnOptNderivOptSemimetOpt.tuned",
+#              # 
+#              "rf_nofeat_semimet_ensemble", "rf_feat_semimet_ensemble",
+#              #
+#              "noisy_eucl_ensemble", "rf_noisy_ensemble")
+# 
+# order.lrns = c(1:3, 16:17, c(4, 11, 5, 10, 6, 12, 7, 13),
+#                9:8, 15:14)
+lrns.id = getBMRLearnerIds(bmr)
+order.lrns = 1:length(getBMRLearnerIds(bmr))
 
-order.lrns = c(1:3, 16:17, c(4, 11, 5, 10, 6, 12, 7, 13),
-               9:8, 15:14)
 
 # # data frame containing results
 # getBMRAggrPerformances(bmr, as.df = TRUE)
