@@ -48,6 +48,7 @@ for (i in 1:length(data_list)) {
 
 # create FDA tasks
 library("mlr")
+mlr_data_list = list()
 for (i in 1:length(data_list)) {
   # dat = data_list[[i]]
   mlr_data_list[[i]] = makeFunctionalData(data = data_list[[i]],
