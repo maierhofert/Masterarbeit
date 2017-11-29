@@ -11,6 +11,8 @@ if (on_server) {
   #                        stratify = TRUE,
   #                        reps = 5,
   #                        folds = 10L)
+  lrns = lrns[c(1, 6)]
+  tsks = tsks[1:3]
 } else {
   res = makeResampleDesc(method = "CV", predict = "test",
                          stratify = TRUE,
