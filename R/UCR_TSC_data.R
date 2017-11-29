@@ -80,5 +80,5 @@ nrow(df_red)
 
 # # Benchmark_results/2017-
 # go up to 10000
-tsks = tsks[df$nobs...obslen <= 100]
+tsks = tsks[df$nobs...obslen <= 10000]
 
