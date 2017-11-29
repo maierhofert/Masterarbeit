@@ -311,6 +311,6 @@ knnOptNderivOptSemimetOpt$short.name = "Opt base learner"
 # mod = train(knn1NderivOpt_eucl, tsks[[1]])
 # mod$learner.model$opt.result
 
-lrns = c(reference_lrns, ensemble_lrns, list(knnOptNderivOptSemimetOpt))
+lrns = c(reference_lrns, list(knnOptNderivOptSemimetOpt), ensemble_lrns)
 
 
