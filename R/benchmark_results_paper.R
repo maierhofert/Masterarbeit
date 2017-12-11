@@ -6,7 +6,7 @@ mytheme = theme_bw(20)
 
 # read in most current benchmark
 bmr = readRDS("Benchmark_results/2017-11-29bmr_paper.RDS")
-name = "bmr"
+name = "bmr_paper"
 
 # pretty labels for learners
 lrns.colors = c("grey20", "grey60",
@@ -55,7 +55,7 @@ p.dots = plotBMRSummary(bmr, trafo = "rank", pretty.names = TRUE,
         plot.margin = unit(c(1, 5, 0.5, 0.5), "lines"))
 p.dots
 
-ggsave(paste0("Grafiken/benchmark/", name, "_paper_dots.pdf"), p.dots, 
+ggsave(paste0("Grafiken/benchmark/", name, "_dots.pdf"), p.dots, 
        width = 13, height = 20)
 
 p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE,
@@ -69,7 +69,7 @@ p.bars = plotBMRRanksAsBarChart(bmr, pretty.names = TRUE,
   ylab("count") +
   mytheme
 p.bars
-ggsave(paste0("Grafiken/benchmark/", name, "_paper_bars.pdf"), p.bars, 
+ggsave(paste0("Grafiken/benchmark/", name, "_bars.pdf"), p.bars, 
        width = 13, height = 7)
 
 #################################################################
@@ -92,7 +92,7 @@ p.box = plotBMRBoxplots(bmr, measure = multiclass.brier, pretty.names = TRUE,
         axis.text.x = element_text(angle = -60, hjust = 0),
         legend.position = "bottom")
 p.box
-ggsave(paste0("Grafiken/benchmark/", name, "_paper_boxplot.pdf"), p.box, 
+ggsave(paste0("Grafiken/benchmark/", name, "_boxplot.pdf"), p.box, 
        width = 13, height = 55, limitsize = FALSE)
 
 # Friedman Test
@@ -111,7 +111,7 @@ p.cd = plotCritDifferences(g, pretty.names = TRUE) +
   theme(text = element_text(size = 10),
         plot.margin = unit(c(2, 1, 0.5, 0.5), "lines"))
 p.cd
-ggsave(paste0("Grafiken/benchmark/", name, "_paper_cd.pdf"), p.cd, 
+ggsave(paste0("Grafiken/benchmark/", name, "_cd.pdf"), p.cd, 
        width = 0.8*13, height = 0.8*9)
 
 # # create critical difference diagrams for useful subsets of the learners
