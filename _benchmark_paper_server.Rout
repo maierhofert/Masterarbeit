@@ -22,7 +22,7 @@ Type 'q()' to quit R.
 > # this file can be used to run the benchmarking on a server
 > # for the UCR TSC data
 > date()
-[1] "Fri Dec  1 00:05:32 2017"
+[1] "Mon Dec 11 19:09:34 2017"
 > source("R/UCR_TSC_data.R")
 Loading required package: ParamHelpers
 > source("R/create_base_learners_paper.R")
