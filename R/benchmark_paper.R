@@ -20,11 +20,8 @@ if (on_server) {
 }
 
 # resampling instances
-#  Stratification for tasks of type 'fdaclassif' not supported
 set.seed(1234)
 res_instances = lapply(tsks, makeResampleInstance, desc = res)
-# # TODO delete the next line
-# res_instances = makeResampleInstance(desc = res, task = tsks[[1]])
 
 #################################################################
 # start benchmarking

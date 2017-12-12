@@ -244,7 +244,7 @@ RFE_noisy = makeStackedLearner(id = "RFE_noisy",
                                use.feat = FALSE,
                                # resampling = makeResampleDesc("CV", iters = 3L),
                                method = "stack.cv")
-rf_noisy_ensemble$short.name = "noisy RFE"
+RFE_noisy$short.name = "noisy RFE"
 
 LCE_noisy = makeStackedLearner(id = "LCE_noisy",
                                base.learners = c(nderivKnn_eucl_lrns,
