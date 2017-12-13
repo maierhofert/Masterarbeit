@@ -82,6 +82,6 @@ tsk_names = lapply(tsks, getTaskId)
 tsk_selection = tsk_names %in% c("FiftyWords")
 small_tasks = sapply(1:length(tsks), function(i) (any(table(getTaskTargets(tsks[[i]])) < 10)))
 # # Benchmark_results/2017-
-# go up to 10000
-tsks = tsks[df$nobs...obslen <= 10000 & !small_tasks]
+# go up to 10000 later
+tsks = tsks[df$nobs...obslen <= 5000 & !small_tasks]
 
