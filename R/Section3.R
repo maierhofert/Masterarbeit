@@ -16,54 +16,44 @@ classiKernel(classes, fdata, grid = 1:ncol(fdata), h = 1,
 # Chunk 2
 
 # install classiFunc package once
-install.packages("classiFunc")
+# install.packages("classiFunc")
+devtools::install_github("maierhofert/classiFunc", ref = "devel")
 
 # load package in every new R-session
 library("classiFunc")
 
-# load example data
-data("DTI", package = "classiFunc")
-# check out help file for DTI data
-?DTI
+# load the example data
+data("BeetleFly")
+dat = BeetleFly
 
-# subsample DTI for equal case control size
-DTI = DTI[!duplicated(DTI$ID),]
-DTI = DTI[1:84,]
-
-# randomly assign participant IDs into test and training data
-set.seed(12345)
-IDs = unique(DTI$ID)
-# vector encoding if observation is part of test or training data
-train.rows = DTI$ID %in% sample(IDs, size = 0.8 * length(IDs))
+# random test/train split
+set.seed(1)
+train.rows = sample(c(TRUE, FALSE), size = nrow(dat), 
+                    replace = TRUE, prob = c(0.5, 0.5))
 
 # create nearest neighbor estimator with default values
-nn.mod = classiKnn(classes = DTI[train.rows, "case"], 
-                   fdata = DTI[train.rows, "rcst"])
+nn.mod = classiKnn(classes = dat[train.rows, "target"], 
+                   fdata = dat[train.rows, 1:512])
 
-# create Epanechnikov kernel estimator for first order derivatives
-# with manually set bandwidth
-ker.mod = classiKernel(classes = DTI[train.rows, "case"], 
-                       fdata = DTI[train.rows, "rcst"],
-                       ker = "Ker.epa",
-                       h = 0.7, 
-                       nderiv = 1)
-
+# create kernel estimator with manually set bandwidth
+ker.mod = classiKernel(classes = dat.train[train.rows, "target"], 
+                       fdata = dat.train[train.rows, 1:512],
+                       h = 10)
 
 # Chunk 3
 
 # predict nearest neighbor estimators
-# hyperparameters (k, h, ker, nderiv, ...) are stored in model
+# hyperparameters (knn, h, ker, nderiv, ...) are stored in model
 # and do not have to be specified again
-pred.nn = predict(nn.mod, newdata = DTI[!train.rows, "rcst"])
-pred.ker = predict(ker.mod, newdata = DTI[!train.rows, "rcst"])
-
+pred.nn = predict(nn.mod, newdata = dat.test[!train.rows, 1:512])
+pred.ker = predict(ker.mod, newdata = dat.test[!train.rows, 1:512])
 
 # Chunk 4
 
 # confusion matrix for nn estimator
-table(pred = pred.nn, true = DTI[!train.rows, "case"])
+table(pred = pred.nn, true = dat.test[, "target"])
 # confusion matrix for kernel estimator
-table(pred = pred.ker, true = DTI[!train.rows, "case"])
+table(pred = pred.ker, true = dat.test[, "target"])
 
 ################################################################################
 

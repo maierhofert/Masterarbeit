@@ -6,7 +6,7 @@
 # Chunk 1
 
 # install mlr package once
-install.packages("mlr")
+# install.packages("mlr")
 # use the version on github if my pull request is not yet merged
 devtools::install_github("maierhofert/mlr", ref = "classiFunc")
 
@@ -14,35 +14,32 @@ devtools::install_github("maierhofert/mlr", ref = "classiFunc")
 library("mlr")
 
 # create learners (= model description in mlr)
-lrn.nn = makeLearner(cl = "classif.classiFunc.knn")
-lrn.ker = makeLearner(cl = "classif.classiFunc.kernel",
-                      ker = "Ker.epa", h = 0.7, nderiv = 1)
+lrn.nn = makeLearner(cl = "classif.classiFunc.knn", 
+                     predict.type = "prob")
+lrn.ker = makeLearner(cl = "classif.classiFunc.kernel", 
+                      h = 10,
+                      predict.type = "prob")
 
 
 # Chunk 2
 
-# load example data
-data("DTI", package = "classiFunc")
+# load BeetleFly example data
+data("BeetleFly", package = "classiFunc")
+BeetleFly = BeetleFly[,-ncol(BeetleFly)]
+# # export DTI data to mlr data format
+fdata = makeFunctionalData(BeetleFly, exclude.cols = c("target"))
 
-# subsample DTI for equal case control size
-DTI = DTI[!duplicated(DTI$ID),]
-DTI = DTI[1:84,]
-
-# export DTI data to mlr data format
-fdata = makeFunctionalData(DTI, fd.features = list(rcst = "rcst", 
-                                                   cca = "cca"))
 # create mlr task from data
-task = makeClassifTask(data = fdata, target = "case")
+task = makeClassifTask(data = fdata, target = "target")
 
 # use same train/test split as in  Section 3
-set.seed(12345)
-IDs = unique(DTI$ID)
-# vector encoding if observation is part of test or training data
-train.rows = DTI$ID %in% sample(IDs, size = 0.8 * length(IDs))
+set.seed(1)
+train.rows = sample(c(TRUE, FALSE), size = getTaskSize(task), 
+                    replace = TRUE, prob = c(0.5, 0.5))
 
 # create separate tasks for test/train split
-task.train = subsetTask(task, features = "rcst", subset = train.rows)
-task.test = subsetTask(task, features = "rcst", subset = !train.rows)
+task.train = subsetTask(task, subset = train.rows)
+task.test = subsetTask(task, subset = !train.rows)
 
 
 # chunk 3
@@ -62,11 +59,17 @@ pred.ker = predict(mod.ker, task = task.test)
 # chunk 5
 
 # confusion matrix for nn estimator
-table(pred = getPredictionResponse(pred.nn), 
-      true = DTI[!train.rows, "case"])
+table(pred = getPredictionResponse(pred.nn),
+      true = getTaskTargets(task.test))
 # confusion matrix for kernel estimator
 table(pred = getPredictionResponse(pred.ker), 
-      true = DTI[!train.rows, "case"])
+      true = getTaskTargets(task.test))
+
+measureMMCE(getTaskTargets(task.test), getPredictionResponse(pred.nn))
+measureMMCE(getTaskTargets(task.test), getPredictionResponse(pred.ker))
+
+# get predicted probabilities
+getPredictionProbabilities(pred.ker)
 
 ################################################################################
 # Section 4.2 Automated Hyperparameter Tuning
@@ -74,26 +77,27 @@ table(pred = getPredictionResponse(pred.ker),
 
 # create classiKernel learner for classification of functional data
 lrn.ker = makeLearner("classif.classiFunc.kernel", 
-                      nderiv = 1,
                       predict.type = "prob")
 
 # create parameter set
 parSet.h = makeParamSet(
-  makeNumericParam(id = "h", lower = -1, upper = 1, 
+  makeNumericParam(id = "h", lower = 0, upper = 2, 
                    trafo = function(x) 10 ^ x))
 
 # control for tuning hyper parameters
 # use higher resolution in application
-ctrl = makeTuneControlGrid(resolution = 20L)
+ctrl = makeTuneControlGrid(resolution = 10L)
 
 # control for resampling, use 5 fold CV
 rdesc = makeResampleDesc("CV", iters = 5)
 
 # create tuned learner
-set.seed(12345)
+set.seed(1)
 lrn.bandwidth.tuned = makeTuneWrapper(learner = lrn.ker, 
                                       resampling = rdesc,
-                                      measures = brier,
+                                      measures = mmce,
+                                      # measures = multiclass.brier,
+                                      # measures = brier,
                                       par.set = parSet.h,
                                       control = ctrl)
 
@@ -108,6 +112,7 @@ pred.kern.tuned = predict(m.kern.tuned, task = task.test)
 # confusion matrix for kernel estimator
 table(pred = getPredictionResponse(pred.kern.tuned), 
       true = getTaskTargets(task.test))
+measureMMCE(getTaskTargets(task.test), getPredictionResponse(pred.kern.tuned))
 
 
 # Chunk 3
@@ -122,71 +127,50 @@ getPredictionProbabilities(pred.kern.tuned)
 # Chunk 1
 
 # create base learners
-b.lrn1 = makeLearner("classif.classiFunc.knn", 
-                     id = "globMin",
-                     par.vals = list(metric = "globMin"), 
+b.lrn1 = makeLearner("classif.classiFunc.knn",
+                     id = "L2",
+                     par.vals = list(metric = "L2"), 
                      predict.type = "prob")
 
-b.lrn2 = makeLearner("classif.classiFunc.knn", 
-                     id = "globMax",
-                     par.vals = list(metric = "globMax"), 
-                     predict.type = "prob")
 library("dtw")
-b.lrn3 = makeLearner("classif.classiFunc.knn", 
+b.lrn2 = makeLearner("classif.classiFunc.knn", 
                      id = "dtw",
                      par.vals = list(metric = "dtw"), 
                      predict.type = "prob")
 
-b.lrn4 = makeLearner("classif.classiFunc.knn",
-                     id = "L2",
-                     par.vals = list(metric = "L2", nderiv = 1), 
-                     predict.type = "prob")
+b.lrn3 = makeLearner("classif.classiFunc.knn", 
+                      id = "globMin",
+                      par.vals = list(metric = "globMin"), 
+                      predict.type = "prob")
 
-b.lrn5 = makeLearner("classif.classiFunc.knn",
-                     id = "sup",
-                     par.vals = list(metric = "supremum"), 
-                     predict.type = "prob")
-
-
-b.lrn6 = makeLearner("classif.classiFunc.knn",
-                     id = "globMin1",
-                     par.vals = list(metric = "globMin", nderiv = 1), 
-                     predict.type = "prob")
-
-b.lrn7 = makeLearner("classif.classiFunc.knn",
-                     id = "globMax1",
-                     par.vals = list(metric = "globMax", nderiv = 1), 
-                     predict.type = "prob")
-
-b.lrn8 = makeLearner("classif.classiFunc.knn",
-                     id = "sup1",
-                     par.vals = list(metric = "supremum", nderiv = 1), 
+b.lrn4 = makeLearner("classif.classiFunc.knn", 
+                     id = "random",
+                     par.vals = list(metric = "custom.metric", 
+                                     custom.metric = function(x, y) runif(1)), 
                      predict.type = "prob")
 # Chunk 2
-
-set.seed(1234)
 
 # create LCE
 # set resampling to 10 fold CV (default is LOO-CV) for faster run time.
 LCE.lrn = makeStackedLearner(
-  base.learners = list(b.lrn1, b.lrn2, b.lrn3, b.lrn4, b.lrn5, b.lrn6, b.lrn7, b.lrn8), 
+  base.learners = list(b.lrn1, b.lrn2, b.lrn3, b.lrn4), 
   predict.type = "prob", 
   resampling = makeResampleDesc("CV", iters = 10L),
   method = "classif.bs.optimal")
 
 # create RFE
 RFE.lrn = makeStackedLearner(
-  base.learners = list(b.lrn1, b.lrn2, b.lrn3, b.lrn4, b.lrn5, b.lrn6, b.lrn7, b.lrn8), 
+  base.learners = list(b.lrn1, b.lrn2, b.lrn3, b.lrn4), 
   super.learner = "classif.randomForest",
   predict.type = "prob",
   method = "stack.cv", 
-  # use.feat = TRUE,
   resampling = makeResampleDesc("CV", iters = 10L))
 
 
 # Chunk 3
 
 # train models on the training data
+set.seed(1)
 LCE.m = train(LCE.lrn, task = task.train)
 RFE.m = train(RFE.lrn, task = task.train)
 
@@ -204,23 +188,43 @@ table(pred = getPredictionResponse(LCE.pred),
 table(pred = getPredictionResponse(RFE.pred), 
       true = getTaskTargets(task.test))
 
-##############################
-# MISC
-# compute mean misclassification error
-measureMMCE(getTaskTargets(task.test), getPredictionResponse(LCE.pred))
-measureMMCE(getTaskTargets(task.test), getPredictionResponse(RFE.pred))
-
-# getPredictionProbabilities(LCE.pred)
-# getPredictionProbabilities(RFE.pred)
+# ##############################
+# # miscellaneous
+# # compute mean misclassification error (lower better)
+# measureMMCE(getTaskTargets(task.test), getPredictionResponse(LCE.pred))
+# measureMMCE(getTaskTargets(task.test), getPredictionResponse(RFE.pred))
+# 
+# # compute accuracy (higher better)
+# measureACC(getTaskTargets(task.test), getPredictionResponse(LCE.pred))
+# measureACC(getTaskTargets(task.test), getPredictionResponse(RFE.pred))
+# 
+# # compute brier score (lower better)
+# measureBrier(getPredictionProbabilities(LCE.pred),
+#              getTaskTargets(task.test), negative = "0", positive = "1")
+# measureBrier(getPredictionProbabilities(RFE.pred),
+#              getTaskTargets(task.test), negative = "0", positive = "1")
+# # getPredictionProbabilities(LCE.pred)
+# # getPredictionProbabilities(RFE.pred)
 
 
 # plots
-
 library("randomForest")
 rf = RFE.m$learner.model$super.model$learner.model
 varImpPlot(rf)
-plot(LCE.m$learner.model$weights)
 
 
-
+library("ggplot2")
+weight = LCE.m$learner.model$weights
+base.learners = BBmisc::extractSubList(LCE.m$learner.model$base.models, "learner",
+                                       simplify = FALSE)
+base.learners.id = sapply(base.learners, getLearnerId)
+plot.data = data.frame(id = base.learners.id, weight = weight)
+# barplot with the nnensemble weights
+weight.plot <- ggplot(data = plot.data, aes(x = id, y = weight)) +
+  geom_bar(stat = "identity") +
+  xlab("base model") +
+  theme(axis.text.x = element_text(angle = 90, 
+                                   hjust = 0.95,
+                                   vjust = 0.5))
+weight.plot
 
